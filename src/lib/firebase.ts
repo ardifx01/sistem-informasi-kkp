@@ -1,7 +1,7 @@
 import { FirebaseOptions, initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 const firebaseConfig: FirebaseOptions = {
-  apiKey: process.env.NEXT_PPUBLIC_APIKEY,
+  apiKey: process.env.NEXT_PUBLIC_APIKEY,
   authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
   projectId: process.env.NEXT_PUBLI_PROJECTID,
   storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
