@@ -16,7 +16,7 @@ const Dashboard = () => {
   const statsData = [
     { label: "PNS", value: 1656, color: "bg-gray-600", percentage: 69.1 },
     { label: "PPPK", value: 452, color: "bg-gray-600", percentage: 18.8 },
-    { label: "POLRI", value: 1, color: "bg-gray-700", percentage: 0.04 },
+    { label: "POLRI", value: 1, color: "bg-gray-600", percentage: 0.04 },
     { label: "NON ASN", value: 290, color: "bg-gray-600", percentage: 12.1 },
   ];
 
@@ -27,69 +27,132 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-500 p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-500 p-2 md:p-4 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-5 rounded-full animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-white opacity-3 rounded-full animate-pulse delay-1000"></div>
+        <div className="absolute -top-20 -right-20 md:-top-40 md:-right-40 w-40 h-40 md:w-80 md:h-80 bg-white opacity-5 rounded-full animate-pulse"></div>
+        <div className="absolute -bottom-20 -left-20 md:-bottom-40 md:-left-40 w-48 h-48 md:w-96 md:h-96 bg-white opacity-3 rounded-full animate-pulse delay-1000"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-6 animate-slide-down">
-          <div className="flex items-center space-x-4">
-            {/* Logo KKP */}
-            <div className="w-20 h-20 transform hover:scale-110 transition-transform duration-300 hover:rotate-3">
-              <img
-                src="/assets/KKP.png"
-                alt="Logo KKP"
-                className="w-full h-full object-contain drop-shadow-lg"
-              />
+        {/* Header - Mobile: logos stacked with login top-right, Desktop: original layout */}
+        <div className="mb-4 md:mb-6 animate-slide-down">
+          {/* Mobile Header */}
+          <div className="md:hidden">
+            {/* Login button top right for mobile */}
+            <div className="flex justify-end mb-4">
+              <button className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
+                LOGIN
+              </button>
             </div>
-            <div className="text-white">
-              <div className="text-sm font-semibold hover:text-yellow-200 transition-colors duration-300">
-                PROFILE KEKUATAN SUMBER DAYA MANUSIA
+
+            {/* Logos and title for mobile */}
+            <div className="flex flex-col items-center text-center space-y-3">
+              {/* Both logos in a row */}
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 transform hover:scale-110 transition-transform duration-300 hover:rotate-3">
+                  <img
+                    src="/assets/KKP.png"
+                    alt="Logo KKP"
+                    className="w-full h-full object-contain drop-shadow-lg"
+                  />
+                </div>
+                <div className="w-18 h-18 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
+                  <img
+                    src="/assets/dirjen.png"
+                    className="w-full h-full object-contain drop-shadow-lg"
+                    alt="Logo Dirjen"
+                  />
+                </div>
               </div>
-              <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
-                DIREKTORAT
+
+              {/* Title text */}
+              <div className="text-white">
+                <div className="text-xs font-semibold hover:text-yellow-200 transition-colors duration-300">
+                  PROFILE KEKUATAN SUMBER DAYA MANUSIA
+                </div>
+                <div className="text-xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
+                  DIREKTORAT
+                </div>
+                <div className="text-xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
+                  JENDRAL PERIKANAN TANGKAP
+                </div>
               </div>
-              <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
-                JENDRAL PERIKANAN TANGKAP
-              </div>
-            </div>
-            {/* Logo Kementerian */}
-            <div className="w-30 h-30 mr-60 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
-              <img
-                src="/assets/dirjen.png"
-                className="w-full h-full object-contain drop-shadow-lg"
-                alt="Logo Dirjen"
-              />
             </div>
           </div>
-          <button className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-6 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300">
-            LOGIN
-          </button>
+
+          {/* Desktop Header - preserved original layout */}
+          <div className="hidden md:flex justify-between items-center">
+            <div className="flex items-center space-x-4">
+              {/* Logo KKP */}
+              <div className="w-20 h-20 transform hover:scale-110 transition-transform duration-300 hover:rotate-3">
+                <img
+                  src="/assets/KKP.png"
+                  alt="Logo KKP"
+                  className="w-full h-full object-contain drop-shadow-lg"
+                />
+              </div>
+              <div className="text-white">
+                <div className="text-sm font-semibold hover:text-yellow-200 transition-colors duration-300">
+                  PROFILE KEKUATAN SUMBER DAYA MANUSIA
+                </div>
+                <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
+                  DIREKTORAT
+                </div>
+                <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
+                  JENDRAL PERIKANAN TANGKAP
+                </div>
+              </div>
+              {/* Logo Kementerian */}
+              <div className="w-30 h-30 mr-60 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
+                <img
+                  src="/assets/dirjen.png"
+                  className="w-full h-full object-contain drop-shadow-lg"
+                  alt="Logo Dirjen"
+                />
+              </div>
+            </div>
+            <button className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-6 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300">
+              LOGIN
+            </button>
+          </div>
         </div>
 
-        {/* Main Content */}
-        <div className="grid grid-cols-12 gap-6 animate-fade-in">
-          {/* Indonesia Map Section */}
-          <div className="col-span-8 bg-gradient-to-br from-cyan-300 to-cyan-400 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] group">
+        {/* Indonesia Map Section - Mobile first, then stats */}
+        <div className="md:hidden bg-gradient-to-br from-cyan-300 to-cyan-400 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] group mb-4 animate-fade-in">
+          <div className="h-48 flex items-center justify-center relative overflow-hidden">
+            <img
+              src="/assets/INDONESIA.webp"
+              alt="Peta Indonesia"
+              className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:scale-105"
+            />
+
+            <div className="absolute top-2 left-2 bg-white bg-opacity-90 rounded-lg p-1 text-xs font-semibold text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              🗺️ Peta Sebaran SDM Indonesia
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content - Desktop 12-col grid preserved, mobile stacked */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 animate-fade-in">
+          {/* Indonesia Map Section - Desktop only */}
+          <div className="hidden md:block md:col-span-8 bg-gradient-to-br from-cyan-300 to-cyan-400 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] group">
             <div className="h-80 flex items-center justify-center relative overflow-hidden">
               <img
                 src="/assets/INDONESIA.webp"
                 alt="Peta Indonesia"
                 className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:scale-105"
               />
+
               <div className="absolute top-4 left-4 bg-white bg-opacity-90 rounded-lg p-2 text-xs font-semibold text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 🗺️ Peta Sebaran SDM Indonesia
               </div>
             </div>
           </div>
 
-          {/* Stats Panel */}
-          <div className="col-span-4">
-            <div className="bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+          {/* Stats Panel - Desktop col-span-4 preserved */}
+          <div className="md:col-span-4">
+            <div className="bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
               <h3 className="text-white font-bold text-lg mb-2 hover:text-orange-100 transition-colors duration-300">
                 PEGAWAI DJPT
               </h3>
@@ -132,22 +195,22 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Charts Section */}
-        <div className="grid grid-cols-6 gap-4 mt-6">
+        {/* Charts Section - Desktop 6-col grid preserved, mobile responsive */}
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-2 md:gap-4 mt-4 md:mt-6">
           {/* Bar Chart 1 - Golongan Ruang */}
           <div
-            className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer"
+            className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-3 md:p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer"
             onMouseEnter={() => setHoveredChart("golongan")}
             onMouseLeave={() => setHoveredChart(null)}
           >
             <h4 className="text-white text-xs font-semibold mb-3 text-center hover:text-teal-200 transition-colors duration-300">
               Distribusi Pegawai Berdasarkan Golongan Ruang
             </h4>
-            <div className="flex items-end justify-center space-x-1 h-24">
+            <div className="flex items-end justify-center space-x-1 h-16 md:h-24">
               {chartData.golongan.map((height, index) => (
                 <div
                   key={index}
-                  className={`bg-yellow-400 w-3 rounded-t transition-all duration-700 hover:bg-yellow-300 ${
+                  className={`bg-yellow-400 w-2 md:w-3 rounded-t transition-all duration-700 hover:bg-yellow-300 ${
                     hoveredChart === "golongan" ? "animate-bounce" : ""
                   }`}
                   style={{
@@ -169,18 +232,18 @@ const Dashboard = () => {
 
           {/* Bar Chart 2 - Tingkat Pendidikan */}
           <div
-            className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer"
+            className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-3 md:p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer"
             onMouseEnter={() => setHoveredChart("pendidikan")}
             onMouseLeave={() => setHoveredChart(null)}
           >
             <h4 className="text-white text-xs font-semibold mb-3 text-center hover:text-teal-200 transition-colors duration-300">
               Distribusi Tingkat Pendidikan
             </h4>
-            <div className="flex items-end justify-center space-x-1 h-24">
+            <div className="flex items-end justify-center space-x-1 h-16 md:h-24">
               {chartData.pendidikan.map((height, index) => (
                 <div
                   key={index}
-                  className={`bg-yellow-400 w-4 rounded-t transition-all duration-700 hover:bg-yellow-300 ${
+                  className={`bg-yellow-400 w-3 md:w-4 rounded-t transition-all duration-700 hover:bg-yellow-300 ${
                     hoveredChart === "pendidikan" ? "animate-pulse" : ""
                   }`}
                   style={{
@@ -197,18 +260,18 @@ const Dashboard = () => {
 
           {/* Bar Chart 3 - Distribusi Usia */}
           <div
-            className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer"
+            className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-3 md:p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer"
             onMouseEnter={() => setHoveredChart("usia")}
             onMouseLeave={() => setHoveredChart(null)}
           >
             <h4 className="text-white text-xs font-semibold mb-3 text-center hover:text-teal-200 transition-colors duration-300">
               Distribusi Usia
             </h4>
-            <div className="flex items-end justify-center space-x-1 h-24">
+            <div className="flex items-end justify-center space-x-1 h-16 md:h-24">
               {chartData.usia.map((height, index) => (
                 <div
                   key={index}
-                  className={`bg-yellow-400 w-3 rounded-t transition-all duration-700 hover:bg-yellow-300 ${
+                  className={`bg-yellow-400 w-2 md:w-3 rounded-t transition-all duration-700 hover:bg-yellow-300 ${
                     hoveredChart === "usia" ? "animate-wiggle" : ""
                   }`}
                   style={{
@@ -224,15 +287,15 @@ const Dashboard = () => {
           </div>
 
           {/* Pie Chart 1 - Jabatan Struktural */}
-          <div className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer group">
+          <div className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-3 md:p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer group">
             <h4 className="text-white text-xs font-semibold mb-3 text-center group-hover:text-teal-200 transition-colors duration-300">
               Distribusi Jenis Jabatan Struktural
             </h4>
             <div className="flex justify-center mb-2">
-              <div className="relative w-20 h-20 group-hover:animate-spin-slow">
+              <div className="relative w-16 h-16 md:w-20 md:h-20 group-hover:animate-spin-slow">
                 <svg
-                  width="80"
-                  height="80"
+                  width="100%"
+                  height="100%"
                   viewBox="0 0 42 42"
                   className="transform -rotate-90 transition-transform duration-1000 group-hover:rotate-45"
                 >
@@ -289,15 +352,15 @@ const Dashboard = () => {
           </div>
 
           {/* Pie Chart 2 - Jenis Kelamin */}
-          <div className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer group">
+          <div className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-3 md:p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer group">
             <h4 className="text-white text-xs font-semibold mb-3 text-center group-hover:text-teal-200 transition-colors duration-300">
               Distribusi Jenis Kelamin
             </h4>
             <div className="flex justify-center mb-2">
-              <div className="relative w-20 h-20">
+              <div className="relative w-16 h-16 md:w-20 md:h-20">
                 <svg
-                  width="80"
-                  height="80"
+                  width="100%"
+                  height="100%"
                   viewBox="0 0 42 42"
                   className="transform -rotate-90 transition-transform duration-1000 group-hover:rotate-180"
                 >
@@ -339,15 +402,15 @@ const Dashboard = () => {
           </div>
 
           {/* Pie Chart 3 - Distribusi Generasi */}
-          <div className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer group">
+          <div className="bg-gradient-to-br from-teal-700 to-teal-800 rounded-xl p-3 md:p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 cursor-pointer group">
             <h4 className="text-white text-xs font-semibold mb-3 text-center group-hover:text-teal-200 transition-colors duration-300">
               Distribusi Generasi
             </h4>
             <div className="flex justify-center mb-2">
-              <div className="relative w-20 h-20">
+              <div className="relative w-16 h-16 md:w-20 md:h-20">
                 <svg
-                  width="80"
-                  height="80"
+                  width="100%"
+                  height="100%"
                   viewBox="0 0 42 42"
                   className="transform -rotate-90 transition-transform duration-1000 group-hover:-rotate-90"
                 >
