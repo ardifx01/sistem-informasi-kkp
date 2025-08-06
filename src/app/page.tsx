@@ -34,61 +34,124 @@ const Dashboard = () => {
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          {/* Header */}
-          <div className="flex justify-between items-center mb-6 animate-slide-down">
-            <div className="flex items-center space-x-4">
-              {/* Logo KKP */}
-              <div className="w-20 h-20 transform hover:scale-110 transition-transform duration-300 hover:rotate-3">
-                <img
-                  src="/assets/KKP.png"
-                  alt="Logo KKP"
-                  className="w-full h-full object-contain drop-shadow-lg"
-                />
+          {/* Header - Mobile: logos stacked with login top-right, Desktop: original layout */}
+          <div className="mb-4 md:mb-6 animate-slide-down">
+            {/* Mobile Header */}
+            <div className="md:hidden">
+              {/* Login button top right for mobile */}
+              <div className="flex justify-end mb-4">
+                <button className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
+                  LOGIN
+                </button>
               </div>
-              <div className="text-white">
-                <div className="text-sm font-semibold hover:text-yellow-200 transition-colors duration-300">
-                  PROFILE KEKUATAN SUMBER DAYA MANUSIA
+
+              {/* Logos and title for mobile */}
+              <div className="flex flex-col items-center text-center space-y-3">
+                {/* Both logos in a row */}
+                <div className="flex items-center space-x-4">
+                  <div className="w-16 h-16 transform hover:scale-110 transition-transform duration-300 hover:rotate-3">
+                    <img
+                      src="/assets/KKP.png"
+                      alt="Logo KKP"
+                      className="w-full h-full object-contain drop-shadow-lg"
+                    />
+                  </div>
+                  <div className="w-18 h-18 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
+                    <img
+                      src="/assets/dirjen.png"
+                      className="w-full h-full object-contain drop-shadow-lg"
+                      alt="Logo Dirjen"
+                    />
+                  </div>
                 </div>
-                <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
-                  DIREKTORAT
+
+                {/* Title text */}
+                <div className="text-white">
+                  <div className="text-xs font-semibold hover:text-yellow-200 transition-colors duration-300">
+                    PROFILE KEKUATAN SUMBER DAYA MANUSIA
+                  </div>
+                  <div className="text-xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
+                    DIREKTORAT
+                  </div>
+                  <div className="text-xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
+                    JENDRAL PERIKANAN TANGKAP
+                  </div>
                 </div>
-                <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
-                  JENDRAL PERIKANAN TANGKAP
-                </div>
-              </div>
-              {/* Logo Kementerian */}
-              <div className="w-30 h-30 mr-60 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
-                <img
-                  src="/assets/dirjen.png"
-                  className="w-full h-full object-contain drop-shadow-lg"
-                  alt="Logo Dirjen"
-                />
               </div>
             </div>
-            <button className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-6 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300">
-              LOGIN
-            </button>
+
+            {/* Desktop Header - preserved original layout */}
+            <div className="hidden md:flex justify-between items-center">
+              <div className="flex items-center space-x-4">
+                {/* Logo KKP */}
+                <div className="w-20 h-20 transform hover:scale-110 transition-transform duration-300 hover:rotate-3">
+                  <img
+                    src="/assets/KKP.png"
+                    alt="Logo KKP"
+                    className="w-full h-full object-contain drop-shadow-lg"
+                  />
+                </div>
+                <div className="text-white">
+                  <div className="text-sm font-semibold hover:text-yellow-200 transition-colors duration-300">
+                    PROFILE KEKUATAN SUMBER DAYA MANUSIA
+                  </div>
+                  <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
+                    DIREKTORAT
+                  </div>
+                  <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
+                    JENDRAL PERIKANAN TANGKAP
+                  </div>
+                </div>
+                {/* Logo Kementerian */}
+                <div className="w-30 h-30 mr-60 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
+                  <img
+                    src="/assets/dirjen.png"
+                    className="w-full h-full object-contain drop-shadow-lg"
+                    alt="Logo Dirjen"
+                  />
+                </div>
+              </div>
+              <button className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-6 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300">
+                LOGIN
+              </button>
+            </div>
           </div>
 
-          {/* Main Content */}
-          <div className="grid grid-cols-12 gap-6 animate-fade-in">
-            {/* Indonesia Map Section */}
-            <div className="col-span-8 bg-gradient-to-br from-cyan-300 to-cyan-400 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] group">
+          {/* Indonesia Map Section - Mobile first, then stats */}
+          <div className="md:hidden bg-gradient-to-br from-cyan-300 to-cyan-400 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] group mb-4 animate-fade-in">
+            <div className="h-48 flex items-center justify-center relative overflow-hidden">
+              <img
+                src="/assets/INDONESIA.webp"
+                alt="Peta Indonesia"
+                className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:scale-105"
+              />
+
+              <div className="absolute top-2 left-2 bg-white bg-opacity-90 rounded-lg p-1 text-xs font-semibold text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                🗺️ Peta Sebaran SDM Indonesia
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content - Desktop 12-col grid preserved, mobile stacked */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 animate-fade-in">
+            {/* Indonesia Map Section - Desktop only */}
+            <div className="hidden md:block md:col-span-8 bg-gradient-to-br from-cyan-300 to-cyan-400 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] group">
               <div className="h-80 flex items-center justify-center relative overflow-hidden">
                 <img
                   src="/assets/INDONESIA.webp"
                   alt="Peta Indonesia"
                   className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:scale-105"
                 />
+
                 <div className="absolute top-4 left-4 bg-white bg-opacity-90 rounded-lg p-2 text-xs font-semibold text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   🗺️ Peta Sebaran SDM Indonesia
                 </div>
               </div>
             </div>
 
-            {/* Stats Panel */}
-            <div className="col-span-4">
-              <div className="bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+            {/* Stats Panel - Desktop col-span-4 preserved */}
+            <div className="md:col-span-4">
+              <div className="bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
                 <h3 className="text-white font-bold text-lg mb-2 hover:text-orange-100 transition-colors duration-300">
                   PEGAWAI DJPT
                 </h3>
@@ -98,7 +161,7 @@ const Dashboard = () => {
                 <div className="space-y-3">
                   {statsData.map((stat, index) => (
                     <div
-                      key={stat.label}
+                      key={index}
                       className={`flex justify-between ${
                         stat.color
                       } text-white px-4 py-2 rounded-lg cursor-pointer transform hover:scale-105 transition-all duration-300 hover:shadow-lg ${
@@ -123,7 +186,7 @@ const Dashboard = () => {
                     </div>
                   ))}
                   <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white text-center py-3 rounded-lg font-bold text-xl shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500">
-                    <div className="animate-pulse text-red">2.399</div>
+                    <div className="animate-pulse">2.399</div>
                     <div className="text-xs mt-1 opacity-80">Total Pegawai</div>
                   </div>
                 </div>
@@ -165,10 +228,7 @@ const Dashboard = () => {
               />
             </CardChart>
             <CardChart>
-              <MyDoughnut
-                data={dataPositions}
-                title="Berdasarkan Jabatan"
-              />
+              <MyDoughnut data={dataPositions} title="Berdasarkan Jabatan" />
             </CardChart>
           </div>
         </div>
