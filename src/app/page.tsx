@@ -20,6 +20,7 @@ const Dashboard = () => {
     { label: "PNS", value: 1656, color: "bg-gray-600", percentage: 69.1 },
     { label: "PPPK", value: 452, color: "bg-gray-600", percentage: 18.8 },
     { label: "POLRI", value: 1, color: "bg-gray-600", percentage: 0.04 },
+    { label: "POLRI", value: 1, color: "bg-gray-600", percentage: 0.04 },
     { label: "NON ASN", value: 290, color: "bg-gray-600", percentage: 12.1 },
   ];
 
