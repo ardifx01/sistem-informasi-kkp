@@ -5,7 +5,7 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   email: z.email("Email tidak valid"),
   password: z.string().min(6, "Password harus minimal 6 karakter"),
 });
@@ -23,6 +23,13 @@ const LoginPage: React.FC = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true);
     try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
     } catch (error) {
       if (error instanceof Error) {
         console.log("error", error.message);
