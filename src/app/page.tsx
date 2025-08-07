@@ -12,6 +12,7 @@ import {
 } from "@/utils/DataCharts";
 import React, { useState } from "react";
 import MyDoughnut from "@/components/Charts/Doughnut";
+import Link from "next/link";
 
 const Dashboard = () => {
   const [selectedStat, setSelectedStat] = useState<string | null>(null);
@@ -19,7 +20,6 @@ const Dashboard = () => {
   const statsData = [
     { label: "PNS", value: 1656, color: "bg-gray-600", percentage: 69.1 },
     { label: "PPPK", value: 452, color: "bg-gray-600", percentage: 18.8 },
-    { label: "POLRI", value: 1, color: "bg-gray-600", percentage: 0.04 },
     { label: "POLRI", value: 1, color: "bg-gray-600", percentage: 0.04 },
     { label: "NON ASN", value: 290, color: "bg-gray-600", percentage: 12.1 },
   ];
@@ -40,9 +40,9 @@ const Dashboard = () => {
             <div className="md:hidden">
               {/* Login button top right for mobile */}
               <div className="flex justify-end mb-4">
-                <button className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
+                <Link href={"/auth/login"} className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
                   LOGIN
-                </button>
+                </Link>
               </div>
 
               {/* Logos and title for mobile */}
@@ -111,9 +111,9 @@ const Dashboard = () => {
                   />
                 </div>
               </div>
-              <button className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-6 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300">
-                LOGIN
-              </button>
+                <Link href={"/auth/login"} className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
+                  LOGIN
+                </Link>
             </div>
           </div>
 
