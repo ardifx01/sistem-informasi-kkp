@@ -40,7 +40,10 @@ const Dashboard = () => {
             <div className="md:hidden">
               {/* Login button top right for mobile */}
               <div className="flex justify-end mb-4">
-                <Link href={"/auth/login"} className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
+                <Link
+                  href={"/auth/login"}
+                  className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+                >
                   LOGIN
                 </Link>
               </div>
@@ -111,9 +114,12 @@ const Dashboard = () => {
                   />
                 </div>
               </div>
-                <Link href={"/auth/login"} className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
-                  LOGIN
-                </Link>
+              <Link
+                href={"/auth/login"}
+                className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+              >
+                LOGIN
+              </Link>
             </div>
           </div>
 
@@ -121,7 +127,7 @@ const Dashboard = () => {
           <div className="md:hidden bg-gradient-to-br from-cyan-300 to-cyan-400 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] group mb-4 animate-fade-in">
             <div className="h-48 flex items-center justify-center relative overflow-hidden">
               <img
-                src="/assets/INDONESIA.webp"
+                src="/assets/indonesia-1.png"
                 alt="Peta Indonesia"
                 className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:scale-105"
               />
@@ -138,7 +144,7 @@ const Dashboard = () => {
             <div className="hidden md:block md:col-span-8 bg-gradient-to-br from-cyan-300 to-cyan-400 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] group">
               <div className="h-80 flex items-center justify-center relative overflow-hidden">
                 <img
-                  src="/assets/INDONESIA.webp"
+                  src="/assets/indonesia-1.png"
                   alt="Peta Indonesia"
                   className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:scale-105"
                 />
