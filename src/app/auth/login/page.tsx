@@ -4,11 +4,8 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-
-export const formSchema = z.object({
-  email: z.email("Email tidak valid"),
-  password: z.string().min(6, "Password harus minimal 6 karakter"),
-});
+import { formSchema } from "@/models/employee";
+import Image from "next/image";
 
 const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -47,19 +44,25 @@ const LoginPage: React.FC = () => {
         <div className="flex justify-center items-center mt-2">
           <div className="flex justify-center flex-col md:flex-row px-2 items-center md:space-x-2 space-x-1 lg:space-x-4">
             <div className="w-20 hidden md:block h-20 aspect-square transform hover:scale-110 transition-transform duration-300 hover:rotate-3">
-              <img
+              <Image
+                width={250}
+                height={250}
                 src="/assets/KKP.png"
                 alt="Logo KKP"
                 className="w-full h-full object-contain drop-shadow-lg"
               />
             </div>
             <div className="flex md:hidden items-center gap-x-2">
-              <img
+              <Image
+                width={250}
+                height={250}
                 src="/assets/KKP.png"
                 alt="Logo KKP"
                 className="w-16 h-16 aspect-square object-contain drop-shadow-lg"
               />
-              <img
+              <Image
+                width={425}
+                height={508}
                 src="/assets/dirjen.png"
                 className="w-22 h-22 aspect-square object-contain drop-shadow-lg"
                 alt="Logo Dirjen"
@@ -76,7 +79,9 @@ const LoginPage: React.FC = () => {
             </div>
 
             <div className="w-25 hidden md:block aspect-square h-25 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
-              <img
+              <Image
+                width={425}
+                height={508}
                 src="/assets/dirjen.png"
                 className="w-full h-full object-contain drop-shadow-lg"
                 alt="Logo Dirjen"

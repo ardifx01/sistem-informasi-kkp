@@ -1,5 +1,5 @@
-import { formSchema } from "@/app/auth/login/page";
 import { db } from "@/lib/firebase";
+import { formSchema } from "@/models/employee";
 import { addDoc, collection } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   try {
     const dataBody = await req.text();
     const data = JSON.parse(dataBody);
-    // formSchema.parse(data);
+    formSchema.parse(data);
     const docRef = await addDoc(collection(db, "employee"), {
       email: data.email,
       password: data.password,
