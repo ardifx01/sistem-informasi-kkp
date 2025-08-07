@@ -21,8 +21,7 @@
     "react-dom": "19.1.0",
     "react-dropzone": "^14.3.8",
     "react-hook-form": "^7.62.0",
-    "zod": "^4.0.15"
-    "react-dropzone": "^14.3.8",
+    "zod": "^4.0.15",
     "uploadthing": "^7.7.3",
     "xlsx": "^0.18.5"
   },

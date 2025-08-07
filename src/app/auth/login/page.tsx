@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import { fi } from "zod/locales";
 
 const formSchema = z.object({
   email: z.email("Email tidak valid"),
