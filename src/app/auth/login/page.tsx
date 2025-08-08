@@ -6,11 +6,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import { formSchema } from "@/models/employee";
 import Image from "next/image";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",
@@ -27,9 +31,17 @@ const LoginPage: React.FC = () => {
         },
         body: JSON.stringify(values),
       });
+
+      const dataResponse = await response.json();
+      if (dataResponse.status === "success") {
+        toast.success("Successfully login");
+        router.push("/");
+      }
     } catch (error) {
       if (error instanceof Error) {
-        console.log("error", error.message);
+        toast.error("Error when login!");
+      } else {
+        toast.error("An error occured!");
       }
     } finally {
       setLoading(false);
@@ -102,7 +114,6 @@ const LoginPage: React.FC = () => {
               Selamat datang kembali ke login
             </p>
           </div>
-
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -167,7 +178,13 @@ const LoginPage: React.FC = () => {
                 }
               )}
             >
-              Login
+              {loading ? (
+                <div className="animate-spin">
+                  <i className="ri-reset-right-line animate-spin"></i>
+                </div>
+              ) : (
+                "Login"
+              )}
             </button>
           </form>
         </div>

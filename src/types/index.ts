@@ -3,3 +3,8 @@ export interface KaryawanData {
   nama: string;
   kelas: string;
 }
+
+export interface EmployeeAuth {
+  email: string;
+  password: string;
+}

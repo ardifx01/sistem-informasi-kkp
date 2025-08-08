@@ -13,6 +13,7 @@ import {
 import React, { useState } from "react";
 import MyDoughnut from "@/components/Charts/Doughnut";
 import Link from "next/link";
+import Image from "next/image";
 
 const Dashboard = () => {
   const [selectedStat, setSelectedStat] = useState<string | null>(null);
@@ -53,14 +54,18 @@ const Dashboard = () => {
                 {/* Both logos in a row */}
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 transform hover:scale-110 transition-transform duration-300 hover:rotate-3">
-                    <img
+                    <Image
+                      width={250}
+                      height={250}
                       src="/assets/KKP.png"
                       alt="Logo KKP"
                       className="w-full h-full object-contain drop-shadow-lg"
                     />
                   </div>
                   <div className="w-18 h-18 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
-                    <img
+                    <Image
+                      width={425}
+                      height={508}
                       src="/assets/dirjen.png"
                       className="w-full h-full object-contain drop-shadow-lg"
                       alt="Logo Dirjen"
@@ -88,7 +93,9 @@ const Dashboard = () => {
               <div className="flex items-center space-x-4">
                 {/* Logo KKP */}
                 <div className="w-20 h-20 transform hover:scale-110 transition-transform duration-300 hover:rotate-3">
-                  <img
+                  <Image
+                    width={250}
+                    height={250}
                     src="/assets/KKP.png"
                     alt="Logo KKP"
                     className="w-full h-full object-contain drop-shadow-lg"
@@ -107,7 +114,9 @@ const Dashboard = () => {
                 </div>
                 {/* Logo Kementerian */}
                 <div className="w-30 h-30 mr-60 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
-                  <img
+                  <Image
+                    width={425}
+                    height={508}
                     src="/assets/dirjen.png"
                     className="w-full h-full object-contain drop-shadow-lg"
                     alt="Logo Dirjen"
@@ -126,7 +135,9 @@ const Dashboard = () => {
           {/* Indonesia Map Section - Mobile first, then stats */}
           <div className="md:hidden bg-gradient-to-br from-cyan-300 to-cyan-400 rounded-xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] group mb-4 animate-fade-in">
             <div className="h-48 flex items-center justify-center relative overflow-hidden">
-              <img
+              <Image
+                width={841}
+                height={297}
                 src="/assets/indonesia-1.png"
                 alt="Peta Indonesia"
                 className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:scale-105"
@@ -143,7 +154,9 @@ const Dashboard = () => {
             {/* Indonesia Map Section - Desktop only */}
             <div className="hidden md:block md:col-span-8 bg-gradient-to-br from-cyan-300 to-cyan-400 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] group">
               <div className="h-80 flex items-center justify-center relative overflow-hidden">
-                <img
+                <Image
+                  width={841}
+                  height={297}
                   src="/assets/indonesia-1.png"
                   alt="Peta Indonesia"
                   className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:scale-105"
