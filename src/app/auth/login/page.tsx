@@ -8,6 +8,7 @@ import { formSchema } from "@/models/employee";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -50,6 +51,9 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-400 relative overflow-hidden">
+      <Link href={"/"} className="hidden md:block">
+        <i className="text-3xl md:text-5xl fixed top-10 left-8 ri-arrow-left-circle-line"></i>
+      </Link>
       {/* Header with Logos */}
       <div className="md:mb-6 animate-slide-down w-full flex justify-center">
         {/* Desktop Header - preserved original layout */}
@@ -133,7 +137,7 @@ const LoginPage: React.FC = () => {
                 id="email"
                 type="email"
                 placeholder="kkp.go.id@gmail.com"
-                className="w-full px-4 py-3 bg-black bg-opacity-20 rounded-full text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:border-white focus:bg-black focus:bg-opacity-30 transition-all duration-300 text-sm sm:text-base"
+                className="w-full placeholder:text-gray-400 px-4 py-3 bg-black bg-opacity-20 rounded-full text-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:border-white focus:bg-black focus:bg-opacity-30 transition-all duration-300 text-sm sm:text-base"
               />
               {form.formState.errors.email && (
                 <p className="text-red-700 text-xs font-bold mt-1 ml-4">
@@ -155,7 +159,7 @@ const LoginPage: React.FC = () => {
                   id="password"
                   placeholder="••••••••"
                   type="password"
-                  className="w-full px-4 py-3 pr-12 bg-black bg-opacity-20 rounded-full text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:border-white focus:bg-black focus:bg-opacity-30 transition-all duration-300 text-sm sm:text-base"
+                  className="w-full px-4 py-3 pr-12 bg-black bg-opacity-20 rounded-full text-white placeholder:text-gray-400 placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:border-white focus:bg-black focus:bg-opacity-30 transition-all duration-300 text-sm sm:text-base"
                 />
                 {form.formState.errors.password && (
                   <p className="text-red-700 text-xs font-bold mt-1 ml-4">
@@ -173,7 +177,7 @@ const LoginPage: React.FC = () => {
                 {
                   "bg-black bg-opacity-30 cursor-pointer hover:bg-black hover:bg-opacity-40 active:bg-black active:bg-opacity-50 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-30 ":
                     form.formState.isValid,
-                  "bg-red-600 cursor-not-allowed":
+                  "bg-red-600 cursor-not-allowed hover:bg-red-600 active:bg-red-600":
                     !form.formState.isValid || loading,
                 }
               )}

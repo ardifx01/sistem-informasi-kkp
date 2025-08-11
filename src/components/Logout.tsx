@@ -28,7 +28,12 @@ export default function Logout() {
     }
   }
   return (
-    <button onClick={handleLogout} className="cursor-pointer">
+    <button
+      data-tooltip-id="logout-tooltip"
+      data-tooltip-content={"Logout"}
+      onClick={handleLogout}
+      className="cursor-pointer"
+    >
       <i className="ri-logout-box-r-line text-2xl md:text-3xl text-gray-800"></i>
     </button>
   );

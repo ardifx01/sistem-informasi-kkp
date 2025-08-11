@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import Logout from "./Logout";
+import MyTooltip from "./MyTooltip";
 
 export default async function MainHeader() {
   const cookie = await cookies();
@@ -13,16 +14,28 @@ export default async function MainHeader() {
       <div className="md:hidden">
         {/* Login button top right for mobile */}
         <div className="flex justify-end mb-4">
-          {token ? (
-            <Logout />
-          ) : (
-            <Link
-              href={"/auth/login"}
-              className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
-            >
-              LOGIN
-            </Link>
-          )}
+          <div className="grid w-full grid-cols-[2rem_1fr_2rem] gap-x-2">
+            {token ? (
+              <button className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
+                <i className="ri-file-upload-line"></i>
+              </button>
+            ) : null}
+            <input
+              type="search"
+              placeholder="Cari data pegawai"
+              className="px-4 py-1 bg-gray-600 bg-opacity-20 rounded-full text-white placeholder:text-gray-400 placeholder-opacity-70 border-opacity-30 focus:outline-none focus:border-white focus:bg-opacity-30 transition-all duration-300 text-sm sm:text-base"
+            />
+            {token ? (
+              <Logout />
+            ) : (
+              <Link
+                href={"/auth/login"}
+                className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+              >
+                LOGIN
+              </Link>
+            )}
+          </div>
         </div>
 
         {/* Logos and title for mobile */}
@@ -52,13 +65,13 @@ export default async function MainHeader() {
           {/* Title text */}
           <div className="text-white">
             <div className="text-xs font-semibold hover:text-yellow-200 transition-colors duration-300">
-              PROFILE KEKUATAN SUMBER DAYA MANUSIA
+              PROFIL KEKUATAN SUMBER DAYA MANUSIA
             </div>
             <div className="text-xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
               DIREKTORAT
             </div>
             <div className="text-xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
-              JENDRAL PERIKANAN TANGKAP
+              JENDERAL PERIKANAN TANGKAP
             </div>
           </div>
         </div>
@@ -99,16 +112,37 @@ export default async function MainHeader() {
             />
           </div>
         </div>
-        {token ? (
-          <Logout />
-        ) : (
-          <Link
-            href={"/auth/login"}
-            className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
-          >
-            LOGIN
-          </Link>
-        )}
+        <div className="flex items-center gap-x-2">
+          {token ? (
+            <MyTooltip id="upload-tooltip">
+              <button
+                data-tooltip-id="upload-tooltip"
+                data-tooltip-content={"Upload"}
+                className="bg-gray-800 px-2 py-1 cursor-pointer hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+              >
+                <i className="ri-file-upload-line"></i>
+              </button>
+            </MyTooltip>
+          ) : null}
+          <input
+            type="search"
+            placeholder="Cari data pegawai"
+            className="px-4 py-2 bg-gray-600 w-[20rem] placeholder:text-sm bg-opacity-20 rounded-full text-white placeholder:text-gray-400 placeholder-opacity-70 border-opacity-30 focus:outline-none focus:border-white focus:bg-opacity-30 transition-all duration-300 text-sm sm:text-base"
+          />
+
+          {token ? (
+            <MyTooltip id="logout-tooltip">
+              <Logout />
+            </MyTooltip>
+          ) : (
+            <Link
+              href={"/auth/login"}
+              className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+            >
+              LOGIN
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

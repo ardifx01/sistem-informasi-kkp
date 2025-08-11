@@ -12,7 +12,7 @@ export async function DELETE(_req: NextRequest) {
       message: "Successfully log out",
     });
   } catch (error) {
-    console.log("Error during login:", error);
+    console.log("Error during logout:", error);
     return NextResponse.json({
       status: "failed",
       message: "Internal server error!",

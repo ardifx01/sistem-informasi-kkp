@@ -73,7 +73,7 @@ export default function UploadsPage() {
       >
         {({ getRootProps, getInputProps }) => (
           <div
-            className="bg-gray-200 py-2 rounded-sm w-full flex-1 flex flex-col items-center justify-center"
+            className="bg-gray-800 py-2 rounded-sm w-full flex-1 flex flex-col items-center justify-center"
             {...getRootProps()}
           >
             <input {...getInputProps()} />
