@@ -7,8 +7,8 @@ import {
   dataUsia,
 } from "@/utils/DataCharts";
 import CardChart from "./CardChart";
-import Barchart from "./Charts/Barchart";
-import MyDoughnut from "./Charts/Doughnut";
+import Barchart from "./Barchart";
+import MyDoughnut from "./Doughnut";
 
 export default function Charts() {
   return (

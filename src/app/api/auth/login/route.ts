@@ -27,13 +27,13 @@ export async function POST(req: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
+      maxAge: 60 * 60,
     });
 
     return NextResponse.json({
       status: "success",
       statusCode: 200,
       message: "Successfully log in",
-      token,
     });
   } catch (error) {
     if (error instanceof ZodError) {

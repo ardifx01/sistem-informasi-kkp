@@ -1,19 +1,28 @@
+import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import Logout from "./Logout";
 
-export default function MainHeader() {
+export default async function MainHeader() {
+  const cookie = await cookies();
+  const token = cookie.get("token")?.value;
+
   return (
     <div className="mb-4 md:mb-6 animate-slide-down">
       {/* Mobile Header */}
       <div className="md:hidden">
         {/* Login button top right for mobile */}
         <div className="flex justify-end mb-4">
-          <Link
-            href={"/auth/login"}
-            className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
-          >
-            LOGIN
-          </Link>
+          {token ? (
+            <Logout />
+          ) : (
+            <Link
+              href={"/auth/login"}
+              className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+            >
+              LOGIN
+            </Link>
+          )}
         </div>
 
         {/* Logos and title for mobile */}
@@ -90,12 +99,16 @@ export default function MainHeader() {
             />
           </div>
         </div>
-        <Link
-          href={"/auth/login"}
-          className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
-        >
-          LOGIN
-        </Link>
+        {token ? (
+          <Logout />
+        ) : (
+          <Link
+            href={"/auth/login"}
+            className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+          >
+            LOGIN
+          </Link>
+        )}
       </div>
     </div>
   );

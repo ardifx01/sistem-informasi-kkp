@@ -14,12 +14,17 @@ export default class JWT {
   }
 
   static verify(token: string) {
-    const decoded = jwt.verify(
-      token,
-      process.env.NEXT_PUBLIC_PRIVATE_KEY!
-    ) as Payload;
+    try {
+      const decoded = jwt.verify(
+        token,
+        process.env.NEXT_PUBLIC_PRIVATE_KEY!
+      ) as Payload;
 
-    return decoded;
+      return decoded;
+    } catch (err) {
+      console.log("Failed verify token:", err);
+      return null;
+    }
   }
 
   static checkExp(exp: number) {

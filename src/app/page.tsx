@@ -3,9 +3,9 @@ import MainHeader from "@/components/MainHeader";
 import IndonesiaMap from "@/components/IndonesiaMap";
 import MapShell from "@/components/MapShell";
 import StatsEmployee from "@/components/StatsEmployee";
-import Charts from "@/components/Charts";
+import Charts from "@/components/Charts/Charts";
 
-const Dashboard = () => {
+const Dashboard = async () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-500 p-4 relative overflow-hidden">
       {/* Animated background elements */}
