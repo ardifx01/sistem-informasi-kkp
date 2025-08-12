@@ -7,7 +7,7 @@ interface Payload extends jwt.JwtPayload {
 
 export default class JWT {
   static signIn(data: { email: string; password: string }) {
-    return jwt.sign(data, process.env.NEXT_PUBLIC_PRIVATE_KEY!, {
+    return jwt.sign(data, process.env.PRIVATE_KEY!, {
       algorithm: "HS384",
       expiresIn: "1h",
     });
