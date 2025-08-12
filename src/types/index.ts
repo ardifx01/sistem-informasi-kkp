@@ -15,3 +15,7 @@ export interface ResponsePayload<T = unknown> {
   message: string;
   data?: T;
 }
+
+export interface UploadExcel {
+  urlExcel: string;
+}
