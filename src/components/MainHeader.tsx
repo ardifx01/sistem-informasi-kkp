@@ -9,7 +9,11 @@ import { ExcelFile, ResponsePayload } from "@/types";
 export default async function MainHeader() {
   const cookie = await cookies();
   const token = cookie.get("token")?.value;
-  const response = await fetch(`${process.env.BASE_URL}/api/upload`);
+  const baseUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://sistem-informasi-kkp.vercel.app"
+      : process.env.BASE_URL;
+  const response = await fetch(`${baseUrl}/api/upload`);
   const data = (await response.json()) as ResponsePayload<ExcelFile[]>;
   const dataExcel = data.data![0];
 
