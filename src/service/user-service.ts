@@ -25,6 +25,9 @@ export default class UserService {
       where("email", "==", data.email)
     );
     const querySnapshot = await getDocs(q);
+    console.log("Email yang dicari:", data.email);
+    console.log("Project ID:", process.env.NEXT_PUBLIC_PROJECTID);
+    console.log("Jumlah dokumen:", querySnapshot.size);
     if (querySnapshot.empty) {
       throw new ResponseError(404, "Oops! Email is not registered!");
     }
@@ -34,7 +37,10 @@ export default class UserService {
       ...(doc.data() as EmployeeAuth),
     }));
 
-    const isPasswordSame = await bcrypt.compare(data.password, dataUser.password);
+    const isPasswordSame = await bcrypt.compare(
+      data.password,
+      dataUser.password
+    );
     if (!isPasswordSame) {
       throw new ResponseError(401, "Password doesn't match!");
     }
