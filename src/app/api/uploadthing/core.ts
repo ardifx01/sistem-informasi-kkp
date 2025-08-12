@@ -1,13 +1,10 @@
+import { db } from "@/lib/firebase";
+import { ExcelFile } from "@/types";
+import { collection, getDocs } from "firebase/firestore";
 import { createUploadthing, FileRouter } from "uploadthing/next";
+import { UTApi } from "uploadthing/server";
 
 const f = createUploadthing();
-
-async function auth() {
-  return {
-    id: 1,
-    username: "Ariel",
-  };
-}
 
 export const ourFileRouter = {
   excelUploader: f({
@@ -21,18 +18,28 @@ export const ourFileRouter = {
     },
   })
     .middleware(async ({}) => {
-      const user = await auth();
-      console.log("ok middleware");
-      return { id: user.id };
+      const querySnapshot = await getDocs(collection(db, "excelFile"));
+
+      const data: ExcelFile[] = [];
+      querySnapshot.forEach((docSnap) => {
+        data.push({
+          id: docSnap.id,
+          ...(docSnap.data() as Omit<ExcelFile, "id">),
+        });
+      });
+
+      const utapi = new UTApi();
+      const response = await utapi.deleteFiles(data[0].key);
+      console.log(response.deletedCount);
+      return {};
     })
     .onUploadError((input) => {
       console.log(input.error);
     })
-    .onUploadComplete(async ({ metadata, file }) => {
+    .onUploadComplete(async ({ file }) => {
       try {
         const url = file.ufsUrl;
-        console.log("ok upload complet");
-        return { id: metadata.id, url };
+        return { url };
       } catch (error) {
         console.log("error upload:", error);
         throw error;

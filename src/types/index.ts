@@ -18,4 +18,12 @@ export interface ResponsePayload<T = unknown> {
 
 export interface UploadExcel {
   urlExcel: string;
+  key: string;
+  keyOld: string;
+}
+
+export interface ExcelFile {
+  id: string;
+  key: string;
+  urlExcel: string;
 }

@@ -15,10 +15,7 @@ export default class JWT {
 
   static verify(token: string) {
     try {
-      const decoded = jwt.verify(
-        token,
-        process.env.NEXT_PUBLIC_PRIVATE_KEY!
-      ) as Payload;
+      const decoded = jwt.verify(token, process.env.PRIVATE_KEY!) as Payload;
 
       return decoded;
     } catch (err) {

@@ -1,6 +1,10 @@
 "use client";
 import ResponseError from "@/error/ResponseError";
-import { ResponsePayload } from "@/types";
+import {
+  ExcelFile,
+  ResponsePayload,
+  UploadExcel as UploadExcelFile,
+} from "@/types";
 import { useUploadThing } from "@/utils/uploadthing";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,13 +12,33 @@ import Dropzone, { FileRejection } from "react-dropzone";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
 
-export default function UploadExcel() {
+interface UploadExcelProps {
+  dataExcelUser: ExcelFile;
+}
+
+export default function UploadExcel(props: UploadExcelProps) {
+  const { dataExcelUser } = props;
   const router = useRouter();
   const [urlExcel, setUrlExcel] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { startUpload, isUploading } = useUploadThing("excelUploader", {
-    onClientUploadComplete: ([data]) => {
+    onClientUploadComplete: async ([data]) => {
       setUrlExcel(data.ufsUrl);
+
+      const dataUser: UploadExcelFile = {
+        key: data.key,
+        urlExcel: data.ufsUrl,
+        keyOld: dataExcelUser.key,
+      };
+
+      await fetch("/api/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataUser),
+      });
       toast.success("Successfully upload file!");
     },
     onBeforeUploadBegin: async (files) => {
@@ -69,7 +93,7 @@ export default function UploadExcel() {
   }, [urlExcel]);
 
   const onDropAccepted = async (files: File[]) => {
-    startUpload(files);
+    await startUpload(files);
   };
 
   const onDropRejected = (rejectedFiles: FileRejection[]) => {

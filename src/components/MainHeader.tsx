@@ -4,10 +4,14 @@ import Link from "next/link";
 import Logout from "./Logout";
 import MyTooltip from "./MyTooltip";
 import UploadExcel from "./UploadExcel";
+import { ExcelFile, ResponsePayload } from "@/types";
 
 export default async function MainHeader() {
   const cookie = await cookies();
   const token = cookie.get("token")?.value;
+  const response = await fetch(`${process.env.BASE_URL}/api/upload`);
+  const data = (await response.json()) as ResponsePayload<ExcelFile[]>;
+  const dataExcel = data.data![0];
 
   return (
     <div className="mb-4 md:mb-6 animate-slide-down">
@@ -116,7 +120,7 @@ export default async function MainHeader() {
         <div className="flex items-center gap-x-2">
           {token ? (
             <MyTooltip id="upload-tooltip">
-              <UploadExcel />
+              <UploadExcel dataExcelUser={dataExcel} />
             </MyTooltip>
           ) : null}
           <input

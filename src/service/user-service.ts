@@ -25,9 +25,6 @@ export default class UserService {
       where("email", "==", data.email)
     );
     const querySnapshot = await getDocs(q);
-    console.log("Email yang dicari:", data.email);
-    console.log("Project ID:", process.env.PROJECTID);
-    console.log("Jumlah dokumen:", querySnapshot.size);
     if (querySnapshot.empty) {
       throw new ResponseError(404, "Oops! Email is not registered!");
     }
