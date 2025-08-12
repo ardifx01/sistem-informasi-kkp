@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Logout from "./Logout";
 import MyTooltip from "./MyTooltip";
+import UploadExcel from "./UploadExcel";
 
 export default async function MainHeader() {
   const cookie = await cookies();
@@ -115,13 +116,7 @@ export default async function MainHeader() {
         <div className="flex items-center gap-x-2">
           {token ? (
             <MyTooltip id="upload-tooltip">
-              <button
-                data-tooltip-id="upload-tooltip"
-                data-tooltip-content={"Upload"}
-                className="bg-gray-800 px-2 py-1 cursor-pointer hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
-              >
-                <i className="ri-file-upload-line"></i>
-              </button>
+              <UploadExcel />
             </MyTooltip>
           ) : null}
           <input

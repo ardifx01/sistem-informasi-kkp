@@ -9,6 +9,8 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { ResponsePayload } from "@/types";
+import ResponseError from "@/error/ResponseError";
 
 const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -33,19 +35,21 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify(values),
       });
 
-      const dataResponse = await response.json();
-      if (dataResponse.status === "success") {
-        toast.success("Successfully login");
-        router.push("/");
+      const dataResponse = (await response.json()) as ResponsePayload;
+      if (dataResponse.status === "failed") {
+        throw new ResponseError(dataResponse.statusCode, dataResponse.message);
       }
+      toast.success("Successfully login");
+      router.push("/");
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error("Error when login!");
+      if (error instanceof ResponseError) {
+        toast.error(error.message, { duration: 3000 });
       } else {
         toast.error("An error occured!");
       }
     } finally {
       setLoading(false);
+      form.reset();
     }
   };
 
@@ -184,7 +188,7 @@ const LoginPage: React.FC = () => {
             >
               {loading ? (
                 <div className="animate-spin">
-                  <i className="ri-reset-right-line animate-spin"></i>
+                  <i className="ri-reset-right-line"></i>
                 </div>
               ) : (
                 "Login"

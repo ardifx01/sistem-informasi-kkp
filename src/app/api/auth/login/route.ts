@@ -1,25 +1,22 @@
-import { db } from "@/lib/firebase";
 import { formSchema } from "@/models/employee";
-import { addDoc, collection } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
-import bcrypt from "bcrypt";
-import JWT from "@/lib/jwt";
 import { EmployeeAuth } from "@/types";
+import UserService from "@/service/user-service";
+import ResponseError from "@/error/ResponseError";
 import { cookies } from "next/headers";
+import JWT from "@/lib/jwt";
 
 export async function POST(req: NextRequest) {
   try {
-    const cookie = await cookies();
     const dataBody = await req.text();
     const data = JSON.parse(dataBody) as EmployeeAuth;
     formSchema.parse(data);
-    const encryptPass = await bcrypt.hash(data.password, 10);
-    await addDoc(collection(db, "employee"), {
-      email: data.email,
-      password: encryptPass,
-    });
 
+    // const response = await UserService.signup(data);
+    const response = await UserService.login(data);
+
+    const cookie = await cookies();
     const token = JWT.signIn({ email: data.email, password: data.password });
     cookie.set({
       name: "token",
@@ -30,17 +27,20 @@ export async function POST(req: NextRequest) {
       maxAge: 60 * 60,
     });
 
-    return NextResponse.json({
-      status: "success",
-      statusCode: 200,
-      message: "Successfully log in",
-    });
+    return NextResponse.json(response);
   } catch (error) {
     if (error instanceof ZodError) {
-      return NextResponse.json(
-        { message: "Validation error" },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        status: "failed",
+        statusCode: 402,
+        message: "Please fill email and password properly!",
+      });
+    } else if (error instanceof ResponseError) {
+      return NextResponse.json({
+        status: "failed",
+        message: error.message,
+        statusCode: error.status,
+      });
     } else {
       console.error("Error during login:", error);
       return NextResponse.json({ message: "Internal server error" });

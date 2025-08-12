@@ -13,5 +13,5 @@ export interface ResponsePayload<T = unknown> {
   status: "success" | "failed";
   statusCode: number;
   message: string;
-  data: T;
+  data?: T;
 }

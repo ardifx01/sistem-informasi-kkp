@@ -59,7 +59,7 @@ export default function UploadsPage() {
   };
 
   return (
-    <div className="min-w-full flex justify-center items-center flex-col px-2 my-2">
+    <div>
       <TableKaryawan />
       <Dropzone
         onDropAccepted={onDropAccepted}
@@ -77,7 +77,6 @@ export default function UploadsPage() {
             {...getRootProps()}
           >
             <input {...getInputProps()} />
-            <span>Cihuy</span>
           </div>
         )}
       </Dropzone>
