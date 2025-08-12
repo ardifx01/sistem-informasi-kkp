@@ -6,10 +6,12 @@ import {
   UploadExcel as UploadExcelFile,
 } from "@/types";
 import { useUploadThing } from "@/utils/uploadthing";
+import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import toast from "react-hot-toast";
+import { MoonLoader } from "react-spinners";
 import * as XLSX from "xlsx";
 
 interface UploadExcelProps {
@@ -120,16 +122,25 @@ export default function UploadExcel(props: UploadExcelProps) {
         <div
           data-tooltip-id="upload-tooltip"
           data-tooltip-content={"Upload"}
-          className="bg-gray-800 px-2 py-1 cursor-pointer hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+          className={clsx(
+            "flex items-center justify-center px-2 py-1 cursor-pointer text-sm rounded-lg font-semibold transform transition-all duration-300",
+            isLoading || isUploading
+              ? "bg-gray-600 text-gray-200 cursor-not-allowed shadow-md"
+              : "bg-gray-800 text-white hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 border-2 hover:scale-105 shadow-lg hover:shadow-xl border-transparent hover:border-gray-300"
+          )}
           {...getRootProps()}
         >
-          <input {...getInputProps()} />
+          <input
+            className={clsx(
+              isLoading || isUploading ? "cursor-not-allowed" : "cursor-pointer"
+            )}
+            {...getInputProps()}
+            disabled={isUploading || isLoading}
+          />
           {isUploading || isLoading ? (
-            <div className="animate-spin">
-              <i className="ri-reset-right-line"></i>
-            </div>
+            <MoonLoader color="white" speedMultiplier={0.8} size={19} />
           ) : (
-            <i className="ri-file-upload-line"></i>
+            <i className="ri-file-upload-line text-lg"></i>
           )}
         </div>
       )}
