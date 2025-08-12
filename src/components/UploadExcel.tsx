@@ -1,17 +1,46 @@
 "use client";
+import ResponseError from "@/error/ResponseError";
+import { ResponsePayload } from "@/types";
 import { useUploadThing } from "@/utils/uploadthing";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
 
 export default function UploadExcel() {
+  const router = useRouter();
   const [urlExcel, setUrlExcel] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [dataExcel, setDataExcel] = useState([]);
   const { startUpload, isUploading } = useUploadThing("excelUploader", {
     onClientUploadComplete: ([data]) => {
       setUrlExcel(data.ufsUrl);
       toast.success("Successfully upload file!");
+    },
+    onBeforeUploadBegin: async (files) => {
+      setIsLoading(true);
+      const response = await fetch("/api/auth/verify");
+      const dataResponse = (await response.json()) as ResponsePayload;
+
+      setIsLoading(false);
+      if (dataResponse.status === "failed") {
+        throw new ResponseError(dataResponse.statusCode, dataResponse.message);
+      }
+
+      return files;
+    },
+    onUploadError: (e) => {
+      if (typeof e === "string") {
+        toast.error(e);
+      } else if (e instanceof Error) {
+        toast.error(e.message);
+      } else if (e instanceof ResponseError) {
+        router.push("/auth/login");
+        toast.error(e.message);
+      } else {
+        toast.error("An error occured!");
+      }
     },
   });
 
@@ -74,7 +103,7 @@ export default function UploadExcel() {
           {...getRootProps()}
         >
           <input {...getInputProps()} />
-          {isUploading ? (
+          {isUploading || isLoading ? (
             <div className="animate-spin">
               <i className="ri-reset-right-line"></i>
             </div>
