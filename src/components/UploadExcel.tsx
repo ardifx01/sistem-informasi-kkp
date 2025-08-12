@@ -41,18 +41,6 @@ export default function UploadExcel(props: UploadExcelProps) {
       });
       toast.success("Successfully upload file!");
     },
-    onBeforeUploadBegin: async (files) => {
-      setIsLoading(true);
-      const response = await fetch("/api/auth/verify");
-      const dataResponse = (await response.json()) as ResponsePayload;
-
-      setIsLoading(false);
-      if (dataResponse.status === "failed") {
-        throw new ResponseError(dataResponse.statusCode, dataResponse.message);
-      }
-
-      return files;
-    },
     onUploadError: (e) => {
       if (typeof e === "string") {
         toast.error(e);
@@ -93,6 +81,16 @@ export default function UploadExcel(props: UploadExcelProps) {
   }, [urlExcel]);
 
   const onDropAccepted = async (files: File[]) => {
+    setIsLoading(true);
+    const response = await fetch("/api/auth/verify");
+    const dataResponse = (await response.json()) as ResponsePayload;
+    setIsLoading(false);
+    if (dataResponse.status === "failed") {
+      toast.error(dataResponse.message);
+      router.push("/auth/login");
+      return;
+    }
+
     await startUpload(files);
   };
 
