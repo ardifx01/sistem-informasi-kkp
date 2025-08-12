@@ -12,7 +12,6 @@ export default function UploadExcel() {
   const router = useRouter();
   const [urlExcel, setUrlExcel] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [dataExcel, setDataExcel] = useState([]);
   const { startUpload, isUploading } = useUploadThing("excelUploader", {
     onClientUploadComplete: ([data]) => {
       setUrlExcel(data.ufsUrl);
@@ -54,7 +53,7 @@ export default function UploadExcel() {
           const workbook = XLSX.read(arrayBuffer, { type: "array" });
           const sheetName = workbook.SheetNames[0];
           const workSheets = workbook.Sheets[sheetName];
-          const jsonData: any[][] = XLSX.utils.sheet_to_json(workSheets, {
+          const jsonData: string[][] = XLSX.utils.sheet_to_json(workSheets, {
             header: 1,
             defval: "",
           });
