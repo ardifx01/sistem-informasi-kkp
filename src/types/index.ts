@@ -2,6 +2,8 @@ export interface KaryawanData {
   npm: string;
   nama: string;
   kelas: string;
+  hobby: string;
+  age: number;
 }
 
 export interface EmployeeAuth {

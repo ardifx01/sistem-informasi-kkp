@@ -29,8 +29,7 @@ export const ourFileRouter = {
       });
 
       const utapi = new UTApi();
-      const response = await utapi.deleteFiles(data[0].key);
-      console.log(response.deletedCount);
+      await utapi.deleteFiles(data[0].key);
       return {};
     })
     .onUploadError((input) => {

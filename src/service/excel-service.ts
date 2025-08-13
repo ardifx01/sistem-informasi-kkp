@@ -33,7 +33,6 @@ export default class ExcelService {
 
   static async GetExcelData(): Promise<ResponsePayload> {
     const querySnapshot = await getDocs(collection(db, "excelFile"));
-    console.log(querySnapshot);
     const data: ExcelFile[] = [];
     querySnapshot.forEach((document) => {
       data.push({
