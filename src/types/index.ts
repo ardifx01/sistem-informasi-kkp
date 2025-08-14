@@ -1,9 +1,9 @@
 export interface KaryawanData {
-  npm: string;
   nama: string;
-  kelas: string;
-  hobby: string;
-  age: number;
+  nip: string;
+  agama: string;
+  nama_jab: string;
+  jenis_kel: string;
 }
 
 export interface EmployeeAuth {

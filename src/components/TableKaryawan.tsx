@@ -3,128 +3,12 @@ import { KaryawanData } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Table from "./Table";
 
-export default function TableKaryawan() {
-  const dataKaryawan: KaryawanData[] = [
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-    {
-      npm: "10123178",
-      nama: "Ariel Rizki",
-      kelas: "2KA04",
-      hobby: "membaca",
-      age: 20,
-    },
-  ];
+interface TableKaryawanProps {
+  dataKaryawan: KaryawanData[];
+}
+
+export default function TableKaryawan(props: TableKaryawanProps) {
+  const { dataKaryawan } = props;
   const columns: ColumnDef<KaryawanData>[] = [
     {
       accessorKey: "no",
@@ -132,9 +16,9 @@ export default function TableKaryawan() {
       cell: ({ row }) => <span>{row.index + 1}</span>,
     },
     {
-      accessorKey: "npm",
-      header: "NPM",
-      cell: ({ row }) => <span>{row.original.npm}</span>,
+      accessorKey: "nip",
+      header: "NIP",
+      cell: ({ row }) => <span>{row.original.nip.split(" : ")[1]}</span>,
     },
     {
       accessorKey: "nama",
@@ -142,24 +26,26 @@ export default function TableKaryawan() {
       cell: ({ row }) => <span>{row.original.nama}</span>,
     },
     {
-      accessorKey: "kelas",
-      header: "Kelas",
-      cell: ({ row }) => <span>{row.original.kelas}</span>,
+      accessorKey: "agama",
+      header: "Agama",
+      cell: ({ row }) => <span>{row.original.agama}</span>,
     },
     {
-      accessorKey: "hobby",
-      header: "Hobby",
-      cell: ({ row }) => <span>{row.original.hobby}</span>,
+      accessorKey: "nama_jab",
+      header: "Nama Jabatan",
+      cell: ({ row }) => <span>{row.original.nama_jab}</span>,
     },
     {
-      accessorKey: "age",
-      header: "Age",
-      cell: ({ row }) => <span>{row.original.age}</span>,
+      accessorKey: "jenis_kel",
+      header: "Jenis Kelamin",
+      cell: ({ row }) => <span>{row.original.jenis_kel}</span>,
     },
     {
       accessorKey: "action",
       header: "Action",
-      cell: () => <span className="text-sm hover:underline cursor-pointer">Detail</span>,
+      cell: () => (
+        <span className="text-sm hover:underline cursor-pointer">Detail</span>
+      ),
     },
   ];
 
