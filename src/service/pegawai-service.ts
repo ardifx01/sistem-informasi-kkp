@@ -46,12 +46,17 @@ export default class PegawaiService {
     const q = query.get("q");
 
     if (q) {
-      const filterByNip = dataPegawai.filter((data) => data.nip.includes(q));
+      let dataFiltered = dataPegawai.filter((data) => data.nip.includes(q));
+      if (dataFiltered.length === 0) {
+        dataFiltered = dataPegawai.filter((data) =>
+          data.nama.toUpperCase().includes(q.toUpperCase())
+        );
+      }
       return {
         status: "success",
         statusCode: 200,
         message: "Successfully get data user by NIP",
-        data: filterByNip,
+        data: dataFiltered,
       };
     }
 

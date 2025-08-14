@@ -31,7 +31,11 @@ export default function InputPegawai() {
       <input
         type="search"
         value={valueSearch || ""}
-        onKeyUp={getDataByQuery}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            getDataByQuery();
+          }
+        }}
         onChange={(e) => setValueSearch(e.target.value)}
         placeholder="Cari Nama / NIP"
         className="bg-transparent text-white w-full me-3 text-sm focus:outline-none focus:border-none focus:ring-0 focus:"
