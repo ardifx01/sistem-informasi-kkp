@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function StatsEmployee() {
@@ -46,10 +47,13 @@ export default function StatsEmployee() {
                 )}
               </div>
             ))}
-            <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white text-center py-3 rounded-lg font-bold text-xl shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500">
+            <Link
+              href={"/pegawai"}
+              className="bg-gradient-to-r block from-cyan-500 to-cyan-600 text-white text-center py-3 rounded-lg font-bold text-xl shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500"
+            >
               <div className="animate-pulse">2.399</div>
               <div className="text-xs mt-1 opacity-80">Total Pegawai</div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

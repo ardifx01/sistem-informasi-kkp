@@ -3,10 +3,19 @@ import Image from "next/image";
 import Link from "next/link";
 import Logout from "./Logout";
 import MyTooltip from "./MyTooltip";
+import UploadExcel from "./UploadExcel";
+import { ExcelFile, ResponsePayload } from "@/types";
 
 export default async function MainHeader() {
   const cookie = await cookies();
   const token = cookie.get("token")?.value;
+  const baseUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://sistem-informasi-kkp.vercel.app"
+      : process.env.BASE_URL;
+  const response = await fetch(`${baseUrl}/api/upload`);
+  const data = (await response.json()) as ResponsePayload<ExcelFile[]>;
+  const dataExcel = data.data![0];
 
   return (
     <div className="mb-4 md:mb-6 animate-slide-down">
@@ -115,13 +124,7 @@ export default async function MainHeader() {
         <div className="flex items-center gap-x-2">
           {token ? (
             <MyTooltip id="upload-tooltip">
-              <button
-                data-tooltip-id="upload-tooltip"
-                data-tooltip-content={"Upload"}
-                className="bg-gray-800 px-2 py-1 cursor-pointer hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
-              >
-                <i className="ri-file-upload-line"></i>
-              </button>
+              <UploadExcel dataExcelUser={dataExcel} />
             </MyTooltip>
           ) : null}
           <input
