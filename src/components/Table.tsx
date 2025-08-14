@@ -1,3 +1,4 @@
+import { useTableStore } from "@/store/table-store";
 import {
   ColumnDef,
   flexRender,
@@ -6,6 +7,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import clsx from "clsx";
+import { useState } from "react";
+import { PulseLoader } from "react-spinners";
 
 interface TableProps<TData, TValue> {
   className?: string;
@@ -14,9 +17,19 @@ interface TableProps<TData, TValue> {
 }
 export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
   const { className, data, columns } = props;
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 15,
+  });
+  const { loading } = useTableStore();
+  console.log("Loading:", loading);
   const table = useReactTable({
     data,
     columns,
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
@@ -45,7 +58,18 @@ export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.length ? (
+            {loading ? (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="h-24 text-white font-semibold text-2xl bg-slate-900 text-center"
+                >
+                  <div className="w-full">
+                    <PulseLoader color="white" />
+                  </div>
+                </td>
+              </tr>
+            ) : table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row, i) => (
                 <tr
                   className={clsx("text-white border-black", {
@@ -70,7 +94,10 @@ export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
               ))
             ) : (
               <tr>
-                <td colSpan={columns.length} className="h-24 text-center">
+                <td
+                  colSpan={columns.length}
+                  className="h-24 text-white font-semibold text-2xl bg-slate-900 text-center"
+                >
                   No Results.
                 </td>
               </tr>
@@ -96,7 +123,8 @@ export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
           className={clsx("px-2 py-1 rounded-lg font-semibold", {
-            "bg-gray-500 cursor-not-allowed text-white": !table.getCanNextPage(),
+            "bg-gray-500 cursor-not-allowed text-white":
+              !table.getCanNextPage(),
             "bg-white cursor-pointer text-slate-900": table.getCanNextPage(),
           })}
         >

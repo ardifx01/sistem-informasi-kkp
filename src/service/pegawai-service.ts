@@ -1,10 +1,10 @@
 import { db } from "@/lib/firebase";
-import { ExcelFile, ResponsePayload } from "@/types";
+import { ExcelFile, KaryawanData, ResponsePayload } from "@/types";
 import { collection, getDocs } from "firebase/firestore";
 import { read, utils } from "xlsx";
 
 export default class PegawaiService {
-  static async getAllPegawai(): Promise<ResponsePayload> {
+  static async getAllPegawai(query: URLSearchParams): Promise<ResponsePayload> {
     const headerRegistered: string[] = [
       "nama",
       "nip",
@@ -36,20 +36,24 @@ export default class PegawaiService {
     const indexHeaders = headerRegistered.map((h) =>
       data[0].indexOf(h.toUpperCase())
     );
+    const dataPegawai = data.slice(1).map((d) => ({
+      nama: d[indexHeaders[0]],
+      nip: d[indexHeaders[1]],
+      agama: d[indexHeaders[2]],
+      nama_jab: d[indexHeaders[3]],
+      jenis_kel: d[indexHeaders[4]],
+    })) as KaryawanData[];
+    const q = query.get("q");
 
-    const dataPegawai = data
-      .map((d, i) => {
-        if (i !== 0) {
-          return {
-            [headerRegistered[0]]: d[indexHeaders[0]],
-            [headerRegistered[1]]: d[indexHeaders[1]],
-            [headerRegistered[2]]: d[indexHeaders[2]],
-            [headerRegistered[3]]: d[indexHeaders[3]],
-            [headerRegistered[4]]: d[indexHeaders[4]],
-          };
-        }
-      })
-      .filter(Boolean);
+    if (q) {
+      const filterByNip = dataPegawai.filter((data) => data.nip.includes(q));
+      return {
+        status: "success",
+        statusCode: 200,
+        message: "Successfully get data user by NIP",
+        data: filterByNip,
+      };
+    }
 
     return {
       status: "success",

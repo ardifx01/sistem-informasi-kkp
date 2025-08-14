@@ -18,7 +18,7 @@ export default async function PegawaiPage() {
         <i className="text-3xl md:text-5xl fixed top-[52px] left-8 ri-arrow-left-circle-line"></i>
       </Link>
       <HeaderPegawai />
-      <div className="min-w-7xl px-2">
+      <div className="w-7xl px-2">
         <TableKaryawan dataKaryawan={dataPegawai} />
       </div>
     </Container>

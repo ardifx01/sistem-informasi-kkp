@@ -3,11 +3,10 @@ import PegawaiService from "@/service/pegawai-service";
 import { ResponsePayload } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function GET(_req: NextRequest): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
-    const response = await PegawaiService.getAllPegawai();
-
+    const query = req.nextUrl.searchParams;
+    const response = await PegawaiService.getAllPegawai(query);
     return NextResponse.json<ResponsePayload>(response);
   } catch (error) {
     if (error instanceof ResponseError) {

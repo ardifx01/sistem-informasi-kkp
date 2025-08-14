@@ -2,6 +2,7 @@
 import { KaryawanData } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Table from "./Table";
+import { useTableStore } from "@/store/table-store";
 
 interface TableKaryawanProps {
   dataKaryawan: KaryawanData[];
@@ -9,6 +10,9 @@ interface TableKaryawanProps {
 
 export default function TableKaryawan(props: TableKaryawanProps) {
   const { dataKaryawan } = props;
+  const { dataPegawai } = useTableStore();
+  const dataTable =
+    typeof dataPegawai === "undefined" ? dataKaryawan : dataPegawai;
   const columns: ColumnDef<KaryawanData>[] = [
     {
       accessorKey: "no",
@@ -51,7 +55,7 @@ export default function TableKaryawan(props: TableKaryawanProps) {
 
   return (
     <>
-      <Table className="mt-4" columns={columns} data={dataKaryawan} />
+      <Table className="mt-4" columns={columns} data={dataTable} />
     </>
   );
 }
