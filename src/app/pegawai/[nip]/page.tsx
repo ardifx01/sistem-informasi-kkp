@@ -4,7 +4,6 @@ import PersonalDataSection from "@/components/pages/pegawai/PersonalDataSection"
 import { Sidebar } from "@/components/pages/pegawai/Sidebar";
 import React, { useState, useEffect } from "react";
 
-// Main Component
 const DetailPegawaiPage: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
