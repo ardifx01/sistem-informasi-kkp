@@ -1,9 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { PulseLoader } from "react-spinners";
 
 export default function StatsEmployee() {
   const [selectedStat, setSelectedStat] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const statsData = [
     { label: "PNS", value: 1656, color: "bg-gray-600", percentage: 69.1 },
@@ -49,10 +51,19 @@ export default function StatsEmployee() {
             ))}
             <Link
               href={"/pegawai"}
+              onClick={() => setLoading(true)}
               className="bg-gradient-to-r block from-cyan-500 to-cyan-600 text-white text-center py-3 rounded-lg font-bold text-xl shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500"
             >
-              <div className="animate-pulse">2.399</div>
-              <div className="text-xs mt-1 opacity-80">Total Pegawai</div>
+              {loading ? (
+                <div className="w-full">
+                  <PulseLoader color="white" />
+                </div>
+              ) : (
+                <>
+                  <div className="animate-pulse">2.399</div>
+                  <div className="text-xs mt-1 opacity-80">Total Pegawai</div>
+                </>
+              )}
             </Link>
           </div>
         </div>

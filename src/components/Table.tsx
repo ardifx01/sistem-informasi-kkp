@@ -22,7 +22,6 @@ export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
     pageSize: 15,
   });
   const { loading } = useTableStore();
-  console.log("Loading:", loading);
   const table = useReactTable({
     data,
     columns,
