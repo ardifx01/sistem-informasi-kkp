@@ -2,19 +2,17 @@ import Container from "@/components/Container";
 import HeaderPegawai from "@/components/pages/pegawai/HeaderPegawai";
 import Options from "@/components/pages/pegawai/Options";
 import TableKaryawan from "@/components/TableKaryawan";
-// import Options from "@/components/Options";
 import { KaryawanData, ResponsePayload } from "@/types";
 import Link from "next/link";
 
-// Temporary inline Options component
-
+export const dynamic = "force-dynamic";
 export default async function PegawaiPage() {
   const baseUrl =
     process.env.NODE_ENV === "production"
       ? "https://sistem-informasi-kkp.vercel.app"
       : process.env.BASE_URL;
 
-  const response = await fetch(baseUrl + "/api/pegawai");
+  const response = await fetch(`${baseUrl}/api/pegawai`);
   const dataResponse = (await response.json()) as ResponsePayload;
   const dataPegawai = dataResponse.data as KaryawanData[];
 
