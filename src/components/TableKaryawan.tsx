@@ -3,6 +3,7 @@ import { KaryawanData } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import Table from "./Table";
 import { useTableStore } from "@/store/table-store";
+import Link from "next/link";
 
 interface TableKaryawanProps {
   dataKaryawan: KaryawanData[];
@@ -47,8 +48,13 @@ export default function TableKaryawan(props: TableKaryawanProps) {
     {
       accessorKey: "action",
       header: "Action",
-      cell: () => (
-        <span className="text-sm hover:underline cursor-pointer">Detail</span>
+      cell: ({ row }) => (
+        <Link
+          href={"/pegawai/" + row.original.nip.split(" : ")[1]}
+          className="text-sm hover:underline cursor-pointer"
+        >
+          Detail
+        </Link>
       ),
     },
   ];

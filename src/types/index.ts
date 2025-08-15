@@ -29,3 +29,15 @@ export interface ExcelFile {
   key: string;
   urlExcel: string;
 }
+
+export interface PersonalInfo {
+  label: string;
+  value: string;
+  hasIcon?: boolean;
+}
+
+export interface ContactInfo {
+  type: string;
+  value: string;
+  iconType: "map" | "phone" | "building";
+}
