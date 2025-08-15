@@ -16,7 +16,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-cyan-400 antialiased`}>
+      <body className={`bg-cyan-400 overflow-x-hidden antialiased`}>
         <Toaster />
         {children}
       </body>
