@@ -91,7 +91,7 @@ export default class PegawaiService {
       "tgl_lahir",
       "nama_sek",
       "prog_studi",
-      "unit_kerja",
+      "stat_kepeg"
     ];
 
     const querySnapshot = await getDocs(collection(db, "excelFile"));

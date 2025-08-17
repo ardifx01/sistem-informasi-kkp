@@ -39,7 +39,6 @@ export interface PersonalInfo {
 export interface ContactInfo {
   type: string;
   value: string;
-  iconType: "map" | "phone" | "building";
 }
 
 export interface PegawaiDetail {
@@ -63,6 +62,6 @@ export interface PegawaiDetail {
   tmp_lahir: string;
   nama_sek: string;
   prog_studi: string;
-  unit_kerja: string;
   tgl_lahir: string;
+  stat_kepeg: string;
 }

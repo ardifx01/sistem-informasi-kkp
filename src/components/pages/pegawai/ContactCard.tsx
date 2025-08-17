@@ -1,6 +1,5 @@
 import { ContactInfo } from "@/types";
 import { ANIMATION_DELAYS } from "@/utils/detailPegawai";
-import { getContactIcon } from "./GetContactIcon";
 
 export const ContactCard: React.FC<{
   contact: ContactInfo;
@@ -21,12 +20,6 @@ export const ContactCard: React.FC<{
         transitionDelay: delay,
       }}
     >
-      <div className="flex-shrink-0 p-2 bg-white rounded-lg shadow-sm border border-blue-100">
-        <span className="text-blue-600">
-          {getContactIcon(contact.iconType)}
-        </span>
-      </div>
-
       <div className="flex-1 min-w-0">
         <dt className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-1">
           {contact.type}

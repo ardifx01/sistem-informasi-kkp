@@ -11,7 +11,26 @@ interface PersonalDataSectionProps {
 export function PersonalDataSection(props: PersonalDataSectionProps) {
   const { dataPegawai } = props;
 
-  const personalData: PersonalInfo[] = Object.keys(dataPegawai).map((k) => ({
+  const keysToPick: (keyof PegawaiDetail)[] = [
+    "nama",
+    "nip",
+    "agama",
+    "nama_jab",
+    "jenis_kel",
+    "stat_kawin",
+    "gol_darah",
+    "pend_akhir",
+    "nama_unker",
+    "almt_email",
+    "no_npwp",
+    "tmp_lahir",
+    "tgl_lahir",
+    "nama_sek",
+    "prog_studi",
+    "stat_kepeg",
+  ];
+
+  const personalData: PersonalInfo[] = keysToPick.map((k) => ({
     label: getFormarttedKey(k.split("_")),
     value: getFormarttedValue(
       dataPegawai[k as keyof typeof dataPegawai].toString().split(":")
