@@ -6,7 +6,7 @@ interface TableStore {
   dataPegawai: KaryawanData[] | [] | undefined;
   setDataPegawai: (v: TableStore["dataPegawai"]) => void;
   setLoading: (v: boolean) => void;
-  setValueSearch: (v: string) => void;
+  setValueSearch: (v: TableStore["valueSearch"]) => void;
 }
 
 export const useTableStore = create<TableStore>((set) => ({

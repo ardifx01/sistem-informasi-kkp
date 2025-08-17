@@ -6,6 +6,7 @@ export async function middleware(req: NextRequest) {
   const url = req.nextUrl.pathname;
   const tokenCookie = cookiesStore.get("token");
   const token: string | null = tokenCookie ? tokenCookie.value : null;
+
   if (!token) {
     cookiesStore.delete("token");
     return;

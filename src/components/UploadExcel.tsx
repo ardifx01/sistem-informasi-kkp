@@ -8,11 +8,10 @@ import {
 import { useUploadThing } from "@/utils/uploadthing";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import toast from "react-hot-toast";
 import { MoonLoader } from "react-spinners";
-import * as XLSX from "xlsx";
 
 interface UploadExcelProps {
   dataExcelUser: ExcelFile;
@@ -21,13 +20,10 @@ interface UploadExcelProps {
 export default function UploadExcel(props: UploadExcelProps) {
   const { dataExcelUser } = props;
   const router = useRouter();
-  const [urlExcel, setUrlExcel] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { startUpload, isUploading } = useUploadThing("excelUploader", {
     onClientUploadComplete: async ([data]) => {
-      setUrlExcel(data.ufsUrl);
-
       const dataUser: UploadExcelFile = {
         key: data.key,
         urlExcel: data.ufsUrl,
@@ -56,31 +52,6 @@ export default function UploadExcel(props: UploadExcelProps) {
       }
     },
   });
-
-  useEffect(() => {
-    if (urlExcel) {
-      const readExcel = async () => {
-        try {
-          const response = await fetch(urlExcel);
-          const arrayBuffer = await response.arrayBuffer();
-
-          const workbook = XLSX.read(arrayBuffer, { type: "array" });
-          const sheetName = workbook.SheetNames[0];
-          const workSheets = workbook.Sheets[sheetName];
-          const jsonData: string[][] = XLSX.utils.sheet_to_json(workSheets, {
-            header: 1,
-            defval: "",
-          });
-
-          console.log(jsonData);
-        } catch (error) {
-          console.log("Gagal cuy error:", error);
-        }
-      };
-
-      readExcel();
-    }
-  }, [urlExcel]);
 
   const onDropAccepted = async (files: File[]) => {
     setIsLoading(true);
