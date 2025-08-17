@@ -5,8 +5,7 @@ import { ANIMATION_DELAYS } from "@/utils/detailPegawai";
 const InfoCard: React.FC<{
   data: PersonalInfo;
   index: number;
-  isLoaded: boolean;
-}> = ({ data, index, isLoaded }) => {
+}> = ({ data, index }) => {
   const isImportantField = (label: string): boolean => {
     const importantFields = ["Unit Kerja", "Jabatan/TMT/TMT Awal Jabatan"];
     return importantFields.includes(label);
@@ -18,14 +17,9 @@ const InfoCard: React.FC<{
     <div
       className={`group relative bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-blue-100/50 
                  hover:border-blue-200 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10
-                 hover:-translate-y-1 ${
-                   isLoaded
-                     ? "opacity-100 translate-y-0"
-                     : "opacity-0 translate-y-2"
-                 }`}
+                 hover:-translate-y-1 ${"opacity-100 translate-y-0"}`}
       style={{
         transitionDelay: delay,
-        animation: isLoaded ? `fadeInUp 0.6s ease-out ${delay} forwards` : "",
       }}
     >
       <div className="flex items-start gap-5">

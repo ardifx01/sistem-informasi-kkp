@@ -5,8 +5,7 @@ import { getContactIcon } from "./GetContactIcon";
 export const ContactCard: React.FC<{
   contact: ContactInfo;
   index: number;
-  isLoaded: boolean;
-}> = ({ contact, index, isLoaded }) => {
+}> = ({ contact, index }) => {
   const delay = `${
     ANIMATION_DELAYS.CONTACT_ITEM_BASE +
     index * ANIMATION_DELAYS.CONTACT_ITEM_MULTIPLIER
@@ -17,14 +16,9 @@ export const ContactCard: React.FC<{
       className={`flex items-start gap-4 p-4 rounded-xl bg-blue-50 hover:bg-blue-100 
                  border border-blue-100 hover:border-blue-200
                  transition-all duration-300 hover:scale-[1.02] hover:shadow-md
-                 ${
-                   isLoaded
-                     ? "opacity-100 translate-y-0"
-                     : "opacity-0 translate-y-2"
-                 }`}
+                 ${"opacity-100 translate-y-0"}`}
       style={{
         transitionDelay: delay,
-        animation: isLoaded ? `fadeInUp 0.6s ease-out ${delay} forwards` : "",
       }}
     >
       <div className="flex-shrink-0 p-2 bg-white rounded-lg shadow-sm border border-blue-100">

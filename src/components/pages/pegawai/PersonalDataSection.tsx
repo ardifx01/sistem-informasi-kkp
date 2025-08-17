@@ -50,7 +50,7 @@ const PERSONAL_DATA: PersonalInfo[] = [
   { label: "kampus", value: "199105212014032001" },
 ];
 
-const PersonalDataSection: React.FC<{ isLoaded: boolean }> = ({ isLoaded }) => (
+const PersonalDataSection: React.FC = () => (
   <div className="lg:col-span-3 space-y-8">
     <section>
       <div className="flex items-center gap-4 mb-10">
@@ -67,12 +67,7 @@ const PersonalDataSection: React.FC<{ isLoaded: boolean }> = ({ isLoaded }) => (
 
       <div className="grid gap-6">
         {PERSONAL_DATA.map((item, index) => (
-          <InfoCard
-            key={`${item.label}-${index}`}
-            data={item}
-            index={index}
-            isLoaded={isLoaded}
-          />
+          <InfoCard key={`${item.label}-${index}`} data={item} index={index} />
         ))}
       </div>
     </section>

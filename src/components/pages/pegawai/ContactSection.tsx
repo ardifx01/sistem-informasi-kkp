@@ -1,6 +1,5 @@
 import { BuildingIcon } from "@/components/icons/BuildingIcon";
 import { ContactInfo } from "@/types";
-import { ANIMATION_DELAYS, getAnimationProps } from "@/utils/detailPegawai";
 import { ContactCard } from "./ContactCard";
 
 const CONTACT_DATA: ContactInfo[] = [
@@ -43,14 +42,9 @@ const CONTACT_DATA: ContactInfo[] = [
   },
 ];
 
-export const ContactSection: React.FC<{ isLoaded: boolean }> = ({
-  isLoaded,
-}) => (
+export const ContactSection: React.FC = () => (
   <div
-    {...getAnimationProps(isLoaded, ANIMATION_DELAYS.CONTACT_CARD)}
-    className={`bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-blue-100/50 shadow-xl ${
-      isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-    }`}
+    className={`bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-blue-100/50 shadow-xl ${"opacity-100 translate-y-0"}`}
   >
     <div className="flex items-center gap-3 mb-6">
       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shadow-lg">
@@ -65,7 +59,6 @@ export const ContactSection: React.FC<{ isLoaded: boolean }> = ({
           key={`${contact.type}-${index}`}
           contact={contact}
           index={index}
-          isLoaded={isLoaded}
         />
       ))}
     </div>
