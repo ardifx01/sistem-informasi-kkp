@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sistem Informasi KKP
 
-## Getting Started
+Aplikasi berbasis web untuk menampilkan dan mengelola data pegawai. Dibangun menggunakan **Next.js**, **Tailwind CSS**, dan **TypeScript**.
 
-First, run the development server:
+## Deskripsi
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Sistem Informasi KKP adalah aplikasi internal untuk pengelolaan data pegawai.  
+Fitur utamanya meliputi:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Menampilkan daftar pegawai lengkap beserta detail informasi.
+- Pencarian pegawai berdasarkan query tertentu.
+- Menampilkan jumlah pegawai berdasarkan kategori usia atau kriteria lainnya.
+- Pembaruan data pegawai melalui **upload file Excel** (hanya untuk pengguna terautentikasi).
+- Halaman **/pegawai** yang menampilkan data pegawai secara interaktif.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Aplikasi ini bersifat **privat** dan hanya digunakan secara internal.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-To learn more about Next.js, take a look at the following resources:
+## Instalasi & Menjalankan Proyek
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone repository ini
+   ```bash
+   git clone <url-repo>
+   cd sistem-informasi-kkp
+   ```
+2. Install dependencies
+   ```bash
+   npm install
+   ```
+3. Jalankan aplikasi di mode pengembangan
+   ```bash
+   npm run dev
+   ```
+4. Buka browser di [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Struktur Fitur
 
-## Deploy on Vercel
+- **Autentikasi pengguna** – hanya user login yang dapat mengunggah data pegawai.
+- **Manajemen data pegawai** – upload file Excel untuk memperbarui data.
+- **Filter & Pencarian** – temukan pegawai berdasarkan nama atau kriteria lain.
+- **Kategori pegawai** – lihat distribusi pegawai berdasarkan kelompok usia.
+- **Detail pegawai** – lihat profil lengkap setiap pegawai.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tim Pengembang
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Fullstack Developer** – Ariel Rizki Muhtamad Bakri
+- **Frontend Developer** – Muhammad Davy Wibowo
+- **UI/UX Designer** – Faizh Adi Anugrah
+
+## Lisensi
+
+Proyek ini bersifat **Privat**. Segala hak cipta dilindungi dan tidak untuk penggunaan publik.

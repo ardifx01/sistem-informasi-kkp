@@ -2,6 +2,15 @@
   "name": "sistem-informasi-kkp",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Ariel Rizki Muhtamad Bakri",
+    "email": "arielrizki.fs1@gmail.com",
+    "url": "https://portfolio-three-azure-71.vercel.app/"
+  },
+  "contributors": [
+    "Faizh Adi Anugrah",
+    "Muhammad Davy Wibowo"
+  ],
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
