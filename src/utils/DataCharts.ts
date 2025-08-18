@@ -1,18 +1,5 @@
 import { ChartData } from "chart.js";
 
-export const dataGolonganRuang: ChartData<"bar"> = {
-  labels: ["I", "II", "III", "IV", "V", "VII", "IX"],
-  datasets: [
-    {
-      label: "Jumlah",
-      data: [1, 213, 854, 135, 139, 87, 227],
-      backgroundColor: "oklch(90.5% 0.182 98.111)",
-      hoverBackgroundColor: "oklch(75% 0.183 55.934)",
-      borderRadius: 6,
-    },
-  ],
-};
-
 export const dataTingkatPendidikan: ChartData<"bar"> = {
   labels: ["S3", "S2", "S1", "D4", "SM", "D3", "D1", "SLTA", "SLTP", "SD"],
   datasets: [

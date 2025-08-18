@@ -1,6 +1,5 @@
 "use client";
 import {
-  dataGolonganRuang,
   dataPositions,
   dataTingkatPendidikan,
   dataUsia,
@@ -11,23 +10,29 @@ import MyDoughnut from "./Doughnut";
 import { useStatsStore } from "@/store/stats-store";
 import useFetchStatusPegawai from "@/hooks/useFetchStatusPegawai";
 import useFetchGender from "@/hooks/useFetchGender";
+import useFetchGolongan from "@/hooks/useFetchGolongan";
 
 export default function Charts() {
-  const { dataStatusPegawai, dataGender, isGenderLoading, isStatusLoading } =
-    useStatsStore();
+  const {
+    dataStatusPegawai,
+    dataGender,
+    dataGolongan,
+    isGenderLoading,
+    isStatusLoading,
+    isGolonganLoading,
+  } = useStatsStore();
 
+  useFetchGolongan();
   useFetchStatusPegawai();
   useFetchGender();
+
   return (
     <>
       {/* Charts Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
         {/* Bar Chart 1 - Golongan Ruang */}
-        <CardChart>
-          <Barchart
-            data={dataGolonganRuang}
-            title="Berdasarkan Golongan Ruang"
-          />
+        <CardChart isLoading={isGolonganLoading}>
+          <Barchart data={dataGolongan} title="Berdasarkan Golongan Ruang" />
         </CardChart>
 
         <CardChart>
