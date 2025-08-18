@@ -1,18 +1,29 @@
 import { ChartData } from "chart.js";
 import { create } from "zustand";
 
+export interface StatsDataEmployee {
+  totalPns: number | null;
+  totalPPPK: number | null;
+  totalPolri: number | null;
+  totalNonASn: number | null;
+  totalPegawai: number | null;
+}
+
 interface UseStatsStore {
   isStatusLoading: boolean;
   isGenderLoading: boolean;
   isGolonganLoading: boolean;
   isPendidikanLoading: boolean;
   isAgeLoading: boolean;
+  isStatsDataEmployeeLoading: boolean;
   dataStatusPegawai: ChartData<"doughnut">;
   dataGender: ChartData<"doughnut">;
   dataGolongan: ChartData<"bar">;
   dataPendidikan: ChartData<"bar">;
   dataUsia: ChartData<"bar">;
+  statsDataEmployee: StatsDataEmployee;
 
+  setStatsDataEmployee: (v: StatsDataEmployee) => void;
   setDataUsia: (labels: string[], data: number[]) => void;
   setDataPendidikan: (labels: string[], data: number[]) => void;
   setDataGolongan: (labels: string[], data: number[]) => void;
@@ -23,6 +34,7 @@ interface UseStatsStore {
   setIsGolonganLoading: (v: boolean) => void;
   setIsPendidikanLoading: (v: boolean) => void;
   setIsAgeLoading: (v: boolean) => void;
+  setIsStatsDataEmployeeLoading: (v: boolean) => void;
 }
 
 export const useStatsStore = create<UseStatsStore>((set) => ({
@@ -31,6 +43,7 @@ export const useStatsStore = create<UseStatsStore>((set) => ({
   isGolonganLoading: false,
   isPendidikanLoading: false,
   isAgeLoading: false,
+  isStatsDataEmployeeLoading: false,
   dataStatusPegawai: {
     labels: [],
     datasets: [
@@ -99,6 +112,17 @@ export const useStatsStore = create<UseStatsStore>((set) => ({
       },
     ],
   },
+  statsDataEmployee: {
+    totalNonASn: null,
+    totalPegawai: null,
+    totalPns: null,
+    totalPolri: null,
+    totalPPPK: null,
+  },
+  setStatsDataEmployee: (v) =>
+    set({
+      statsDataEmployee: v,
+    }),
   setDataUsia: (l, d) =>
     set({
       dataUsia: {
@@ -187,4 +211,5 @@ export const useStatsStore = create<UseStatsStore>((set) => ({
   setIsGolonganLoading: (v) => set({ isGolonganLoading: v }),
   setIsPendidikanLoading: (v) => set({ isPendidikanLoading: v }),
   setIsAgeLoading: (v) => set({ isAgeLoading: v }),
+  setIsStatsDataEmployeeLoading: (v) => set({ isStatsDataEmployeeLoading: v }),
 }));

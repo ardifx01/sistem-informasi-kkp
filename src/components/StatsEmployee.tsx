@@ -1,4 +1,7 @@
 "use client";
+import useFetchStatsEmployee from "@/hooks/useFetchStatsEmployee";
+import { useStatsStore } from "@/store/stats-store";
+import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
@@ -6,11 +9,21 @@ import { PulseLoader } from "react-spinners";
 export default function StatsEmployee() {
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingStats, setLoadingStats] = useState<string | null>();
+  const { isStatsDataEmployeeLoading, statsDataEmployee } = useStatsStore();
+  useFetchStatsEmployee();
   const statsData = [
-    { label: "PNS", value: 1656, color: "bg-gray-600", percentage: 69.1 },
-    { label: "PPPK", value: 452, color: "bg-gray-600", percentage: 18.8 },
-    { label: "POLRI", value: 1, color: "bg-gray-600", percentage: 0.04 },
-    { label: "NON ASN", value: 290, color: "bg-gray-600", percentage: 12.1 },
+    { label: "PNS", value: statsDataEmployee.totalPns, color: "bg-gray-600" },
+    { label: "PPPK", value: statsDataEmployee.totalPPPK, color: "bg-gray-600" },
+    {
+      label: "POLRI",
+      value: statsDataEmployee.totalPolri,
+      color: "bg-gray-600",
+    },
+    {
+      label: "NON ASN",
+      value: statsDataEmployee.totalNonASn,
+      color: "bg-gray-600",
+    },
   ];
   return (
     <>
@@ -38,23 +51,32 @@ export default function StatsEmployee() {
                 <Link
                   href={"/pegawai?category=" + stats}
                   key={index}
-                  className={`flex justify-between ${stat.color} text-white px-4 py-2 rounded-lg cursor-pointer transform hover:scale-105 transition-all duration-300 hover:shadow-lg `}
+                  className={`flex justify-between ${
+                    isStatsDataEmployeeLoading ? "animate-pulse h-10" : ""
+                  } ${
+                    stat.color
+                  } text-white px-4 py-2 rounded-lg cursor-pointer transform hover:scale-105 transition-all duration-300 hover:shadow-lg `}
                   onClick={() => {
                     setLoadingStats(stats);
                   }}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <span className="font-medium">{stat.label}</span>
-                  <span className="font-bold">
-                    {stat.value.toLocaleString()}
-                  </span>
+                  {isStatsDataEmployeeLoading ? null : (
+                    <>
+                      <span className="font-medium">{stat.label}</span>
+                      <span className="font-bold">{stat.value}</span>
+                    </>
+                  )}
                 </Link>
               );
             })}
             <Link
               href={"/pegawai"}
               onClick={() => setLoading(true)}
-              className="bg-gradient-to-r block from-cyan-500 to-cyan-600 text-white text-center py-3 rounded-lg font-bold text-xl shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500"
+              className={clsx(
+                "bg-gradient-to-r block from-cyan-500 to-cyan-600 text-white text-center py-3 rounded-lg font-bold text-xl shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500",
+                isStatsDataEmployeeLoading ? "h-14 animate-pulse" : ""
+              )}
             >
               {loading ? (
                 <div className="w-full">
@@ -62,8 +84,16 @@ export default function StatsEmployee() {
                 </div>
               ) : (
                 <div className="flex flex-col">
-                  <span className="animate-pulse">2.399</span>
-                  <span className="text-xs mt-1 opacity-80">Total Pegawai</span>
+                  {isStatsDataEmployeeLoading ? null : (
+                    <>
+                      <span className="animate-pulse">
+                        {statsDataEmployee.totalPegawai}
+                      </span>
+                      <span className="text-xs mt-1 opacity-80">
+                        Total Pegawai
+                      </span>
+                    </>
+                  )}
                 </div>
               )}
             </Link>

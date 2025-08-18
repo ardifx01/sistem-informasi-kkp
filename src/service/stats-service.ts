@@ -5,7 +5,9 @@ import { collection, getDocs } from "firebase/firestore";
 import { read, SSF, utils } from "xlsx";
 
 export default class StatsService {
-  static async getStatsStatus(): Promise<ResponsePayload> {
+  static async getStatsStatus(
+    query: URLSearchParams
+  ): Promise<ResponsePayload> {
     const headerRegistered: string[] = ["stat_kepeg"];
     const querySnapshot = await getDocs(collection(db, "excelFile"));
     const dataExcel: ExcelFile[] = [];
@@ -47,6 +49,39 @@ export default class StatsService {
         totalNonASn++;
       }
     });
+
+    const findPolri = query.get("polri");
+    if (findPolri) {
+      let totalPns = 0;
+      let totalPPPK = 0;
+      let totalPolri = 0;
+      let totalNonASn = 0;
+
+      dataPegawai.forEach((d) => {
+        if (d.stat_kepeg.toLowerCase() === "pns") {
+          totalPns++;
+        } else if (d.stat_kepeg.toLowerCase() === "pppk") {
+          totalPPPK++;
+        } else if (d.stat_kepeg.toLowerCase() === "polri") {
+          totalPolri++;
+        } else {
+          totalNonASn++;
+        }
+      });
+
+      return {
+        status: "success",
+        statusCode: 200,
+        message: "Successfully get stats Status Pegawai",
+        data: {
+          totalPns,
+          totalPPPK,
+          totalPolri,
+          totalNonASn,
+          totalPegawai: dataPegawai.length,
+        },
+      };
+    }
 
     return {
       status: "success",
