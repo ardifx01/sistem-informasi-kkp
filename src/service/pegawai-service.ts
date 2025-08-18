@@ -45,6 +45,7 @@ export default class PegawaiService {
       jenis_kel: d[indexHeaders[4]],
       stat_kepeg: d[indexHeaders[5]],
     })) as KaryawanData[];
+    dataPegawai.sort((a, b) => a.nama.localeCompare(b.nama));
     const q = query.get("q");
     const category = query.get("category");
 
