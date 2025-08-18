@@ -1,9 +1,5 @@
 "use client";
-import {
-  dataPositions,
-  dataTingkatPendidikan,
-  dataUsia,
-} from "@/utils/DataCharts";
+import { dataPositions, dataUsia } from "@/utils/DataCharts";
 import CardChart from "./CardChart";
 import Barchart from "./Barchart";
 import MyDoughnut from "./Doughnut";
@@ -11,6 +7,7 @@ import { useStatsStore } from "@/store/stats-store";
 import useFetchStatusPegawai from "@/hooks/useFetchStatusPegawai";
 import useFetchGender from "@/hooks/useFetchGender";
 import useFetchGolongan from "@/hooks/useFetchGolongan";
+import useFetchPendidikan from "@/hooks/useFetchPendidikan";
 
 export default function Charts() {
   const {
@@ -20,11 +17,14 @@ export default function Charts() {
     isGenderLoading,
     isStatusLoading,
     isGolonganLoading,
+    isPendidikanLoading,
+    dataPendidikan,
   } = useStatsStore();
 
   useFetchGolongan();
   useFetchStatusPegawai();
   useFetchGender();
+  useFetchPendidikan();
 
   return (
     <>
@@ -35,9 +35,9 @@ export default function Charts() {
           <Barchart data={dataGolongan} title="Berdasarkan Golongan Ruang" />
         </CardChart>
 
-        <CardChart>
+        <CardChart isLoading={isPendidikanLoading}>
           <Barchart
-            data={dataTingkatPendidikan}
+            data={dataPendidikan}
             title="Berdasarkan Tingkat Pendidikan"
           />
         </CardChart>

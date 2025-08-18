@@ -1,18 +1,5 @@
 import { ChartData } from "chart.js";
 
-export const dataTingkatPendidikan: ChartData<"bar"> = {
-  labels: ["S3", "S2", "S1", "D4", "SM", "D3", "D1", "SLTA", "SLTP", "SD"],
-  datasets: [
-    {
-      label: "Jumlah",
-      data: [7, 197, 610, 198, 0, 211, 1, 423, 6, 2],
-      backgroundColor: "oklch(90.5% 0.182 98.111)",
-      hoverBackgroundColor: "oklch(75% 0.183 55.934)",
-      borderRadius: 6,
-    },
-  ],
-};
-
 export const dataUsia: ChartData<"bar"> = {
   labels: [
     "<25",

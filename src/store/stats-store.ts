@@ -5,22 +5,27 @@ interface UseStatsStore {
   isStatusLoading: boolean;
   isGenderLoading: boolean;
   isGolonganLoading: boolean;
+  isPendidikanLoading: boolean;
   dataStatusPegawai: ChartData<"doughnut">;
   dataGender: ChartData<"doughnut">;
   dataGolongan: ChartData<"bar">;
+  dataPendidikan: ChartData<"bar">;
 
+  setDataPendidikan: (labels: string[], data: number[]) => void;
   setDataGolongan: (labels: string[], data: number[]) => void;
   setDataGender: (labels: string[], data: number[]) => void;
   setDataStatusPegawai: (labels: string[], data: number[]) => void;
   setIsStatusLoading: (v: boolean) => void;
   setIsGenderLoading: (v: boolean) => void;
   setIsGolonganLoading: (v: boolean) => void;
+  setIsPendidikanLoading: (v: boolean) => void;
 }
 
 export const useStatsStore = create<UseStatsStore>((set) => ({
   isStatusLoading: false,
   isGenderLoading: false,
   isGolonganLoading: false,
+  isPendidikanLoading: false,
   dataStatusPegawai: {
     labels: [],
     datasets: [
@@ -65,6 +70,33 @@ export const useStatsStore = create<UseStatsStore>((set) => ({
       },
     ],
   },
+  dataPendidikan: {
+    labels: [],
+    datasets: [
+      {
+        label: "Jumlah",
+        data: [],
+        backgroundColor: "oklch(90.5% 0.182 98.111)",
+        hoverBackgroundColor: "oklch(75% 0.183 55.934)",
+        borderRadius: 6,
+      },
+    ],
+  },
+  setDataPendidikan: (l, d) =>
+    set({
+      dataPendidikan: {
+        labels: l,
+        datasets: [
+          {
+            label: "Jumlah",
+            data: d,
+            backgroundColor: "oklch(90.5% 0.182 98.111)",
+            hoverBackgroundColor: "oklch(75% 0.183 55.934)",
+            borderRadius: 6,
+          },
+        ],
+      },
+    }),
   setDataGolongan: (l, d) =>
     set({
       dataGolongan: {
@@ -121,4 +153,5 @@ export const useStatsStore = create<UseStatsStore>((set) => ({
   setIsStatusLoading: (v) => set({ isStatusLoading: v }),
   setIsGenderLoading: (v) => set({ isGenderLoading: v }),
   setIsGolonganLoading: (v) => set({ isGolonganLoading: v }),
+  setIsPendidikanLoading: (v) => set({ isPendidikanLoading: v }),
 }));

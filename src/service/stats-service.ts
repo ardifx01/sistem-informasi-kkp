@@ -185,4 +185,104 @@ export default class StatsService {
       },
     };
   }
+
+  static async getStatsPendidikan(): Promise<ResponsePayload> {
+    const headerRegistered: string[] = ["pend_akhir"];
+    const querySnapshot = await getDocs(collection(db, "excelFile"));
+    const dataExcel: ExcelFile[] = [];
+    querySnapshot.forEach((docSnap) => {
+      dataExcel.push({
+        id: docSnap.id,
+        ...(docSnap.data() as Omit<ExcelFile, "id">),
+      });
+    });
+
+    const response = await fetch(dataExcel[0].urlExcel);
+    const arrayBuffer = await response.arrayBuffer();
+
+    const workbook = read(arrayBuffer, { type: "array" });
+    const sheetName = workbook.SheetNames[0];
+    const workSheets = workbook.Sheets[sheetName];
+    const data: string[][] = utils.sheet_to_json(workSheets, {
+      header: 1,
+      defval: "",
+    });
+
+    const indexHeaders = headerRegistered.map((h) =>
+      data[0].indexOf(h.toUpperCase())
+    );
+    const dataPegawai = data.slice(1).map((d) => ({
+      pend_akhir: d[indexHeaders[0]],
+    }));
+
+    let s3 = 0;
+    let s2 = 0;
+    let s1 = 0;
+    let d4 = 0;
+    let sm = 0;
+    let d3 = 0;
+    let d1 = 0;
+    let slta = 0;
+    let sltp = 0;
+    let sd = 0;
+
+    dataPegawai.forEach((d) => {
+      const penAkhir = d.pend_akhir.toUpperCase();
+      switch (penAkhir) {
+        case "S3":
+          s3++;
+          break;
+        case "S2":
+          s2++;
+          break;
+        case "S1":
+          s1++;
+          break;
+        case "D4":
+          d4++;
+          break;
+        case "SM":
+          sm++;
+          break;
+        case "D3":
+          d3++;
+          break;
+        case "D1":
+          d1++;
+          break;
+        case "SLTA":
+          slta++;
+          break;
+        case "SLTP":
+          sltp++;
+          break;
+        case "SD":
+          sd++;
+          break;
+        default:
+          break;
+      }
+    });
+
+    return {
+      status: "success",
+      statusCode: 200,
+      message: "Successfully get stats Pendidikan Pegawai",
+      data: {
+        labels: [
+          "S3",
+          "S2",
+          "S1",
+          "D4",
+          "SM",
+          "D3",
+          "D1",
+          "SLTA",
+          "SLTP",
+          "SD",
+        ],
+        data: [s3, s2, s1, d4, sm, d3, d1, slta, sltp, sd],
+      },
+    };
+  }
 }
