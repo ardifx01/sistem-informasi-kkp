@@ -4,9 +4,8 @@ import { useState } from "react";
 import { PulseLoader } from "react-spinners";
 
 export default function StatsEmployee() {
-  const [selectedStat, setSelectedStat] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [loadingStats, setLoadingStats] = useState<string | null>();
   const statsData = [
     { label: "PNS", value: 1656, color: "bg-gray-600", percentage: 69.1 },
     { label: "PPPK", value: 452, color: "bg-gray-600", percentage: 18.8 },
@@ -25,30 +24,33 @@ export default function StatsEmployee() {
             PER 31 DESEMBER 2024
           </div>
           <div className="space-y-3">
-            {statsData.map((stat, index) => (
-              <div
-                key={index}
-                className={`flex justify-between ${
-                  stat.color
-                } text-white px-4 py-2 rounded-lg cursor-pointer transform hover:scale-105 transition-all duration-300 hover:shadow-lg ${
-                  selectedStat === stat.label ? "ring-2 ring-white" : ""
-                }`}
-                onClick={() =>
-                  setSelectedStat(
-                    selectedStat === stat.label ? null : stat.label
-                  )
-                }
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <span className="font-medium">{stat.label}</span>
-                <span className="font-bold">{stat.value.toLocaleString()}</span>
-                {selectedStat === stat.label && (
-                  <span className="text-xs ml-2 animate-pulse">
-                    ({stat.percentage}%)
+            {statsData.map((stat, index) => {
+              const stats = stat.label.split(" ").join("").toLowerCase();
+              const isLoading = stats === loadingStats;
+              return isLoading ? (
+                <div
+                  key={index}
+                  className="w-full justify-center items-center bg-gray-600 px-4 py-2 rounded-lg cursor-not-allowed"
+                >
+                  <PulseLoader color="white" className="block text-center" />
+                </div>
+              ) : (
+                <Link
+                  href={"/pegawai?category=" + stats}
+                  key={index}
+                  className={`flex justify-between ${stat.color} text-white px-4 py-2 rounded-lg cursor-pointer transform hover:scale-105 transition-all duration-300 hover:shadow-lg `}
+                  onClick={() => {
+                    setLoadingStats(stats);
+                  }}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <span className="font-medium">{stat.label}</span>
+                  <span className="font-bold">
+                    {stat.value.toLocaleString()}
                   </span>
-                )}
-              </div>
-            ))}
+                </Link>
+              );
+            })}
             <Link
               href={"/pegawai"}
               onClick={() => setLoading(true)}
@@ -59,10 +61,10 @@ export default function StatsEmployee() {
                   <PulseLoader color="white" />
                 </div>
               ) : (
-                <>
-                  <div className="animate-pulse">2.399</div>
-                  <div className="text-xs mt-1 opacity-80">Total Pegawai</div>
-                </>
+                <div className="flex flex-col">
+                  <span className="animate-pulse">2.399</span>
+                  <span className="text-xs mt-1 opacity-80">Total Pegawai</span>
+                </div>
               )}
             </Link>
           </div>

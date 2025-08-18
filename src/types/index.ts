@@ -4,6 +4,7 @@ export interface KaryawanData {
   agama: string;
   nama_jab: string;
   jenis_kel: string;
+  stat_kepeg: string;
 }
 
 export interface EmployeeAuth {

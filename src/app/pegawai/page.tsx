@@ -10,13 +10,15 @@ export const dynamic = "force-dynamic";
 export default async function PegawaiPage(props: {
   searchParams: SearchParams;
 }) {
-  const { q } = await props.searchParams;
+  const { q, category } = await props.searchParams;
   const baseUrl =
     process.env.NODE_ENV === "production"
       ? "https://sistem-informasi-kkp.vercel.app"
       : process.env.BASE_URL;
 
-  const response = await fetch(`${baseUrl}/api/pegawai${q ? "?q=" + q : ""}`);
+  const query = `${q ? `?q=${q}` : category ? `?category=${category}` : ""} `;
+
+  const response = await fetch(`${baseUrl}/api/pegawai${query}`);
   const dataResponse = (await response.json()) as ResponsePayload;
   const dataPegawai = dataResponse.data as KaryawanData[];
 

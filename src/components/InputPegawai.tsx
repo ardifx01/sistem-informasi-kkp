@@ -6,15 +6,30 @@ import toast from "react-hot-toast";
 
 export default function InputPegawai(props: { q: string | undefined }) {
   const { q } = props;
-  const { valueSearch, setValueSearch, setLoading, setDataPegawai } =
-    useTableStore();
+  const {
+    valueSearch,
+    setValueSearch,
+    category,
+    loading,
+    setLoading,
+    setDataPegawai,
+  } = useTableStore();
   const router = useRouter();
 
   async function getDataByQuery() {
     setLoading(true);
     try {
       router.push("/pegawai");
-      const query = valueSearch ? `?q=${valueSearch}` : "";
+      const params = new URLSearchParams();
+      if (valueSearch) {
+        params.set("q", valueSearch);
+      }
+      if (category && category !== "all") {
+        params.set("category", category);
+      }
+
+      const query = params.toString() ? `?${params.toString()}` : "";
+      console.log(query);
       const response = await fetch(`/api/pegawai${query}`);
       const dataPegawai = (await response.json()) as ResponsePayload<
         KaryawanData[]
@@ -40,13 +55,15 @@ export default function InputPegawai(props: { q: string | undefined }) {
             getDataByQuery();
           }
         }}
+        disabled={loading}
         onChange={(e) => setValueSearch(e.target.value)}
         placeholder={q || "Cari nama / NIP"}
         className="bg-transparent text-white w-full me-2 xs:me-3 text-xs xs:text-sm sm:text-base placeholder-gray-300 focus:outline-none focus:border-none focus:ring-0"
       />
       <button
+        disabled={loading}
         onClick={getDataByQuery}
-        className="cursor-pointer flex-shrink-0 p-1 hover:bg-gray-700 rounded transition-colors"
+        className="cursor-pointer flex-shrink-0 p-1 disabled:hover:bg-transparent disabled:cursor-not-allowed hover:bg-gray-700 rounded transition-colors"
       >
         <i className="ri-search-line text-white text-sm xs:text-base sm:text-lg"></i>
       </button>

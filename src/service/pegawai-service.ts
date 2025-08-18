@@ -11,6 +11,7 @@ export default class PegawaiService {
       "agama",
       "nama_jab",
       "jenis_kel",
+      "stat_kepeg",
     ];
 
     const querySnapshot = await getDocs(collection(db, "excelFile"));
@@ -42,8 +43,29 @@ export default class PegawaiService {
       agama: d[indexHeaders[2]],
       nama_jab: d[indexHeaders[3]],
       jenis_kel: d[indexHeaders[4]],
+      stat_kepeg: d[indexHeaders[5]],
     })) as KaryawanData[];
     const q = query.get("q");
+    const category = query.get("category");
+
+    if (q && category) {
+      let dataFiltered = dataPegawai.filter((data) =>
+        data.nama.toUpperCase().includes(q.toUpperCase())
+      );
+      if (dataFiltered.length === 0) {
+        dataFiltered = dataPegawai.filter((data) => data.nip.includes(q));
+      }
+
+      dataFiltered = dataFiltered.filter(
+        (data) => data.stat_kepeg.toLowerCase() === category
+      );
+      return {
+        status: "success",
+        statusCode: 200,
+        message: "Successfully get data users",
+        data: dataFiltered,
+      };
+    }
 
     if (q) {
       let dataFiltered = dataPegawai.filter((data) => data.nip.includes(q));
@@ -55,7 +77,20 @@ export default class PegawaiService {
       return {
         status: "success",
         statusCode: 200,
-        message: "Successfully get data user by NIP",
+        message: "Successfully get data users",
+        data: dataFiltered,
+      };
+    }
+
+    if (category) {
+      const dataFiltered = dataPegawai.filter((data) =>
+        data.stat_kepeg.toLowerCase().includes(category.toLowerCase())
+      );
+
+      return {
+        status: "success",
+        statusCode: 200,
+        message: "Successfully get data user by Category",
         data: dataFiltered,
       };
     }
@@ -91,7 +126,7 @@ export default class PegawaiService {
       "tgl_lahir",
       "nama_sek",
       "prog_studi",
-      "stat_kepeg"
+      "stat_kepeg",
     ];
 
     const querySnapshot = await getDocs(collection(db, "excelFile"));
