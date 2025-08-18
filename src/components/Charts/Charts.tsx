@@ -1,16 +1,57 @@
+"use client";
 import {
   dataGenders,
   dataGolonganRuang,
   dataPositions,
-  dataStatusPegawai,
   dataTingkatPendidikan,
   dataUsia,
 } from "@/utils/DataCharts";
 import CardChart from "./CardChart";
 import Barchart from "./Barchart";
 import MyDoughnut from "./Doughnut";
+import { useStatsStore } from "@/store/stats-store";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { ResponsePayload } from "@/types";
+import ResponseError from "@/error/ResponseError";
 
 export default function Charts() {
+  const { setIsLoading, dataStatusPegawai, setDataStatusPegawai } =
+    useStatsStore();
+
+  useEffect(() => {
+    const getStats = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch("/api/stats/status");
+        const dataResponse = (await response.json()) as ResponsePayload<{
+          labels: string[];
+          data: number[];
+        }>;
+
+        if (dataResponse.status === "failed") {
+          throw new ResponseError(
+            dataResponse.statusCode,
+            dataResponse.message
+          );
+        }
+        setDataStatusPegawai(
+          dataResponse.data!.labels,
+          dataResponse.data!.data
+        );
+      } catch (error) {
+        if (error instanceof ResponseError) {
+          toast.error(error.message);
+        } else {
+          toast.error("An error occured!");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getStats();
+  }, [setIsLoading, setDataStatusPegawai]);
   return (
     <>
       {/* Charts Section */}

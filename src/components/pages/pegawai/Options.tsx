@@ -18,7 +18,7 @@ export default function Options() {
   } = useTableStore();
 
   useEffect(() => {
-    const urlCategory = searchParams.get("category") as Value;
+    const urlCategory = (searchParams.get("category") as Value) || "all";
     setCategory(urlCategory);
   }, [searchParams, setCategory]);
 
