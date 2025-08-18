@@ -20,6 +20,8 @@ Aplikasi ini bersifat **privat** dan hanya digunakan secara internal.
 - [Next.js](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Firebase](https://firebase.google.com/)
+- [Uploadthing](https://uploadthing.com/)
 
 ## Instalasi & Menjalankan Proyek
 
@@ -38,7 +40,24 @@ Aplikasi ini bersifat **privat** dan hanya digunakan secara internal.
    ```
 4. Buka browser di [http://localhost:3000](http://localhost:3000)
 
-## Struktur Fitur
+## Konfigurasi Environment (.env)
+Tambahkan file `.env` di root project dengan variabel berikut:
+```
+APIKEY=
+AUTHDOMAIN=
+DATABSEURL=
+PROJECTID=
+STORAGEBUCKET=
+MESSAGINGSENDERID=
+APPID=
+MEASUREMENTID=
+UPLOADTHING_TOKEN=
+PRIVATE_KEY=
+BASE_URL=
+```
+
+
+## Fitur Utama
 
 - **Autentikasi pengguna** – hanya user login yang dapat mengunggah data pegawai.
 - **Manajemen data pegawai** – upload file Excel untuk memperbarui data.
