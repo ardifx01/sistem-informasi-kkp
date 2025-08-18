@@ -1,6 +1,5 @@
 "use client";
 import {
-  dataGenders,
   dataGolonganRuang,
   dataPositions,
   dataTingkatPendidikan,
@@ -10,48 +9,14 @@ import CardChart from "./CardChart";
 import Barchart from "./Barchart";
 import MyDoughnut from "./Doughnut";
 import { useStatsStore } from "@/store/stats-store";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
-import { ResponsePayload } from "@/types";
-import ResponseError from "@/error/ResponseError";
+import useFetchStatusPegawai from "@/hooks/useFetchStatusPegawai";
+import useFetchGender from "@/hooks/useFetchGender";
 
 export default function Charts() {
-  const { setIsLoading, dataStatusPegawai, setDataStatusPegawai } =
-    useStatsStore();
+  const { dataStatusPegawai, dataGender } = useStatsStore();
 
-  useEffect(() => {
-    const getStats = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch("/api/stats/status");
-        const dataResponse = (await response.json()) as ResponsePayload<{
-          labels: string[];
-          data: number[];
-        }>;
-
-        if (dataResponse.status === "failed") {
-          throw new ResponseError(
-            dataResponse.statusCode,
-            dataResponse.message
-          );
-        }
-        setDataStatusPegawai(
-          dataResponse.data!.labels,
-          dataResponse.data!.data
-        );
-      } catch (error) {
-        if (error instanceof ResponseError) {
-          toast.error(error.message);
-        } else {
-          toast.error("An error occured!");
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getStats();
-  }, [setIsLoading, setDataStatusPegawai]);
+  useFetchStatusPegawai();
+  useFetchGender();
   return (
     <>
       {/* Charts Section */}
@@ -82,7 +47,7 @@ export default function Charts() {
           />
         </CardChart>
         <CardChart>
-          <MyDoughnut data={dataGenders} title="Berdasarkan Jenis Kelamin" />
+          <MyDoughnut data={dataGender} title="Berdasarkan Jenis Kelamin" />
         </CardChart>
         <CardChart>
           <MyDoughnut data={dataPositions} title="Berdasarkan Jabatan" />

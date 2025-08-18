@@ -51,40 +51,6 @@ export const dataUsia: ChartData<"bar"> = {
   ],
 };
 
-export const dataStatusPegawai: ChartData<"doughnut"> = {
-  labels: ["PNS", "PPK", "NON ASN"],
-  datasets: [
-    {
-      label: "Jumlah",
-      data: [1645, 452, 390],
-      backgroundColor: [
-        "oklch(75% 0.183 55.934)",
-        "#7ed957",
-        "oklch(90.5% 0.182 98.111)",
-      ],
-      hoverBackgroundColor: [
-        "oklch(75% 0.183 55.934)",
-        "#7ed957",
-        "oklch(90.5% 0.182 98.111)",
-      ],
-      borderWidth: 0,
-    },
-  ],
-};
-
-export const dataGenders: ChartData<"doughnut"> = {
-  labels: ["Perempuan", "Laki-laki"],
-  datasets: [
-    {
-      label: "Jumlah",
-      data: [1655, 744],
-      backgroundColor: ["oklch(75% 0.183 55.934)", "#7ed957"],
-      hoverBackgroundColor: ["oklch(75% 0.183 55.934)", "#7ed957"],
-      borderWidth: 0,
-    },
-  ],
-};
-
 export const dataPositions: ChartData<"doughnut"> = {
   labels: ["Struktural", "JFT", "JFU"],
   datasets: [

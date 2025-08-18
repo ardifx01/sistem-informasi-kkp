@@ -57,4 +57,55 @@ export default class StatsService {
       },
     };
   }
+
+  static async getStatsGender(): Promise<ResponsePayload> {
+    const headerRegistered: string[] = ["jenis_kel"];
+    const querySnapshot = await getDocs(collection(db, "excelFile"));
+    const dataExcel: ExcelFile[] = [];
+    querySnapshot.forEach((docSnap) => {
+      dataExcel.push({
+        id: docSnap.id,
+        ...(docSnap.data() as Omit<ExcelFile, "id">),
+      });
+    });
+
+    const response = await fetch(dataExcel[0].urlExcel);
+    const arrayBuffer = await response.arrayBuffer();
+
+    const workbook = read(arrayBuffer, { type: "array" });
+    const sheetName = workbook.SheetNames[0];
+    const workSheets = workbook.Sheets[sheetName];
+    const data: string[][] = utils.sheet_to_json(workSheets, {
+      header: 1,
+      defval: "",
+    });
+
+    const indexHeaders = headerRegistered.map((h) =>
+      data[0].indexOf(h.toUpperCase())
+    );
+    const dataPegawai = data.slice(1).map((d) => ({
+      jenis_kel: d[indexHeaders[0]],
+    }));
+
+    let countMan = 0;
+    let countWomen = 0;
+
+    dataPegawai.forEach((d) => {
+      if (d.jenis_kel.toLowerCase().includes("laki")) {
+        countMan++;
+      } else {
+        countWomen++;
+      }
+    });
+
+    return {
+      status: "success",
+      statusCode: 200,
+      message: "Successfully get stats Status Pegawai",
+      data: {
+        labels: ["Perempuan", "Laki-Laki"],
+        data: [countMan, countWomen],
+      },
+    };
+  }
 }
