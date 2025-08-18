@@ -4,11 +4,11 @@ interface CardChartProps {
   className?: string;
   children: React.ReactNode;
   isLoading?: boolean;
-  size?: string;
+  isBar?: boolean;
 }
 
 export default function CardChart(props: CardChartProps) {
-  const { children, className, isLoading, size = "26rem" } = props;
+  const { children, className, isLoading, isBar } = props;
   return (
     <div
       className={clsx(
@@ -17,7 +17,7 @@ export default function CardChart(props: CardChartProps) {
           "bg-gradient-to-br": !isLoading,
           "bg-teal-800 animate-pulse": isLoading,
         },
-        `${isLoading ? `h-${size}` : ""}`,
+        `${isLoading ? isBar ? "h-[14rem]"  : "h-[26rem]": ""}`,
         className
       )}
     >

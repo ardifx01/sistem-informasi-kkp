@@ -1,5 +1,5 @@
 "use client";
-import { dataPositions, dataUsia } from "@/utils/DataCharts";
+import { dataPositions } from "@/utils/DataCharts";
 import CardChart from "./CardChart";
 import Barchart from "./Barchart";
 import MyDoughnut from "./Doughnut";
@@ -8,6 +8,7 @@ import useFetchStatusPegawai from "@/hooks/useFetchStatusPegawai";
 import useFetchGender from "@/hooks/useFetchGender";
 import useFetchGolongan from "@/hooks/useFetchGolongan";
 import useFetchPendidikan from "@/hooks/useFetchPendidikan";
+import useFetchAge from "@/hooks/useFetchAge";
 
 export default function Charts() {
   const {
@@ -19,30 +20,33 @@ export default function Charts() {
     isGolonganLoading,
     isPendidikanLoading,
     dataPendidikan,
+    dataUsia,
+    isAgeLoading,
   } = useStatsStore();
 
   useFetchGolongan();
   useFetchStatusPegawai();
   useFetchGender();
   useFetchPendidikan();
+  useFetchAge();
 
   return (
     <>
       {/* Charts Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
         {/* Bar Chart 1 - Golongan Ruang */}
-        <CardChart isLoading={isGolonganLoading}>
+        <CardChart isBar isLoading={isGolonganLoading}>
           <Barchart data={dataGolongan} title="Berdasarkan Golongan Ruang" />
         </CardChart>
 
-        <CardChart isLoading={isPendidikanLoading}>
+        <CardChart isBar isLoading={isPendidikanLoading}>
           <Barchart
             data={dataPendidikan}
             title="Berdasarkan Tingkat Pendidikan"
           />
         </CardChart>
 
-        <CardChart>
+        <CardChart isBar isLoading={isAgeLoading}>
           <Barchart data={dataUsia} title="Berdasarkan Usia" />
         </CardChart>
 
@@ -55,7 +59,7 @@ export default function Charts() {
         <CardChart isLoading={isGenderLoading}>
           <MyDoughnut data={dataGender} title="Berdasarkan Jenis Kelamin" />
         </CardChart>
-        <CardChart>
+        <CardChart isLoading={isGenderLoading}>
           <MyDoughnut data={dataPositions} title="Berdasarkan Jabatan" />
         </CardChart>
       </div>

@@ -1,7 +1,8 @@
 import { db } from "@/lib/firebase";
 import { ExcelFile, ResponsePayload } from "@/types";
+import getAgePegawai from "@/utils/getAgePegawai";
 import { collection, getDocs } from "firebase/firestore";
-import { read, utils } from "xlsx";
+import { read, SSF, utils } from "xlsx";
 
 export default class StatsService {
   static async getStatsStatus(): Promise<ResponsePayload> {
@@ -282,6 +283,120 @@ export default class StatsService {
           "SD",
         ],
         data: [s3, s2, s1, d4, sm, d3, d1, slta, sltp, sd],
+      },
+    };
+  }
+
+  static async getStatsAge(): Promise<ResponsePayload> {
+    const headerRegistered: string[] = ["tgl_lahir"];
+    const querySnapshot = await getDocs(collection(db, "excelFile"));
+    const dataExcel: ExcelFile[] = [];
+    querySnapshot.forEach((docSnap) => {
+      dataExcel.push({
+        id: docSnap.id,
+        ...(docSnap.data() as Omit<ExcelFile, "id">),
+      });
+    });
+
+    const response = await fetch(dataExcel[0].urlExcel);
+    const arrayBuffer = await response.arrayBuffer();
+
+    const workbook = read(arrayBuffer, { type: "array" });
+    const sheetName = workbook.SheetNames[0];
+    const workSheets = workbook.Sheets[sheetName];
+    const data: string[][] = utils.sheet_to_json(workSheets, {
+      header: 1,
+      defval: "",
+    });
+
+    const indexHeaders = headerRegistered.map((h) =>
+      data[0].indexOf(h.toUpperCase())
+    );
+    const dataPegawai = data.slice(1).map((d) => ({
+      tgl_lahir: d[indexHeaders[0]],
+    }));
+
+    let lowestThen25 = 0;
+    let between25n30 = 0;
+    let between31n35 = 0;
+    let between36n40 = 0;
+    let between41n45 = 0;
+    let between46n50 = 0;
+    let between51n55 = 0;
+    let is56 = 0;
+    let is57 = 0;
+    let is58 = 0;
+    let greatestThen58 = 0;
+
+    dataPegawai.forEach((d) => {
+      const tglLahirObj = SSF.parse_date_code(d.tgl_lahir) as {
+        y: number;
+        m: number;
+        d: number;
+        h: number;
+        M: number;
+        s: number;
+      };
+
+      const year = +tglLahirObj.y;
+      const ageEmployee = getAgePegawai(year);
+
+      if (ageEmployee < 25) {
+        lowestThen25++;
+      } else if (ageEmployee >= 25 && ageEmployee <= 30) {
+        between25n30++;
+      } else if (ageEmployee >= 31 && ageEmployee <= 35) {
+        between31n35++;
+      } else if (ageEmployee >= 36 && ageEmployee <= 40) {
+        between36n40++;
+      } else if (ageEmployee >= 41 && ageEmployee <= 45) {
+        between41n45++;
+      } else if (ageEmployee >= 46 && ageEmployee <= 50) {
+        between46n50++;
+      } else if (ageEmployee >= 51 && ageEmployee <= 55) {
+        between51n55++;
+      } else if (ageEmployee === 56) {
+        is56++;
+      } else if (ageEmployee === 57) {
+        is57++;
+      } else if (ageEmployee === 58) {
+        is58++;
+      } else {
+        greatestThen58++;
+      }
+    });
+
+    return {
+      status: "success",
+      statusCode: 200,
+      message: "Successfully get stats Age Pegawai",
+      data: {
+        labels: [
+          "<25",
+          "25-30",
+          "31-35",
+          "36-40",
+          "41-45",
+          "46-50",
+          "51-55",
+          "56",
+          "57",
+          "58",
+          ">58",
+        ],
+        data: [
+          lowestThen25,
+          between25n30,
+          between31n35,
+          between36n40,
+          between41n45,
+          between46n50,
+          between51n55,
+          is56,
+          is57,
+          is58,
+          greatestThen58,
+        ],
       },
     };
   }
