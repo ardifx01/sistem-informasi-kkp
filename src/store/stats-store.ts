@@ -2,16 +2,19 @@ import { ChartData } from "chart.js";
 import { create } from "zustand";
 
 interface UseStatsStore {
-  isLoading: boolean;
+  isStatusLoading: boolean;
+  isGenderLoading: boolean;
   dataStatusPegawai: ChartData<"doughnut">;
   dataGender: ChartData<"doughnut">;
   setDataGender: (labels: string[], data: number[]) => void;
   setDataStatusPegawai: (labels: string[], data: number[]) => void;
-  setIsLoading: (v: boolean) => void;
+  setIsStatusLoading: (v: boolean) => void;
+  setIsGenderLoading: (v: boolean) => void;
 }
 
 export const useStatsStore = create<UseStatsStore>((set) => ({
-  isLoading: false,
+  isStatusLoading: false,
+  isGenderLoading: false,
   dataStatusPegawai: {
     labels: [],
     datasets: [
@@ -82,5 +85,6 @@ export const useStatsStore = create<UseStatsStore>((set) => ({
         ],
       },
     }),
-  setIsLoading: (v) => set({ isLoading: v }),
+  setIsStatusLoading: (v) => set({ isStatusLoading: v }),
+  setIsGenderLoading: (v) => set({ isGenderLoading: v }),
 }));

@@ -5,12 +5,12 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function useFetchStatusPegawai() {
-  const { setIsLoading, setDataStatusPegawai } =
+  const { setIsStatusLoading, setDataStatusPegawai } =
     useStatsStore();
 
   useEffect(() => {
     const getStats = async () => {
-      setIsLoading(true);
+      setIsStatusLoading(true);
       try {
         const response = await fetch("/api/stats/status");
         const dataResponse = (await response.json()) as ResponsePayload<{
@@ -35,10 +35,10 @@ export default function useFetchStatusPegawai() {
           toast.error("An error occured!");
         }
       } finally {
-        setIsLoading(false);
+        setIsStatusLoading(false);
       }
     };
 
     getStats();
-  }, [setIsLoading, setDataStatusPegawai]);
+  }, [setIsStatusLoading, setDataStatusPegawai]);
 }

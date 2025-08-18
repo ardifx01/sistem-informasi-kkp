@@ -5,11 +5,11 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function useFetchGender() {
-  const { setIsLoading, setDataGender } = useStatsStore();
+  const { setIsGenderLoading, setDataGender } = useStatsStore();
 
   useEffect(() => {
     const getStats = async () => {
-      setIsLoading(true);
+      setIsGenderLoading(true);
       try {
         const response = await fetch("/api/stats/gender");
         const dataResponse = (await response.json()) as ResponsePayload<{
@@ -31,10 +31,10 @@ export default function useFetchGender() {
           toast.error("An error occured!");
         }
       } finally {
-        setIsLoading(false);
+        setIsGenderLoading(false);
       }
     };
 
     getStats();
-  }, [setIsLoading, setDataGender]);
+  }, [setIsGenderLoading, setDataGender]);
 }

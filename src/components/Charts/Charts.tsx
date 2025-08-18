@@ -13,7 +13,8 @@ import useFetchStatusPegawai from "@/hooks/useFetchStatusPegawai";
 import useFetchGender from "@/hooks/useFetchGender";
 
 export default function Charts() {
-  const { dataStatusPegawai, dataGender } = useStatsStore();
+  const { dataStatusPegawai, dataGender, isGenderLoading, isStatusLoading } =
+    useStatsStore();
 
   useFetchStatusPegawai();
   useFetchGender();
@@ -40,13 +41,13 @@ export default function Charts() {
           <Barchart data={dataUsia} title="Berdasarkan Usia" />
         </CardChart>
 
-        <CardChart>
+        <CardChart isLoading={isStatusLoading}>
           <MyDoughnut
             data={dataStatusPegawai}
             title="Berdasarkan Status Pegawai"
           />
         </CardChart>
-        <CardChart>
+        <CardChart isLoading={isGenderLoading}>
           <MyDoughnut data={dataGender} title="Berdasarkan Jenis Kelamin" />
         </CardChart>
         <CardChart>
