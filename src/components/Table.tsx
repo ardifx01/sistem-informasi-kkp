@@ -33,6 +33,8 @@ export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  const { pageIndex, pageSize } = table.getState().pagination;
+
   return (
     <div className={clsx("w-full", className)}>
       <div className="rounded-md overflow-hidden">
@@ -102,6 +104,26 @@ export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
               </tr>
             )}
           </tbody>
+          <tfoot>
+            <tr>
+              <td className="font-bold border-r last:border-0 bg-orange-500 py-1 text-white border-black text-l"></td>
+              <td className="font-bold border-r last:border-0 bg-orange-500 py-1 text-white border-black text-l"></td>
+              <td className="font-bold border-r last:border-0 bg-orange-500 py-1 text-white border-black text-l"></td>
+              <td className="font-bold border-r last:border-0 bg-orange-500 py-1 text-white border-black text-l"></td>
+              <td className="font-bold border-r last:border-0 bg-orange-500 py-1 text-white border-black text-l"></td>
+              <td className="font-bold text-center border-r last:border-0 bg-orange-500 py-1 text-white border-black text-l">
+                Total
+              </td>
+              <td className="font-bold border-r text-center last:border-0 bg-orange-500 py-1 text-white border-black text-l">
+                {loading ? null : (
+                  <span>
+                    {(pageIndex + 1) * pageSize} of{" "}
+                    {table.getCoreRowModel().rows.length}
+                  </span>
+                )}
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </div>
       <div className="flex items-center justify-end space-x-1 py-4">
