@@ -34,7 +34,9 @@ export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
   });
 
   const { pageIndex, pageSize } = table.getState().pagination;
+  const currentCount = table.getPaginationRowModel().rows.length;
 
+  const displayedSoFar = pageIndex * pageSize + currentCount;
   return (
     <div className={clsx("w-full", className)}>
       <div className="rounded-md overflow-hidden">
@@ -117,7 +119,7 @@ export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
               <td className="font-bold border-r text-center last:border-0 bg-orange-500 py-1 text-white border-black text-l">
                 {loading ? null : (
                   <span>
-                    {(pageIndex + 1) * pageSize} of{" "}
+                    {displayedSoFar} of{" "}
                     {table.getCoreRowModel().rows.length}
                   </span>
                 )}
