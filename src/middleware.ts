@@ -7,15 +7,20 @@ export async function middleware(req: NextRequest) {
   const tokenCookie = cookiesStore.get("token");
   const token: string | null = tokenCookie ? tokenCookie.value : null;
 
+  const pegawaiMatch = url.match(/^\/pegawai\/([^\/]+)$/);
+  if (pegawaiMatch && !token) {
+    return NextResponse.redirect(new URL("/pegawai", req.url));
+  }
   if (!token) {
-    cookiesStore.delete("token");
+    cookiesStore.delete("token"); 
     return;
   }
+
   if (url.includes("/auth/login") && token) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 }
 
 export const matcher: MiddlewareConfig = {
-  matcher: ["/auth", "/:path"],
+  matcher: ["/auth", "/:path", "/pegawai/:path"],
 };

@@ -20,7 +20,6 @@ export default async function DetailPegawaiPage(props: DetailPegawaiPageProps) {
   const response = await fetch(`${baseUrl}/api/pegawai/detail?nip=${nip}`);
   const dataResponse = (await response.json()) as ResponsePayload;
   const dataPegawai = dataResponse.data as PegawaiDetail | null;
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-300 to-cyan-900">
       {dataPegawai ? (

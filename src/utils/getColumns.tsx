@@ -1,11 +1,33 @@
-import { KaryawanData } from "@/types";
+import ResponseError from "@/error/ResponseError";
+import { KaryawanData, ResponsePayload } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { BeatLoader } from "react-spinners";
 
 export function useColumns(): ColumnDef<KaryawanData>[][] {
   const [loadingNip, setLoadingNip] = useState<string | null>();
+  const router = useRouter();
+  const handleClickDetail = async (nip: string) => {
+    setLoadingNip(nip);
+    try {
+      const response = await fetch("/api/auth/verify");
+      const dataResponse = (await response.json()) as ResponsePayload;
+      if (dataResponse.status === "failed") {
+        throw new ResponseError(dataResponse.statusCode, dataResponse.message);
+      }
+      router.push("/pegawai/" + nip);
+    } catch (error) {
+      setLoadingNip(null);
+      if (error instanceof ResponseError) {
+        toast.error(error.message);
+      } else {
+        console.error(error);
+        toast.error("An error occurred");
+      }
+    }
+  };
 
   const columns: ColumnDef<KaryawanData>[] = [
     {
@@ -45,15 +67,20 @@ export function useColumns(): ColumnDef<KaryawanData>[][] {
         const nip = row.original.nip.split(" : ")[1];
         const isRowLoading = loadingNip === nip;
         return isRowLoading ? (
-          <BeatLoader color="white" size={10} />
+          <div className="w-full flex items-center justify-center">
+            <BeatLoader
+              color="white"
+              className="block mx-auto w-full"
+              size={10}
+            />
+          </div>
         ) : (
-          <Link
-            onClick={() => setLoadingNip(nip)}
-            href={"/pegawai/" + row.original.nip.split(" : ")[1]}
+          <button
+            onClick={() => handleClickDetail(nip)}
             className="text-sm text-white hover:underline cursor-pointer"
           >
             Detail
-          </Link>
+          </button>
         );
       },
     },
