@@ -50,16 +50,24 @@ export default class PegawaiService {
     const category = query.get("category");
 
     if (q && category) {
+      const categoryQuery = category.toLowerCase() === "nonasn" ? "" : category;
       let dataFiltered = dataPegawai.filter((data) =>
         data.nama.toUpperCase().includes(q.toUpperCase())
       );
+
       if (dataFiltered.length === 0) {
         dataFiltered = dataPegawai.filter((data) => data.nip.includes(q));
       }
 
-      dataFiltered = dataFiltered.filter(
-        (data) => data.stat_kepeg.toLowerCase() === category
-      );
+      dataFiltered = dataFiltered.filter((data) => {
+        const stat = data.stat_kepeg.toLowerCase();
+
+        if (categoryQuery === "") {
+          return stat !== "pns" && stat !== "polri" && stat !== "pppk";
+        }
+
+        return stat === categoryQuery;
+      });
       return {
         status: "success",
         statusCode: 200,
@@ -84,9 +92,16 @@ export default class PegawaiService {
     }
 
     if (category) {
-      const dataFiltered = dataPegawai.filter((data) =>
-        data.stat_kepeg.toLowerCase().includes(category.toLowerCase())
-      );
+      const categoryQuery = category.toLowerCase() === "nonasn" ? "" : category;
+      const dataFiltered = dataPegawai.filter((data) => {
+        const stat = data.stat_kepeg.toLowerCase();
+
+        if (categoryQuery === "") {
+          return stat !== "pns" && stat !== "polri" && stat !== "pppk";
+        }
+
+        return stat === categoryQuery;
+      });
 
       return {
         status: "success",

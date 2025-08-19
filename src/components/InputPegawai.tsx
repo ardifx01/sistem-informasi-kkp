@@ -29,7 +29,6 @@ export default function InputPegawai(props: { q: string | undefined }) {
       }
 
       const query = params.toString() ? `?${params.toString()}` : "";
-      console.log(query);
       const response = await fetch(`/api/pegawai${query}`);
       const dataPegawai = (await response.json()) as ResponsePayload<
         KaryawanData[]

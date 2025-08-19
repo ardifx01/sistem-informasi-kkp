@@ -33,7 +33,6 @@ export default function Options() {
       }
       const query = params.toString() ? `?${params.toString()}` : "";
 
-      console.log(query);
       const response = await fetch(`/api/pegawai${query}`);
       const dataPegawai = (await response.json()) as ResponsePayload<
         KaryawanData[]
