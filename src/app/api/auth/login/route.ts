@@ -8,7 +8,10 @@ import { cookies } from "next/headers";
 import JWT from "@/lib/jwt";
 
 export async function POST(req: NextRequest) {
+  const cookieStore = await cookies();
   try {
+    const isToken = cookieStore.get("token");
+    if (isToken) throw new ResponseError(401, "You have been login");
     const dataBody = await req.text();
     const data = JSON.parse(dataBody) as EmployeeAuth;
     formSchema.parse(data);

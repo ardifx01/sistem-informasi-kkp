@@ -132,12 +132,12 @@ export default async function MainHeader() {
               <Logout />
             </MyTooltip>
           ) : (
-            <Link
-              href={"/auth/login"}
-              className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
-            >
-              LOGIN
-            </Link>
+          <Link
+            href={"/auth/login"}
+            className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+          >
+            LOGIN
+          </Link>
           )}
         </div>
       </div>
