@@ -98,13 +98,13 @@ export default async function MainHeader() {
           </div>
           <div className="text-white">
             <div className="text-sm font-semibold hover:text-yellow-200 transition-colors duration-300">
-              PROFILE KEKUATAN SUMBER DAYA MANUSIA
+              PROFIL KEKUATAN SUMBER DAYA MANUSIA
             </div>
             <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
               DIREKTORAT
             </div>
             <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
-              JENDRAL PERIKANAN TANGKAP
+              JENDERAL PERIKANAN TANGKAP
             </div>
           </div>
           {/* Logo Kementerian */}
