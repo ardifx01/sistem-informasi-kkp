@@ -73,22 +73,7 @@ const LoginPage: React.FC = () => {
                 className="w-full h-full object-contain drop-shadow-lg"
               />
             </div>
-            <div className="flex md:hidden items-center gap-x-2">
-              <Image
-                width={250}
-                height={250}
-                src="/assets/KKP.png"
-                alt="Logo KKP"
-                className="w-16 h-16 aspect-square object-contain drop-shadow-lg"
-              />
-              <Image
-                width={425}
-                height={508}
-                src="/assets/dirjen.png"
-                className="w-22 h-22 aspect-square object-contain drop-shadow-lg"
-                alt="Logo Dirjen"
-              />
-            </div>
+            
 
             <div className="text-white ">
               <h4 className="text-sm md:text-[13px] md:font-bold lg:text-[16px] lg:font-semibold hover:text-yellow-200 transition-colors text-center duration-300">
