@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "remixicon/fonts/remixicon.css";
 import { Toaster } from "react-hot-toast";
+import "leaflet/dist/leaflet.css";
 
 export const metadata: Metadata = {
   title: "DFA.KKP",
