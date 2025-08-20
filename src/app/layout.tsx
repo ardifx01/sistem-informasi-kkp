@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 import "leaflet/dist/leaflet.css";
 
 export const metadata: Metadata = {
-  title: "AFD.KKP",
+  title: "DFA.KKP",
   authors: {
     name: "Ariel Rizki Muhtamad Bakri",
     url: "https://portfolio-three-azure-71.vercel.app/",
