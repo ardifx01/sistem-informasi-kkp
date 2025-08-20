@@ -1,5 +1,6 @@
 import { db } from "@/lib/firebase";
 import { ExcelFile, KaryawanData, ResponsePayload } from "@/types";
+import { headersRegistered } from "@/utils/headersRegistered";
 import { collection, getDocs } from "firebase/firestore";
 import { read, SSF, utils } from "xlsx";
 
@@ -120,31 +121,6 @@ export default class PegawaiService {
   }
 
   static async getDetailPegawai(nip: string): Promise<ResponsePayload> {
-    const headersRegistered: string[] = [
-      "nama",
-      "nip",
-      "agama",
-      "nama_jab",
-      "jenis_kel",
-      "stat_kawin",
-      "gol_darah",
-      "pend_akhir",
-      "alamat",
-      "kota",
-      "kode_pos",
-      "propinsi",
-      "nama_unker",
-      "almt_email",
-      "negara2",
-      "no_hp_sms",
-      "no_npwp",
-      "tmp_lahir",
-      "tgl_lahir",
-      "nama_sek",
-      "prog_studi",
-      "stat_kepeg",
-    ];
-
     const querySnapshot = await getDocs(collection(db, "excelFile"));
     const dataExcel: ExcelFile[] = [];
     querySnapshot.forEach((docSnap) => {

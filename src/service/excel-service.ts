@@ -1,5 +1,7 @@
+import ResponseError from "@/error/ResponseError";
 import { db } from "@/lib/firebase";
 import { ExcelFile, ResponsePayload, UploadExcel } from "@/types";
+import { headersRegistered } from "@/utils/headersRegistered";
 import {
   collection,
   doc,
@@ -7,6 +9,8 @@ import {
   query,
   runTransaction,
 } from "firebase/firestore";
+import { UTApi } from "uploadthing/server";
+import { read, utils } from "xlsx";
 
 export default class ExcelService {
   static async Update(data: UploadExcel): Promise<ResponsePayload> {
@@ -46,6 +50,38 @@ export default class ExcelService {
       statusCode: 201,
       message: "Sucessfully get data!",
       data,
+    };
+  }
+
+  static async verifyHeaderExcel(
+    urlExcel: string,
+    key: string
+  ): Promise<ResponsePayload> {
+    const response = await fetch(urlExcel);
+    const arrayBuffer = await response.arrayBuffer();
+
+    const workbook = read(arrayBuffer, { type: "array" });
+    const sheetName = workbook.SheetNames[0];
+    const workSheets = workbook.Sheets[sheetName];
+    const data: string[][] = utils.sheet_to_json(workSheets, {
+      header: 1,
+      defval: "",
+    });
+
+    const headersExcel = data[0].map((h) => h.trim().toLowerCase());
+    const isVerified = headersRegistered.every((reqHeader) =>
+      headersExcel.includes(reqHeader.toLowerCase())
+    );
+    if (!isVerified) {
+      const utapi = new UTApi();
+      await utapi.deleteFiles(key);
+      throw new ResponseError(402, "Please check your headers Excel properly!");
+    }
+
+    return {
+      status: "success",
+      message: "Headers verified!",
+      statusCode: 201,
     };
   }
 }
