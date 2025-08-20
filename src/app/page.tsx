@@ -1,7 +1,6 @@
 import BackgroundElement from "@/components/BackgroundElement";
 import MainHeader from "@/components/MainHeader";
 import IndonesiaMap from "@/components/IndonesiaMap";
-import MapShell from "@/components/MapShell";
 import StatsEmployee from "@/components/StatsEmployee";
 import Charts from "@/components/Charts/Charts";
 
@@ -11,21 +10,20 @@ const Dashboard = async () => {
       {/* Animated background elements */}
       <BackgroundElement />
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header - Mobile: logos stacked with login top-right, Desktop: original layout */}
+        {/* Header */}
         <MainHeader />
-        {/* Indonesia Map Section - Mobile first, then stats */}
-        <MapShell className="md:hidden p-4 animate-fade-in mb-4">
-          <IndonesiaMap />
-        </MapShell>
-        {/* Main Content - Desktop 12-col grid preserved, mobile stacked */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 animate-fade-in mb-4">
-          {/* Indonesia Map Section - Desktop only */}
-          <MapShell className="hidden md:block md:col-span-8 p-6">
-            <IndonesiaMap />
-          </MapShell>
 
-          <StatsEmployee />
+        {/* Map + Stats (mobile: stacked, desktop: 8/4 grid) */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 animate-fade-in mb-4">
+          <div className="col-span-1 md:col-span-8">
+            <IndonesiaMap />
+          </div>
+          <div className="col-span-1 md:col-span-4">
+            <StatsEmployee />
+          </div>
         </div>
+
+        {/* Charts tetap sama */}
         <Charts />
       </div>
     </div>
