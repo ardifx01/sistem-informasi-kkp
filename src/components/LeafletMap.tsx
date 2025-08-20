@@ -1,19 +1,16 @@
 import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
+
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-import iconUrl from "leaflet/dist/images/marker-icon.png";
-import shadowUrl from "leaflet/dist/images/marker-shadow.png";
+// import iconUrl from "leaflet/dist/images/marker-icon.png";
+// import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 
-// Default icon Leaflet (biar marker tampil normal)
-const DefaultIcon = L.icon({
-  iconUrl: iconUrl as unknown as string,
-  shadowUrl: shadowUrl as unknown as string,
-  iconSize: [20, 35],
-  iconAnchor: [10, 35],
-  // tengah bawah icon
+const CustomIcon = L.icon({
+  iconUrl: "/assets/77.png", // path ke PNG kamu
+  iconSize: [30, 30], // ukuran PNG
+  iconAnchor: [10, 35], // titik "tengah bawah"
 });
-L.Marker.prototype.options.icon = DefaultIcon;
 
 // Data lokasi UPT
 const uptLocations = [
@@ -227,11 +224,11 @@ export default function LeafletMap() {
       {uptLocations.map((upt) => {
         const total = upt.employees.male + upt.employees.female;
         return (
-          <Marker key={upt.id} position={[upt.lat, upt.lng]}>
-            <Tooltip>
+          <Marker key={upt.id} position={[upt.lat, upt.lng]} icon={CustomIcon}>
+            <Tooltip direction="top">
               <div>
                 <strong>{upt.name}</strong> <br />
-                <em>{upt.region}</em> <br /> {/* ✅ tampilkan nama daerah */}
+                <em>{upt.region}</em> <br />
                 Laki-laki: {upt.employees.male} <br />
                 Perempuan: {upt.employees.female} <br />
                 Total: {total}
