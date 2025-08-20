@@ -26,9 +26,14 @@ export default async function MainHeader() {
         <div className="flex justify-end mb-4">
           <div className="md:grid flex justify-center w-full grid-cols-[2rem_1fr_2rem] gap-x-2">
             {token ? (
-              <button className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
-                <i className="ri-file-upload-line"></i>
-              </button>
+              <div className="flex gap-x-2">
+                <button className="bg-gray-800 hover:bg-gradient-to-r px-2 hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
+                  <i className="ri-file-upload-line"></i>
+                </button>
+                <button className="bg-gray-800 hover:bg-gradient-to-r px-2 hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
+                  <i className="ri-download-line"></i>
+                </button>
+              </div>
             ) : null}
             <InputSearch />
             {token ? (
@@ -120,9 +125,21 @@ export default async function MainHeader() {
         </div>
         <div className="flex items-center gap-x-2">
           {token ? (
-            <MyTooltip id="upload-tooltip">
-              <UploadExcel dataExcelUser={dataExcel} />
-            </MyTooltip>
+            <div className="flex gap-x-2 items-center">
+              <MyTooltip id="upload-tooltip">
+                <UploadExcel dataExcelUser={dataExcel} />
+              </MyTooltip>
+              <MyTooltip id="download-icon">
+                <a
+                  data-tooltip-id="download-icon"
+                  data-tooltip-content={"Panduan Excel"}
+                  href="/guide-excel.pdf"
+                  className="bg-gray-800 py-2 hover:bg-gradient-to-r px-2 hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+                >
+                  <i className="ri-download-line"></i>
+                </a>
+              </MyTooltip>
+            </div>
           ) : null}
 
           <InputSearch />
@@ -132,12 +149,12 @@ export default async function MainHeader() {
               <Logout />
             </MyTooltip>
           ) : (
-          <Link
-            href={"/auth/login"}
-            className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
-          >
-            LOGIN
-          </Link>
+            <Link
+              href={"/auth/login"}
+              className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
+            >
+              LOGIN
+            </Link>
           )}
         </div>
       </div>
