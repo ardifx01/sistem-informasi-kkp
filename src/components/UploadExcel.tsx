@@ -5,6 +5,7 @@ import {
   ResponsePayload,
   UploadExcel as UploadExcelFile,
 } from "@/types";
+import { headersRegistered } from "@/utils/headersRegistered";
 import { useUploadThing } from "@/utils/uploadthing";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
@@ -12,6 +13,7 @@ import { useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import toast from "react-hot-toast";
 import { MoonLoader } from "react-spinners";
+import { read, utils } from "xlsx";
 
 interface UploadExcelProps {
   dataExcelUser: ExcelFile;
@@ -21,6 +23,7 @@ export default function UploadExcel(props: UploadExcelProps) {
   const { dataExcelUser } = props;
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [dataTooltip, setDataTooltip] = useState("Upload");
 
   const { startUpload, isUploading } = useUploadThing("excelUploader", {
     onClientUploadComplete: async ([data]) => {
@@ -30,6 +33,21 @@ export default function UploadExcel(props: UploadExcelProps) {
         keyOld: dataExcelUser.key,
       };
 
+      setDataTooltip("Verifying");
+
+      const response = await fetch(
+        `/api/upload/verify?urlExcel=${dataUser.urlExcel}&key=${dataUser.key}`
+      );
+      const dataResponse = (await response.json()) as ResponsePayload;
+      if (dataResponse.status === "failed") {
+        setIsLoading(false);
+        setDataTooltip("Upload");
+        toast.error(dataResponse.message);
+        return;
+      }
+
+      setDataTooltip("Uploading");
+
       await fetch("/api/upload", {
         method: "POST",
         headers: {
@@ -37,6 +55,7 @@ export default function UploadExcel(props: UploadExcelProps) {
         },
         body: JSON.stringify(dataUser),
       });
+      setIsLoading(false);
       toast.success("Successfully upload file!");
     },
     onUploadError: (e) => {
@@ -55,12 +74,36 @@ export default function UploadExcel(props: UploadExcelProps) {
 
   const onDropAccepted = async (files: File[]) => {
     setIsLoading(true);
+    setDataTooltip("Uploading");
     const response = await fetch("/api/auth/verify");
     const dataResponse = (await response.json()) as ResponsePayload;
-    setIsLoading(false);
     if (dataResponse.status === "failed") {
+      setIsLoading(false);
       toast.error(dataResponse.message);
       router.push("/auth/login");
+      return;
+    }
+
+    setDataTooltip("Verifying");
+    const [file] = files;
+    const arrayBuffer = await file.arrayBuffer();
+    const workbook = read(arrayBuffer, { type: "array" });
+    const sheetName = workbook.SheetNames[0];
+    const workSheets = workbook.Sheets[sheetName];
+    const data: string[][] = utils.sheet_to_json(workSheets, {
+      header: 1,
+      defval: "",
+    });
+
+    const headersExcel = data[0].map((h) => h.trim().toLowerCase());
+    const isVerified = headersRegistered.every((reqHeader) =>
+      headersExcel.includes(reqHeader.toLowerCase())
+    );
+
+    if (!isVerified) {
+      setDataTooltip("Upload");
+      setIsLoading(false);
+      toast.error("Please check your headers Excel properly!");
       return;
     }
 
@@ -92,7 +135,7 @@ export default function UploadExcel(props: UploadExcelProps) {
       {({ getRootProps, getInputProps }) => (
         <div
           data-tooltip-id="upload-tooltip"
-          data-tooltip-content={"Upload"}
+          data-tooltip-content={dataTooltip}
           className={clsx(
             "flex items-center justify-center px-2 py-1 cursor-pointer text-sm rounded-lg font-semibold transform transition-all duration-300",
             isLoading || isUploading

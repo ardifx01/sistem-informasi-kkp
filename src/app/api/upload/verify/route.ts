@@ -1,29 +1,36 @@
 import ResponseError from "@/error/ResponseError";
-import PegawaiService from "@/service/pegawai-service";
+import ExcelService from "@/service/excel-service";
 import { ResponsePayload } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const query = req.nextUrl.searchParams;
-    const nip = query.get("nip");
+    const urlExcel = query.get("urlExcel");
+    const key = query.get("key");
+    if (!urlExcel) {
+      throw new ResponseError(402, "Url Excel for verified is required!");
+    }
 
-    if (!nip) throw new ResponseError(402, "Oops Nip is required");
-    const response = await PegawaiService.getDetailPegawai(nip);
+    if (!key) {
+      throw new ResponseError(402, "Key Excel for verified is required!");
+    }
+
+    const response = await ExcelService.verifyHeaderExcel(urlExcel, key);
     return NextResponse.json<ResponsePayload>(response);
   } catch (error) {
     if (error instanceof ResponseError) {
       return NextResponse.json<ResponsePayload>({
-        status: "failed",
         statusCode: error.status,
+        status: "failed",
         message: error.message,
       });
     } else {
       console.log(error);
       return NextResponse.json<ResponsePayload>({
-        status: "failed",
         statusCode: 500,
-        message: "An error occured",
+        status: "failed",
+        message: "An error occured!",
       });
     }
   }
