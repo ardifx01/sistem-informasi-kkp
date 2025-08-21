@@ -41,16 +41,15 @@ export default function MyDoughnut(props: DoughnutProps) {
     },
     scales: {
       x: {
+        display: false,
         ticks: {
-          color: "white",
-          font: {
-            size: 12,
-          },
+          display: false,
         },
       },
       y: {
+        display: false,
         ticks: {
-          color: "white",
+          display: false,
         },
       },
     },
