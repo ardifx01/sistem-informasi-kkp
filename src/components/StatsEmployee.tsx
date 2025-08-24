@@ -5,6 +5,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
+import Marquee from "react-fast-marquee";
 
 export default function StatsEmployee() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -15,11 +16,6 @@ export default function StatsEmployee() {
     { label: "PNS", value: statsDataEmployee.totalPns, color: "bg-gray-600" },
     { label: "PPPK", value: statsDataEmployee.totalPPPK, color: "bg-gray-600" },
     {
-      label: "POLRI",
-      value: statsDataEmployee.totalPolri,
-      color: "bg-gray-600",
-    },
-    {
       label: "NON ASN",
       value: statsDataEmployee.totalNonASn,
       color: "bg-gray-600",
@@ -28,15 +24,15 @@ export default function StatsEmployee() {
   return (
     <>
       {/* Stats Panel - Desktop col-span-4 preserved */}
-      <div className="md:col-span-4">
-        <div className="bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+      <div className="h-[21rem]">
+        <div className="bg-gradient-to-br h-full from-orange-400 to-orange-500 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
           <h3 className="text-white font-bold text-lg mb-2 hover:text-orange-100 transition-colors duration-300">
             PEGAWAI DJPT
           </h3>
-          <div className="text-xs text-orange-100 mb-4 hover:text-white transition-colors duration-300">
+          <div className="text-xs font-semibold text-orange-100 mb-4 hover:text-white transition-colors duration-300">
             PER 31 DESEMBER 2024
           </div>
-          <div className="space-y-3">
+          <div className="grid grid-cols-2 gap-4">
             {statsData.map((stat, index) => {
               const stats = stat.label.split(" ").join("").toLowerCase();
               const isLoading = stats === loadingStats;
@@ -74,29 +70,31 @@ export default function StatsEmployee() {
               href={"/pegawai"}
               onClick={() => setLoading(true)}
               className={clsx(
-                "bg-gradient-to-r block from-cyan-500 to-cyan-600 text-white text-center py-3 rounded-lg font-bold text-xl shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500",
-                isStatsDataEmployeeLoading ? "h-14 animate-pulse" : ""
+                "bg-gradient-to-r justify-between px-4 flex items-center from-cyan-500 to-cyan-600 text-white text-center rounded-lg font-bold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500",
+                isStatsDataEmployeeLoading ? "animate-pulse" : ""
               )}
             >
               {loading ? (
                 <div className="w-full">
                   <PulseLoader color="white" />
                 </div>
-              ) : (
-                <div className="flex flex-col">
-                  {isStatsDataEmployeeLoading ? null : (
-                    <>
-                      <span className="animate-pulse">
-                        {statsDataEmployee.totalPegawai}
-                      </span>
-                      <span className="text-xs mt-1 opacity-80">
-                        Total Pegawai
-                      </span>
-                    </>
-                  )}
-                </div>
+              ) : isStatsDataEmployeeLoading ? null : (
+                <>
+                  <span className="font-medium opacity-90">Total Pegawai</span>
+                  <span className="animate-pulse">
+                    {statsDataEmployee.totalPegawai}
+                  </span>
+                </>
               )}
             </Link>
+          </div>
+          <div className="w-full text-white font-semibold text-lg flex flex-col gap-y-5 mt-10">
+            <Marquee speed={10} gradient={false}>
+              BALAI BESAR PENANGKAPAN IKAN
+            </Marquee>
+            <Marquee className="text-base" speed={50} gradient={false}>
+              Semarang, Jawa Tengah. Laki-laki: 42, Perempuan: 25. Total: 67
+            </Marquee>
           </div>
         </div>
       </div>

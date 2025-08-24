@@ -1,10 +1,6 @@
 import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
-
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-
-// import iconUrl from "leaflet/dist/images/marker-icon.png";
-// import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 
 const CustomIcon = L.icon({
   iconUrl: "/assets/77.png", // path ke PNG kamu

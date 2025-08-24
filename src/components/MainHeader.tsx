@@ -1,11 +1,11 @@
 import { cookies } from "next/headers";
 import Image from "next/image";
-import Link from "next/link";
 import Logout from "./Logout";
 import MyTooltip from "./MyTooltip";
 import UploadExcel from "./UploadExcel";
 import { ExcelFile, ResponsePayload } from "@/types";
 import InputSearch from "./pages/home/InputSearch";
+import Link from "next/link";
 
 export default async function MainHeader() {
   const cookie = await cookies();
@@ -19,7 +19,7 @@ export default async function MainHeader() {
   const dataExcel = data.data![0];
 
   return (
-    <div className="mb-4 md:mb-6 animate-slide-down">
+    <div className="mb-4 animate-slide-down">
       {/* Mobile Header */}
       <div className="md:hidden">
         {/* Login button top right for mobile */}
@@ -35,17 +35,8 @@ export default async function MainHeader() {
                 </button>
               </div>
             ) : null}
-            <InputSearch />
-            {token ? (
-              <Logout />
-            ) : (
-              <Link
-                href={"/auth/login"}
-                className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
-              >
-                LOGIN
-              </Link>
-            )}
+            {token ? <InputSearch /> : null}
+            {token ? <Logout /> : null}
           </div>
         </div>
 
@@ -90,9 +81,12 @@ export default async function MainHeader() {
 
       {/* Desktop Header - preserved original layout */}
       <div className="hidden md:flex justify-between items-center">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 w-full justify-center gap-x-6">
           {/* Logo KKP */}
-          <div className="w-20 h-20 transform hover:scale-110 transition-transform duration-300 hover:rotate-3">
+          <Link
+            href={"/auth/login"}
+            className="w-20 0 h-20 transform hover:scale-110 transition-transform duration-300 hover:rotate-3"
+          >
             <Image
               width={250}
               height={250}
@@ -100,20 +94,17 @@ export default async function MainHeader() {
               alt="Logo KKP"
               className="w-full h-full object-contain drop-shadow-lg"
             />
-          </div>
-          <div className="text-white">
-            <div className="text-sm font-semibold hover:text-yellow-200 transition-colors duration-300">
+          </Link>
+          <div className="text-white text-center">
+            <div className="text-4xl font-bold transition-colors duration-300">
               PROFIL KEKUATAN SUMBER DAYA MANUSIA
             </div>
-            <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
-              DIREKTORAT
-            </div>
-            <div className="text-2xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 cursor-default">
-              JENDERAL PERIKANAN TANGKAP
+            <div className="text-2xl uppercase font-bold text-yellow-300 transition-colors duration-300 cursor-default">
+              sekretariat DIREKTORAT JENDERAL PERIKANAN TANGKAP
             </div>
           </div>
           {/* Logo Kementerian */}
-          <div className="w-30 h-30 mr-60 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
+          <div className="w-30 h-30 -ml-2 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3">
             <Image
               width={425}
               height={508}
@@ -142,20 +133,13 @@ export default async function MainHeader() {
             </div>
           ) : null}
 
-          <InputSearch />
+          {token ? <InputSearch /> : null}
 
           {token ? (
             <MyTooltip id="logout-tooltip">
               <Logout />
             </MyTooltip>
-          ) : (
-            <Link
-              href={"/auth/login"}
-              className="bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
-            >
-              LOGIN
-            </Link>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

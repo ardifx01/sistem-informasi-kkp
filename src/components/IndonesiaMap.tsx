@@ -10,7 +10,7 @@ export default function IndonesiaMap() {
   return (
     <div className="group relative">
       {/* Main Container with Professional Styling */}
-      <div className="relative h-48 md:h-80 lg:h-96 rounded-2xl overflow-hidden border-2 border-gray-200 shadow-xl bg-gradient-to-br from-blue-50 to-cyan-50">
+      <div className="relative h-20 md:h-80 lg:h-72 rounded-2xl overflow-hidden border-2 border-gray-200 shadow-xl bg-gradient-to-br from-blue-50 to-cyan-50">
         {/* Subtle Inner Border */}
         <div className="absolute inset-1 rounded-xl border border-white/30 pointer-events-none z-10"></div>
 
