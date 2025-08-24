@@ -29,6 +29,7 @@ export interface ExcelFile {
   id: string;
   key: string;
   urlExcel: string;
+  updated: string;
 }
 
 export interface PersonalInfo {

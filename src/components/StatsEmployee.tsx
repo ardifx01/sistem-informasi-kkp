@@ -7,8 +7,14 @@ import { useEffect, useState } from "react";
 import { PulseLoader } from "react-spinners";
 import Marquee from "react-fast-marquee";
 import { useMapStore } from "@/store/map-store";
+import { ExcelFile } from "@/types";
 
-export default function StatsEmployee() {
+interface StatsEmployeeProps {
+  dataExcel: ExcelFile;
+}
+
+export default function StatsEmployee(props: StatsEmployeeProps) {
+  const { dataExcel } = props;
   const [loading, setLoading] = useState<boolean>(false);
   const [index, setIndex] = useState<number>(0);
   const { locationUpt: uptLocations } = useMapStore();
@@ -51,7 +57,7 @@ export default function StatsEmployee() {
             PEGAWAI DJPT
           </h3>
           <div className="text-xs font-semibold text-orange-100 mb-4 hover:text-white transition-colors duration-300">
-            PER 31 DESEMBER 2024
+            PER {dataExcel.updated}
           </div>
           <div className="grid grid-cols-2 gap-4">
             {statsData.map((stat, index) => {

@@ -3,21 +3,19 @@ import Image from "next/image";
 import Logout from "./Logout";
 import MyTooltip from "./MyTooltip";
 import UploadExcel from "./UploadExcel";
-import { ExcelFile, ResponsePayload } from "@/types";
+import { ExcelFile } from "@/types";
 import InputSearch from "./pages/home/InputSearch";
 import Link from "next/link";
 import clsx from "clsx";
 
-export default async function MainHeader() {
+interface MainHeaderProps {
+  dataExcel: ExcelFile;
+}
+
+export default async function MainHeader(props: MainHeaderProps) {
   const cookie = await cookies();
   const token = cookie.get("token")?.value;
-  const baseUrl =
-    process.env.NODE_ENV === "production"
-      ? "https://sistem-informasi-kkp.vercel.app"
-      : process.env.BASE_URL;
-  const response = await fetch(`${baseUrl}/api/upload`);
-  const data = (await response.json()) as ResponsePayload<ExcelFile[]>;
-  const dataExcel = data.data![0];
+  const { dataExcel } = props;
 
   return (
     <div className="mb-4 animate-slide-down">
