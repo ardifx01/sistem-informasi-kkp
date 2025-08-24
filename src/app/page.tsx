@@ -16,7 +16,7 @@ const Dashboard = () => {
           <div className="grid-cols-1 grid gap-3">
             <Charts displayBar />
           </div>
-          <div className="flex gap-3 flex-col">
+          <div className="flex gap-3 flex-col order-first md:order-none">
             <div>
               <StatsEmployee />
             </div>

@@ -45,7 +45,7 @@ export default function StatsEmployee() {
   return (
     <>
       {/* Stats Panel - Desktop col-span-4 preserved */}
-      <div className="h-[21rem]">
+      <div className="h-[22rem]">
         <div className="bg-gradient-to-br h-full from-orange-400 to-orange-500 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
           <h3 className="text-white font-bold text-lg mb-2 hover:text-orange-100 transition-colors duration-300">
             PEGAWAI DJPT
@@ -112,12 +112,13 @@ export default function StatsEmployee() {
           <div className="w-full text-white font-semibold text-lg flex flex-col gap-y-5 mt-10">
             {current && (
               <>
-                <Marquee speed={10} gradient={false}>
+                <Marquee speed={20} gradient={false}>
                   {current.name}
                 </Marquee>
                 <Marquee className="text-base" speed={50} gradient={false}>
-                  {current.region}. Laki-laki: {` ${current.employees.male}`},
-                  Perempuan: {current.employees.female}. Total: {total}
+                  {current.region}. Laki-laki:&nbsp;{current.employees.male},
+                  Perempuan:&nbsp;{current.employees.female}, Total:&nbsp;
+                  {total}
                 </Marquee>
               </>
             )}
