@@ -183,4 +183,12 @@ export const uptLocations = [
     lng: 109.76891412883579,
     employees: { male: 12, female: 2 },
   },
+  {
+    id: 24,
+    name: "KANTOR PUSAT",
+    region: "",
+    lat: -6.178924,
+    lng: 106.834413,
+    employees: { male: 12, female: 2 },
+  },
 ];

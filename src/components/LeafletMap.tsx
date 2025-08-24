@@ -10,6 +10,12 @@ const CustomIcon = L.icon({
   iconAnchor: [10, 35], // titik "tengah bawah"
 });
 
+const mainIcon = L.icon({
+  iconUrl: "/assets/main-pin.png",
+  iconSize: [28, 28],
+  iconAnchor: [10, 35],
+});
+
 export default function LeafletMap() {
   const { setLocationUpt } = useMapStore();
   return (
@@ -46,7 +52,9 @@ export default function LeafletMap() {
             }}
             key={upt.id}
             position={[upt.lat, upt.lng]}
-            icon={CustomIcon}
+            icon={
+              upt.name.toLowerCase().includes("pusat") ? mainIcon : CustomIcon
+            }
           >
             <Tooltip direction="top">
               <div>
