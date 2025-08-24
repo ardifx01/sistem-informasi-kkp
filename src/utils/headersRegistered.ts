@@ -21,4 +21,5 @@ export const headersRegistered = [
   "nama_sek",
   "prog_studi",
   "stat_kepeg",
+  "diklatpim",
 ];

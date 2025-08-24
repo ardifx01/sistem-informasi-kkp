@@ -119,8 +119,7 @@ export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
               <td className="font-bold border-r text-center last:border-0 bg-orange-500 py-1 text-white border-black text-l">
                 {loading ? null : (
                   <span>
-                    {displayedSoFar} of{" "}
-                    {table.getCoreRowModel().rows.length}
+                    {displayedSoFar} of {table.getCoreRowModel().rows.length}
                   </span>
                 )}
               </td>

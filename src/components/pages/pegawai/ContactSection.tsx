@@ -1,7 +1,6 @@
 import { BuildingIcon } from "@/components/icons/BuildingIcon";
 import { ContactInfo, PegawaiDetail } from "@/types";
 import { ContactCard } from "./ContactCard";
-import { getFormarttedKey } from "@/utils/getFormarttedKey";
 import { getFormarttedValue } from "@/utils/getForamatteddValue";
 
 interface ContactSectionProps {
@@ -21,8 +20,18 @@ export function ContactSection(props: ContactSectionProps) {
     "no_npwp",
   ];
 
+  const labelMap: Record<string, string> = {
+    alamat: "Alamat Lengkap",
+    kota: "Kota",
+    kode_pos: "Kode Pos",
+    propinsi: "Porvinsi",
+    negara2: "Negara",
+    no_hp_sms: "No HP",
+    no_npwp: "NPWP",
+  };
+
   const contactData: ContactInfo[] = keysToPick.map((k) => ({
-    type: getFormarttedKey(k.split("_")),
+    type: labelMap[k],
     value: getFormarttedValue(
       dataPegawai[k as keyof typeof dataPegawai].toString().split(":")
     ),

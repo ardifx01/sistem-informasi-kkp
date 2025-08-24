@@ -65,4 +65,5 @@ export interface PegawaiDetail {
   prog_studi: string;
   tgl_lahir: string;
   stat_kepeg: string;
+  diklatpim: string;
 }

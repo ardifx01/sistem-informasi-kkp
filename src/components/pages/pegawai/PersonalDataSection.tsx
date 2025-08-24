@@ -1,7 +1,6 @@
 import { UserIcon } from "@/components/icons/UserIcon";
 import InfoCard from "./InfoCard";
 import { PegawaiDetail, PersonalInfo } from "@/types";
-import { getFormarttedKey } from "@/utils/getFormarttedKey";
 import { getFormarttedValue } from "@/utils/getForamatteddValue";
 
 interface PersonalDataSectionProps {
@@ -28,10 +27,31 @@ export function PersonalDataSection(props: PersonalDataSectionProps) {
     "nama_sek",
     "prog_studi",
     "stat_kepeg",
+    "diklatpim",
   ];
 
+  const labelMap: Record<string, string> = {
+    nama: "Nama Lengkap",
+    nip: "NIP",
+    agama: "Agama",
+    nama_jab: "Jabatan",
+    jenis_kel: "Jenis Kelamin",
+    stat_kawin: "Status Perkawinan",
+    gol_darah: "Golongan Darah",
+    pend_akhir: "Pendidikan Terakhir",
+    nama_unker: "Unit Kerja",
+    almt_email: "Email",
+    no_npwp: "NPWP",
+    tmp_lahir: "Tempat Lahir",
+    tgl_lahir: "Tanggal Lahir",
+    nama_sek: "Sekolah/Universitas",
+    prog_studi: "Program Studi",
+    stat_kepeg: "Status Kepegawaian",
+    diklatpim: "Diklat",
+  };
+
   const personalData: PersonalInfo[] = keysToPick.map((k) => ({
-    label: getFormarttedKey(k.split("_")),
+    label: labelMap[k],
     value: getFormarttedValue(
       dataPegawai[k as keyof typeof dataPegawai].toString().split(":")
     ),
