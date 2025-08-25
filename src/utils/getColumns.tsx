@@ -68,11 +68,7 @@ export function useColumns(): ColumnDef<KaryawanData>[][] {
         const isRowLoading = loadingNip === nip;
         return isRowLoading ? (
           <div className="w-full flex items-center justify-center">
-            <BeatLoader
-              color="white"
-              className="block mx-auto w-full"
-              size={10}
-            />
+            <BeatLoader color="white" size={10} />
           </div>
         ) : (
           <button

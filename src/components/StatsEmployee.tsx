@@ -3,40 +3,63 @@ import useFetchStatsEmployee from "@/hooks/useFetchStatsEmployee";
 import { useStatsStore } from "@/store/stats-store";
 import clsx from "clsx";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PulseLoader } from "react-spinners";
+import Marquee from "react-fast-marquee";
+import { useMapStore } from "@/store/map-store";
+import { ExcelFile } from "@/types";
 
-export default function StatsEmployee() {
+interface StatsEmployeeProps {
+  dataExcel: ExcelFile;
+}
+
+export default function StatsEmployee(props: StatsEmployeeProps) {
+  const { dataExcel } = props;
   const [loading, setLoading] = useState<boolean>(false);
+  const [index, setIndex] = useState<number>(0);
+  const { locationUpt: uptLocations } = useMapStore();
   const [loadingStats, setLoadingStats] = useState<string | null>();
   const { isStatsDataEmployeeLoading, statsDataEmployee } = useStatsStore();
+
+  useEffect(() => {
+    if (uptLocations.length > 1) {
+      const interval = setInterval(() => {
+        setIndex((prev) => (prev + 1) % uptLocations.length);
+      }, 20000);
+      return () => clearInterval(interval);
+    } else {
+      setIndex(0);
+    }
+  }, [uptLocations]);
+
+  const current = uptLocations[index];
+  const total = current?.employees
+    ? current.employees.male + current.employees.female
+    : 0;
   useFetchStatsEmployee();
+
   const statsData = [
     { label: "PNS", value: statsDataEmployee.totalPns, color: "bg-gray-600" },
     { label: "PPPK", value: statsDataEmployee.totalPPPK, color: "bg-gray-600" },
-    {
-      label: "POLRI",
-      value: statsDataEmployee.totalPolri,
-      color: "bg-gray-600",
-    },
     {
       label: "NON ASN",
       value: statsDataEmployee.totalNonASn,
       color: "bg-gray-600",
     },
   ];
+
   return (
     <>
       {/* Stats Panel - Desktop col-span-4 preserved */}
-      <div className="md:col-span-4">
-        <div className="bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+      <div className="h-[22rem]">
+        <div className="bg-gradient-to-br h-full from-orange-400 to-orange-500 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
           <h3 className="text-white font-bold text-lg mb-2 hover:text-orange-100 transition-colors duration-300">
             PEGAWAI DJPT
           </h3>
-          <div className="text-xs text-orange-100 mb-4 hover:text-white transition-colors duration-300">
-            PER 31 DESEMBER 2024
+          <div className="text-xs font-semibold text-orange-100 mb-4 hover:text-white transition-colors duration-300">
+            PER {dataExcel.updated}
           </div>
-          <div className="space-y-3">
+          <div className="grid grid-cols-2 gap-4">
             {statsData.map((stat, index) => {
               const stats = stat.label.split(" ").join("").toLowerCase();
               const isLoading = stats === loadingStats;
@@ -74,29 +97,37 @@ export default function StatsEmployee() {
               href={"/pegawai"}
               onClick={() => setLoading(true)}
               className={clsx(
-                "bg-gradient-to-r block from-cyan-500 to-cyan-600 text-white text-center py-3 rounded-lg font-bold text-xl shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500",
-                isStatsDataEmployeeLoading ? "h-14 animate-pulse" : ""
+                "bg-gradient-to-r justify-between px-4 flex items-center from-cyan-500 to-cyan-600 text-white text-center rounded-lg font-bold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500",
+                isStatsDataEmployeeLoading ? "animate-pulse" : ""
               )}
             >
               {loading ? (
                 <div className="w-full">
                   <PulseLoader color="white" />
                 </div>
-              ) : (
-                <div className="flex flex-col">
-                  {isStatsDataEmployeeLoading ? null : (
-                    <>
-                      <span className="animate-pulse">
-                        {statsDataEmployee.totalPegawai}
-                      </span>
-                      <span className="text-xs mt-1 opacity-80">
-                        Total Pegawai
-                      </span>
-                    </>
-                  )}
-                </div>
+              ) : isStatsDataEmployeeLoading ? null : (
+                <>
+                  <span className="font-medium opacity-90">Total Pegawai</span>
+                  <span className="animate-pulse">
+                    {statsDataEmployee.totalPegawai}
+                  </span>
+                </>
               )}
             </Link>
+          </div>
+          <div className="w-full text-white font-semibold text-lg flex flex-col gap-y-5 mt-10">
+            {current && (
+              <>
+                <Marquee speed={20} gradient={false}>
+                  {current.name}
+                </Marquee>
+                <Marquee className="text-base" speed={50} gradient={false}>
+                  {current.region}. Laki-laki:&nbsp;{current.employees.male},
+                  Perempuan:&nbsp;{current.employees.female}, Total:&nbsp;
+                  {total}
+                </Marquee>
+              </>
+            )}
           </div>
         </div>
       </div>

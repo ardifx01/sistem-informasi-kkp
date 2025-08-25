@@ -1,4 +1,5 @@
-﻿import { Header } from "@/components/pages/pegawai/Header";
+﻿import Back from "@/components/pages/pegawai/detail/Back";
+import { Header } from "@/components/pages/pegawai/Header";
 import PersonalDataSection from "@/components/pages/pegawai/PersonalDataSection";
 import { Sidebar } from "@/components/pages/pegawai/Sidebar";
 import { PegawaiDetail, ResponsePayload } from "@/types";
@@ -24,10 +25,7 @@ export default async function DetailPegawaiPage(props: DetailPegawaiPageProps) {
     <div className="min-h-screen bg-gradient-to-br from-cyan-300 to-cyan-900">
       {dataPegawai ? (
         <>
-          <Link href={"/pegawai"} className="hidden md:block">
-            <i className="text-5xl fixed top-[52px] left-10 lg:left-18 ri-arrow-left-circle-line z-50 hover:text-blue-600 transition-colors"></i>
-          </Link>
-
+          <Back />
           <Header />
           <main className="max-w-7xl mx-auto px-6 py-16">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
