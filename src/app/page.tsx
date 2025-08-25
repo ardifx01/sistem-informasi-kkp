@@ -7,7 +7,6 @@ import Charts from "@/components/Charts/Charts";
 const Dashboard = async () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-500 p-4 relative overflow-hidden">
-      {/* Animated background elements */}
       <BackgroundElement />
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
