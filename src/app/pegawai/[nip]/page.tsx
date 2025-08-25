@@ -12,13 +12,15 @@ interface DetailPegawaiPageProps {
 export const dynamic = "force-dynamic";
 export default async function DetailPegawaiPage(props: DetailPegawaiPageProps) {
   const { params } = props;
-  const { nip } = await params;
+  const resolvedParams = await params;
   const baseUrl =
     process.env.NODE_ENV === "production"
       ? "https://sistem-informasi-kkp.vercel.app"
       : process.env.BASE_URL;
 
-  const response = await fetch(`${baseUrl}/api/pegawai/detail?nip=${nip}`);
+  const response = await fetch(
+    `${baseUrl}/api/pegawai/detail?nip=${resolvedParams.nip}`
+  );
   const dataResponse = (await response.json()) as ResponsePayload;
   const dataPegawai = dataResponse.data as PegawaiDetail | null;
   return (
@@ -37,7 +39,7 @@ export default async function DetailPegawaiPage(props: DetailPegawaiPageProps) {
       ) : (
         <div className="w-full min-h-screen gap-y-2 flex-col flex items-center justify-center">
           <h1 className="font-bold text-2xl md:text-4xl max-w-lg md:max-w-xl text-white text-center">
-            Data Pegawai dengan NIP: {nip} tidak dapat ditemukan!
+            Data Pegawai dengan NIP: {resolvedParams.nip} tidak dapat ditemukan!
           </h1>
           <Link
             href={"/pegawai"}
