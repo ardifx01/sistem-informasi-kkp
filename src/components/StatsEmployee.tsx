@@ -8,6 +8,7 @@ import { PulseLoader } from "react-spinners";
 import Marquee from "react-fast-marquee";
 import { useMapStore } from "@/store/map-store";
 import { ExcelFile } from "@/types";
+import Image from "next/image";
 
 interface StatsEmployeeProps {
   dataExcel: ExcelFile;
@@ -16,6 +17,7 @@ interface StatsEmployeeProps {
 export default function StatsEmployee(props: StatsEmployeeProps) {
   const { dataExcel } = props;
   const [loading, setLoading] = useState<boolean>(false);
+  const [time, setTime] = useState<Date>(new Date());
   const [index, setIndex] = useState<number>(0);
   const { locationUpt: uptLocations } = useMapStore();
   const [loadingStats, setLoadingStats] = useState<string | null>();
@@ -32,11 +34,27 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
     }
   }, [uptLocations]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const current = uptLocations[index];
   const total = current?.employees
     ? current.employees.male + current.employees.female
     : 0;
   useFetchStatsEmployee();
+
+  const formatted = time.toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  const timeNow = time.toLocaleTimeString("id-ID");
 
   const statsData = [
     { label: "PNS", value: statsDataEmployee.totalPns, color: "bg-gray-600" },
@@ -51,7 +69,7 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
   return (
     <>
       {/* Stats Panel - Desktop col-span-4 preserved */}
-      <div className="h-[25rem]">
+      <div className="h-[22rem]">
         <div className="bg-gradient-to-br h-full from-orange-400 to-orange-500 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
           <h3 className="text-white font-bold text-lg mb-2 hover:text-orange-100 transition-colors duration-300">
             PEGAWAI DJPT
@@ -115,18 +133,49 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
               )}
             </Link>
           </div>
-          <div className="w-full text-white font-semibold text-xl flex flex-col gap-y-5 mt-18">
+          <div className="w-full text-white font-semibold text-xl flex flex-col gap-y-5 mt-8">
             {current && (
-              <>
-                <Marquee speed={20} gradient={false}>
-                  {current.name}
-                </Marquee>
-                <Marquee className="text-lg" speed={50} gradient={false}>
-                  {current.region}. Laki-laki:&nbsp;{current.employees.male},
-                  Perempuan:&nbsp;{current.employees.female}, Total:&nbsp;
-                  {total}
-                </Marquee>
-              </>
+              <div className="flex flex-col">
+                <div className="flex items-center px-2 py-1 bg-[#b22222] rounded-tr-xl rounded-tl-xl justify-between">
+                  <div className="flex items-center gap-x-3">
+                    <div className="h-2 w-2 aspect-square rounded-full bg-red-500" />
+                    <span className="text-sm uppercase font-semibold text-white">
+                      live update
+                    </span>
+                  </div>
+                  <span className="text-sm text-white">
+                    {formatted}, {timeNow}
+                  </span>
+                </div>
+                <div className="flex items-center gap-x-2 bg-[#003366] px-2 py-1">
+                  <div className="w-12 p-2 h-12 aspect-square bg-white/20 rounded-full">
+                    <Image
+                      src={"/assets/horn.png"}
+                      height={100}
+                      width={100}
+                      alt="Horn Image"
+                      className="w-[150px] aspect-square"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-y-2">
+                    <Marquee className="" speed={30} gradient={false}>
+                      <div className="flex font-bold flex-col items-center">
+                        <span>{current.name}</span>
+                        <span className="text-sm font-normal">
+                          {current.region}. Laki-laki:&nbsp;
+                          {current.employees.male}, Perempuan:&nbsp;
+                          {current.employees.female}, Total:&nbsp;
+                          {total}
+                        </span>
+                      </div>
+                    </Marquee>
+                  </div>
+                </div>
+                <div className="rounded-br-xl text-xs font-semibold bg-[#003366] rounded-bl-xl flex justify-between items-center px-2 py-1">
+                  <span className="">{current.region}</span>
+                  <span>DJPT INFO SYSTEM | DFA</span>
+                </div>
+              </div>
             )}
           </div>
         </div>

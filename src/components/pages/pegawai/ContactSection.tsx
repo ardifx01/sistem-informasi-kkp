@@ -24,7 +24,7 @@ export function ContactSection(props: ContactSectionProps) {
     alamat: "Alamat Lengkap",
     kota: "Kota",
     kode_pos: "Kode Pos",
-    propinsi: "Porvinsi",
+    propinsi: "Provinsi",
     negara2: "Negara",
     no_hp_sms: "No HP",
     no_npwp: "NPWP",
