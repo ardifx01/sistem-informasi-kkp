@@ -18,7 +18,7 @@ export default async function MainHeader(props: MainHeaderProps) {
   const { dataExcel } = props;
 
   return (
-    <div className="mb-8 mt-8 animate-slide-down">
+    <div className="mb-1 mt-2 animate-slide-down">
       {/* Mobile Header */}
       <div className="md:hidden">
         {/* Logos and title for mobile */}
