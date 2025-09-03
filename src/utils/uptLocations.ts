@@ -147,7 +147,7 @@ export const uptLocations = [
     employees: { male: 19, female: 2 },
   },
   {
-    name: "PELABUHAN PERIKANAN PANTAI TELUK BATANG (PPN)",
+    name: "PELABUHAN PERIKANAN PANTAI TELUK BATANG (PPP)",
     region: "Kayong Utara, Kalimantan Barat",
     lat: 1.00738,
     lng: 109.76889,

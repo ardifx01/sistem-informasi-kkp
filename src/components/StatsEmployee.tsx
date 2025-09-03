@@ -72,20 +72,22 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
     <>
       {/* Stats Panel - Desktop col-span-4 preserved */}
       <div className="h-[22rem]">
-        <div className="bg-gradient-to-br h-full from-orange-400 to-orange-500 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
-          <div className="flex flex-col items-center mb-2">
-            <span className="text-white font-bold text-xl hover:text-orange-100 transition-colors duration-300">
-              PEGAWAI DJPT
-            </span>
-            <a
-              href={"/struktur-organisasi.pdf"}
-              className="text-white font-semibold hover:underline"
-            >
-              Struktur Organisasi DJPT
-            </a>
-            <span className="text-xs font-semibold text-orange-100 mb-4 hover:text-white transition-colors duration-300">
-              PER {dataExcel.updated}
-            </span>
+        <div className="bg-gradient-to-br h-full from-orange-400 to-orange-500 rounded-xl p-4 md:px-6 md:pt-6 md:pb-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+          <div className="w-full">
+            <div className="flex flex-col w-[50%] shadow-lg mx-auto items-center mb-2 bg-[#b22222] pt-2 rounded-lg">
+              <span className="text-white font-bold text-xl hover:text-orange-100 transition-colors duration-300">
+                PEGAWAI DJPT
+              </span>
+              <a
+                href={"/struktur-organisasi.pdf"}
+                className="text-white font-semibold hover:underline"
+              >
+                Struktur Organisasi DJPT
+              </a>
+              <span className="text-xs font-semibold text-orange-100 mb-4 hover:text-white transition-colors duration-300">
+                PER {dataExcel.updated}
+              </span>
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {statsData.map((stat, index) => {

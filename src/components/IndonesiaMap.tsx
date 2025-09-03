@@ -8,7 +8,7 @@ const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
 
 export default function IndonesiaMap() {
   return (
-    <div className="group relative">
+    <div className="group relative opacity-95 select-none">
       {/* Main Container with Professional Styling */}
       <div className="relative h-20 md:h-80 lg:h-72 rounded-2xl overflow-hidden border-2 border-gray-200 shadow-xl bg-gradient-to-br from-blue-50 to-cyan-50">
         {/* Subtle Inner Border */}
