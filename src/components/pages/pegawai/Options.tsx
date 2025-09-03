@@ -68,7 +68,6 @@ export default function Options() {
         <option value="all">All</option>
         <option value="pns">PNS</option>
         <option value="pppk">PPPK</option>
-        <option value="polri">Polri</option>
         <option value="nonasn">Non Asn</option>
       </select>
     </div>

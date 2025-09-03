@@ -61,8 +61,8 @@ export function useColumns(): ColumnDef<KaryawanData>[][] {
       cell: ({ row }) => <span>{row.original.jenis_kel}</span>,
     },
     {
-      accessorKey: "action",
-      header: "Action",
+      accessorKey: "Aksi",
+      header: "Aksi",
       cell: ({ row }) => {
         const nip = row.original.nip.split(" : ")[1];
         const isRowLoading = loadingNip === nip;

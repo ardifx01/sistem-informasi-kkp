@@ -17,7 +17,7 @@ interface StatsEmployeeProps {
 export default function StatsEmployee(props: StatsEmployeeProps) {
   const { dataExcel } = props;
   const [loading, setLoading] = useState<boolean>(false);
-  const [time, setTime] = useState<Date>(new Date());
+  const [time, setTime] = useState<Date | null>(null);
   const [index, setIndex] = useState<number>(0);
   const { locationUpt: uptLocations } = useMapStore();
   const [loadingStats, setLoadingStats] = useState<string | null>();
@@ -37,7 +37,7 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date());
-    }, 100);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -48,13 +48,15 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
     : 0;
   useFetchStatsEmployee();
 
-  const formatted = time.toLocaleDateString("id-ID", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const formatted = time
+    ? time.toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    : "-- -- ----";
 
-  const timeNow = time.toLocaleTimeString("id-ID");
+  const timeNow = time ? time.toLocaleTimeString("id-ID") : "--.--.--";
 
   const statsData = [
     { label: "PNS", value: statsDataEmployee.totalPns, color: "bg-gray-600" },
@@ -70,12 +72,22 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
     <>
       {/* Stats Panel - Desktop col-span-4 preserved */}
       <div className="h-[22rem]">
-        <div className="bg-gradient-to-br h-full from-orange-400 to-orange-500 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
-          <h3 className="text-white font-bold text-lg mb-2 hover:text-orange-100 transition-colors duration-300">
-            PEGAWAI DJPT
-          </h3>
-          <div className="text-xs font-semibold text-orange-100 mb-4 hover:text-white transition-colors duration-300">
-            PER {dataExcel.updated}
+        <div className="bg-gradient-to-br h-full from-orange-400 to-orange-500 rounded-xl p-4 md:px-6 md:pt-6 md:pb-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+          <div className="w-full">
+            <div className="flex flex-col w-[50%] shadow-lg mx-auto items-center mb-2 bg-[#b22222] pt-2 rounded-lg">
+              <span className="text-white font-bold text-xl hover:text-orange-100 transition-colors duration-300">
+                PEGAWAI DJPT
+              </span>
+              <a
+                href={"/struktur-organisasi.pdf"}
+                className="text-white font-semibold hover:underline"
+              >
+                Struktur Organisasi DJPT
+              </a>
+              <span className="text-xs font-semibold text-orange-100 mb-4 hover:text-white transition-colors duration-300">
+                PER {dataExcel.updated}
+              </span>
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {statsData.map((stat, index) => {
@@ -115,7 +127,7 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
               href={"/pegawai"}
               onClick={() => setLoading(true)}
               className={clsx(
-                "bg-gradient-to-r justify-between px-4 flex items-center from-cyan-500 to-cyan-600 text-white text-center rounded-lg font-bold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500",
+                "bg-gradient-to-br justify-between px-4 flex items-center from-cyan-500 to-cyan-600 text-white text-center rounded-lg font-bold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer hover:from-cyan-400 hover:to-cyan-500",
                 isStatsDataEmployeeLoading ? "animate-pulse" : ""
               )}
             >
@@ -133,7 +145,7 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
               )}
             </Link>
           </div>
-          <div className="w-full text-white font-semibold text-xl flex flex-col gap-y-5 mt-8">
+          <div className="w-full text-white font-semibold text-xl flex flex-col gap-y-5 mt-4">
             {current && (
               <div className="flex flex-col">
                 <div className="flex items-center px-2 py-1 bg-[#b22222] rounded-tr-xl rounded-tl-xl justify-between">

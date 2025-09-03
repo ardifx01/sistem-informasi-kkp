@@ -4,15 +4,27 @@ import L from "leaflet";
 import { uptLocations } from "@/utils/uptLocations";
 import { useMapStore } from "@/store/map-store";
 
-const CustomIcon = L.icon({
+const ppsIcon = L.icon({
   iconUrl: "/assets/77.png", // path ke PNG kamu
   iconSize: [30, 30], // ukuran PNG
   iconAnchor: [10, 35], // titik "tengah bawah"
 });
 
-const mainIcon = L.icon({
+const ppnIcon = L.icon({
   iconUrl: "/assets/main-pin.png",
-  iconSize: [28, 28],
+  iconSize: [30, 30],
+  iconAnchor: [10, 35],
+});
+
+const pppIcon = L.icon({
+  iconUrl: "/assets/pin-yellow.png",
+  iconSize: [22, 22],
+  iconAnchor: [10, 35],
+});
+
+const mainIcon = L.icon({
+  iconUrl: "/assets/utama.png",
+  iconSize: [50, 50],
   iconAnchor: [10, 35],
 });
 
@@ -38,7 +50,7 @@ export default function LeafletMap() {
       />
 
       {/* Marker + Tooltip */}
-      {uptLocations.map((upt) => {
+      {uptLocations.map((upt, i) => {
         const total = upt.employees.male + upt.employees.female;
         return (
           <Marker
@@ -50,10 +62,16 @@ export default function LeafletMap() {
                 setLocationUpt(uptLocations);
               },
             }}
-            key={upt.id}
+            key={i}
             position={[upt.lat, upt.lng]}
             icon={
-              upt.name.toLowerCase().includes("pusat") ? mainIcon : CustomIcon
+              upt.name.toLowerCase().includes("pps")
+                ? ppsIcon
+                : upt.name.toLowerCase().includes("ppn")
+                ? ppnIcon
+                : upt.name.toLowerCase().includes("ppp")
+                ? pppIcon
+                : mainIcon
             }
           >
             <Tooltip direction="top">
