@@ -38,7 +38,7 @@ export default function LeafletMap() {
       />
 
       {/* Marker + Tooltip */}
-      {uptLocations.map((upt) => {
+      {uptLocations.map((upt, i) => {
         const total = upt.employees.male + upt.employees.female;
         return (
           <Marker
@@ -50,7 +50,7 @@ export default function LeafletMap() {
                 setLocationUpt(uptLocations);
               },
             }}
-            key={upt.id}
+            key={i}
             position={[upt.lat, upt.lng]}
             icon={
               upt.name.toLowerCase().includes("pusat") ? mainIcon : CustomIcon
