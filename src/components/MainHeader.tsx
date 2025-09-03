@@ -54,7 +54,7 @@ export default async function MainHeader(props: MainHeaderProps) {
           {/* Title text */}
           <div className="text-white flex flex-col">
             <span className="text-xl font-bold transition-colors duration-300">
-              PROFIL KEKUATAN SUMBER DAYA MANUSIA
+              KEKUATAN SUMBER DAYA MANUSIA
             </span>
             <span className="text-lg uppercase font-bold text-yellow-300 transition-colors duration-300 cursor-default">
               DIREKTORAT JENDERAL PERIKANAN TANGKAP
@@ -91,7 +91,7 @@ export default async function MainHeader(props: MainHeaderProps) {
           {/* Logo KKP */}
           <Link
             href={"/auth/login"}
-            className="w-20 0 h-20 transform hover:scale-110 transition-transform duration-300 hover:rotate-3"
+            className="w-35 0 h-35 transform hover:scale-110 transition-transform duration-300 hover:rotate-3"
           >
             <Image
               width={250}
@@ -107,17 +107,17 @@ export default async function MainHeader(props: MainHeaderProps) {
               token ? "" : "text-center"
             )}
           >
-            <span className="text-4xl font-bold transition-colors duration-300">
-              PROFIL KEKUATAN SUMBER DAYA MANUSIA
+            <span className="text-5xl font-bold transition-colors duration-300">
+              KEKUATAN SUMBER DAYA MANUSIA
             </span>
-            <span className="text-2xl uppercase font-bold text-yellow-300 transition-colors duration-300 cursor-default">
+            <span className="text-3xl uppercase font-bold text-yellow-300 transition-colors duration-300 cursor-default">
               DIREKTORAT JENDERAL PERIKANAN TANGKAP
             </span>
           </div>
           {/* Logo Kementerian */}
           <Link
             href={"/auth/login"}
-            className="w-30 h-30 -ml-2 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3"
+            className="w-45 h-45 -ml-2 transform hover:scale-110 transition-transform duration-300 hover:-rotate-3"
           >
             <Image
               width={425}
