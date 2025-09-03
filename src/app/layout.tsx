@@ -21,9 +21,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-500 `}
-      >
+      <body className={`bg-cyan-500 overflow-x-hidden antialiased`}>
         <Toaster />
         {children}
       </body>

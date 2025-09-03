@@ -21,7 +21,8 @@ export default function MyDoughnut(props: DoughnutProps) {
   const { data, title } = props;
   const options: ChartOptions<"doughnut"> = {
     responsive: true,
-    cutout: "80%",
+    maintainAspectRatio: false,
+    cutout: "70%",
     plugins: {
       legend: {
         labels: {
@@ -41,22 +42,21 @@ export default function MyDoughnut(props: DoughnutProps) {
     },
     scales: {
       x: {
+        display: false,
         ticks: {
-          color: "white",
-          font: {
-            size: 12,
-          },
+          display: false,
         },
       },
       y: {
+        display: false,
         ticks: {
-          color: "white",
+          display: false,
         },
       },
     },
   };
   return (
-    <div className="w-full flex items-center justify-center">
+    <div className="w-full flex items-center justify-centerbg-red-900">
       <Doughnut data={data} className="max-w-lg" options={options} />
     </div>
   );

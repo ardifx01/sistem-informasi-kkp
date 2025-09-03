@@ -1,6 +1,7 @@
 import ResponseError from "@/error/ResponseError";
 import { db } from "@/lib/firebase";
 import { ExcelFile, ResponsePayload, UploadExcel } from "@/types";
+import { getFullDate } from "@/utils/getFullDate";
 import { headersRegistered } from "@/utils/headersRegistered";
 import {
   collection,
@@ -25,6 +26,7 @@ export default class ExcelService {
       transaction.set(doc(collection(db, "excelFile")), {
         urlExcel: data.urlExcel,
         key: data.key,
+        updated: getFullDate(),
       });
     });
 
@@ -84,4 +86,6 @@ export default class ExcelService {
       statusCode: 201,
     };
   }
+
+  // static async getD
 }

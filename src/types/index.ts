@@ -29,6 +29,7 @@ export interface ExcelFile {
   id: string;
   key: string;
   urlExcel: string;
+  updated: string;
 }
 
 export interface PersonalInfo {
@@ -65,4 +66,5 @@ export interface PegawaiDetail {
   prog_studi: string;
   tgl_lahir: string;
   stat_kepeg: string;
+  diklatpim: string;
 }
