@@ -15,7 +15,7 @@ const Dashboard = async () => {
   const dataExcel = data.data![0];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-500 px-5 py-1 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-500 px-5 py-1 relative">
       {/* Animated background elements */}
       <BackgroundElement />
       <div className="max-w-8xl mx-auto relative z-10">
