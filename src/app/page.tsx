@@ -1,9 +1,9 @@
-import BackgroundElement from "@/components/BackgroundElement";
 import MainHeader from "@/components/MainHeader";
 import IndonesiaMap from "@/components/IndonesiaMap";
-import StatsEmployee from "@/components/StatsEmployee";
 import Charts from "@/components/Charts/Charts";
 import { ExcelFile, ResponsePayload } from "@/types";
+import StatsEmployee from "@/components/StatsEmployee";
+import ReactPlayer from "react-player";
 
 const Dashboard = async () => {
   const baseUrl =
@@ -16,10 +16,17 @@ const Dashboard = async () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-500 px-5 py-1 relative">
-      {/* Animated background elements */}
-      <BackgroundElement />
+      <ReactPlayer
+        muted
+        loop
+        playsInline
+        autoPlay
+        width={"100%"}
+        height={"100%"}
+        src="/video/cihuy.mov"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      ></ReactPlayer>
       <div className="max-w-8xl mx-auto relative z-10">
-        {/* Header */}
         <MainHeader dataExcel={dataExcel} />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_2fr_1fr] gap-4">
           <div className="grid-cols-1 grid gap-3">

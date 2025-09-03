@@ -11,8 +11,8 @@ interface DetailPegawaiPageProps {
 
 export const dynamic = "force-dynamic";
 export default async function DetailPegawaiPage(props: DetailPegawaiPageProps) {
-  const { params } = props;
   try {
+    const { params } = props;
     const resolvedParams = await params;
     const baseUrl =
       process.env.NODE_ENV === "production"

@@ -57,7 +57,7 @@ export default async function MainHeader(props: MainHeaderProps) {
               PROFIL KEKUATAN SUMBER DAYA MANUSIA
             </span>
             <span className="text-lg uppercase font-bold text-yellow-300 transition-colors duration-300 cursor-default">
-              sekretariat DIREKTORAT JENDERAL PERIKANAN TANGKAP
+              DIREKTORAT JENDERAL PERIKANAN TANGKAP
             </span>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default async function MainHeader(props: MainHeaderProps) {
               PROFIL KEKUATAN SUMBER DAYA MANUSIA
             </span>
             <span className="text-2xl uppercase font-bold text-yellow-300 transition-colors duration-300 cursor-default">
-              sekretariat DIREKTORAT JENDERAL PERIKANAN TANGKAP
+              DIREKTORAT JENDERAL PERIKANAN TANGKAP
             </span>
           </div>
           {/* Logo Kementerian */}
