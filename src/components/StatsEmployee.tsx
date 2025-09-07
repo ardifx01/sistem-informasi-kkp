@@ -19,20 +19,20 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [time, setTime] = useState<Date | null>(null);
   const [index, setIndex] = useState<number>(0);
-  const { locationUpt: uptLocations } = useMapStore();
+  const { locationUpt } = useMapStore();
   const [loadingStats, setLoadingStats] = useState<string | null>();
   const { isStatsDataEmployeeLoading, statsDataEmployee } = useStatsStore();
 
   useEffect(() => {
-    if (uptLocations.length > 1) {
+    if (locationUpt.length > 1) {
       const interval = setInterval(() => {
-        setIndex((prev) => (prev + 1) % uptLocations.length);
+        setIndex((prev) => (prev + 1) % locationUpt.length);
       }, 20000);
       return () => clearInterval(interval);
     } else {
       setIndex(0);
     }
-  }, [uptLocations]);
+  }, [locationUpt]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -42,7 +42,7 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
     return () => clearInterval(interval);
   }, []);
 
-  const current = uptLocations[index];
+  const current = locationUpt[index];
   const total = current?.employees
     ? current.employees.male + current.employees.female
     : 0;
@@ -145,50 +145,58 @@ export default function StatsEmployee(props: StatsEmployeeProps) {
               )}
             </Link>
           </div>
-          <div className="w-full text-white font-semibold text-xl flex flex-col gap-y-5 mt-4">
-            {current && (
-              <div className="flex flex-col">
-                <div className="flex items-center px-2 py-1 bg-[#b22222] rounded-tr-xl rounded-tl-xl justify-between">
-                  <div className="flex items-center gap-x-3">
-                    <div className="h-2 w-2 aspect-square rounded-full bg-red-500" />
-                    <span className="text-sm uppercase font-semibold text-white">
-                      live update
-                    </span>
-                  </div>
-                  <span className="text-sm text-white">
-                    {formatted}, {timeNow}
+          <div
+            className={clsx(
+              "w-full text-white font-semibold text-xl flex flex-col gap-y-5 mt-4"
+            )}
+          >
+            <div className="flex flex-col">
+              <div className="flex items-center px-2 py-1 bg-[#b22222] rounded-tr-xl rounded-tl-xl justify-between">
+                <div className="flex items-center gap-x-3">
+                  <div className="h-2 w-2 aspect-square rounded-full bg-red-500" />
+                  <span className="text-sm uppercase font-semibold text-white">
+                    live update
                   </span>
                 </div>
-                <div className="flex items-center gap-x-2 bg-[#003366] px-2 py-1">
-                  <div className="w-12 p-2 h-12 aspect-square bg-white/20 rounded-full">
-                    <Image
-                      src={"/assets/horn.png"}
-                      height={100}
-                      width={100}
-                      alt="Horn Image"
-                      className="w-[150px] aspect-square"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-y-2">
-                    <Marquee className="" speed={30} gradient={false}>
-                      <div className="flex font-bold flex-col items-center">
-                        <span>{current.name}</span>
-                        <span className="text-sm font-normal">
-                          {current.region}. Laki-laki:&nbsp;
-                          {current.employees.male}, Perempuan:&nbsp;
-                          {current.employees.female}, Total:&nbsp;
-                          {total}
-                        </span>
-                      </div>
-                    </Marquee>
-                  </div>
-                </div>
-                <div className="rounded-br-xl text-xs font-semibold bg-[#003366] rounded-bl-xl flex justify-between items-center px-2 py-1">
-                  <span className="">{current.region}</span>
-                  <span>DJPT INFO SYSTEM | DFA</span>
-                </div>
+                <span className="text-sm text-white">
+                  {formatted}, {timeNow}
+                </span>
               </div>
-            )}
+              {current ? (
+                <>
+                  <div className="flex items-center gap-x-2 bg-[#003366] px-2 py-1">
+                    <div className="w-12 p-2 h-12 aspect-square bg-white/20 rounded-full">
+                      <Image
+                        src={"/assets/horn.png"}
+                        height={100}
+                        width={100}
+                        alt="Horn Image"
+                        className="w-[150px] aspect-square"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-y-2">
+                      <Marquee className="" speed={30} gradient={false}>
+                        <div className="flex font-bold flex-col items-center">
+                          <span>{current.name}</span>
+                          <span className="text-sm font-normal">
+                            {current.region}. Laki-laki:&nbsp;
+                            {current.employees.male}, Perempuan:&nbsp;
+                            {current.employees.female}, Total:&nbsp;
+                            {total}
+                          </span>
+                        </div>
+                      </Marquee>
+                    </div>
+                  </div>
+                  <div className="rounded-br-xl text-xs font-semibold bg-[#003366] rounded-bl-xl flex justify-between items-center px-2 py-1">
+                    <span className="">{current.region}</span>
+                    <span>DJPT INFO SYSTEM | DFA</span>
+                  </div>
+                </>
+              ) : (
+                <div className="w-full h-20 bg-[#003366] rounded-bl-xl rounded-br-xl animate-pulse"></div>
+              )}
+            </div>
           </div>
         </div>
       </div>

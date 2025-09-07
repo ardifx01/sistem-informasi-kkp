@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/pegawai", req.url));
   }
   if (!token) {
-    cookiesStore.delete("token"); 
+    cookiesStore.delete("token");
     return;
   }
 

@@ -54,6 +54,7 @@ export default function UploadExcel(props: UploadExcelProps) {
         },
         body: JSON.stringify(dataUser),
       });
+      setDataTooltip("Upload");
       setIsLoading(false);
       toast.success("Successfully upload file!");
     },

@@ -70,7 +70,7 @@ export default async function MainHeader(props: MainHeaderProps) {
                   <i className="ri-file-upload-line"></i>
                 </button>
                 <button className="bg-gray-800 hover:bg-gradient-to-r px-2 hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
-                  <i className="ri-download-line"></i>
+                  <i className="ri-information-line"></i>
                 </button>
               </div>
             ) : null}
@@ -141,7 +141,7 @@ export default async function MainHeader(props: MainHeaderProps) {
                   href="/guide-excel.pdf"
                   className="bg-gray-800 py-2 hover:bg-gradient-to-r px-2 hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
                 >
-                  <i className="ri-download-line"></i>
+                  <i className="ri-information-line"></i>
                 </a>
               </MyTooltip>
             </div>
