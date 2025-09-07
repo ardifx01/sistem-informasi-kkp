@@ -7,13 +7,12 @@ import {
 } from "@/types";
 import { headersRegistered } from "@/utils/headersRegistered";
 import { useUploadThing } from "@/utils/uploadthing";
-import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Dropzone, { FileRejection } from "react-dropzone";
+import { FileRejection } from "react-dropzone";
 import toast from "react-hot-toast";
-import { MoonLoader } from "react-spinners";
 import { read, utils } from "xlsx";
+import Uploader from "./Uploader";
 
 interface UploadExcelProps {
   dataExcelUser: ExcelFile;
@@ -32,7 +31,6 @@ export default function UploadExcel(props: UploadExcelProps) {
         urlExcel: data.ufsUrl,
         keyOld: dataExcelUser.key,
       };
-
 
       setDataTooltip("Verifying");
 
@@ -123,42 +121,13 @@ export default function UploadExcel(props: UploadExcelProps) {
   };
 
   return (
-    <Dropzone
+    <Uploader
       onDropAccepted={onDropAccepted}
       onDropRejected={onDropRejected}
-      accept={{
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
-          ".xlsx",
-        ],
-        "application/vnd.ms-excel": [".xls"],
-      }}
-    >
-      {({ getRootProps, getInputProps }) => (
-        <div
-          data-tooltip-id="upload-tooltip"
-          data-tooltip-content={dataTooltip}
-          className={clsx(
-            "flex items-center justify-center px-2 py-1 cursor-pointer text-sm rounded-lg font-semibold transform transition-all duration-300",
-            isLoading || isUploading
-              ? "bg-gray-600 text-gray-200 cursor-not-allowed shadow-md"
-              : "bg-gray-800 text-white hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 border-2 hover:scale-105 shadow-lg hover:shadow-xl border-transparent hover:border-gray-300"
-          )}
-          {...getRootProps()}
-        >
-          <input
-            className={clsx(
-              isLoading || isUploading ? "cursor-not-allowed" : "cursor-pointer"
-            )}
-            {...getInputProps()}
-            disabled={isUploading || isLoading}
-          />
-          {isUploading || isLoading ? (
-            <MoonLoader color="white" speedMultiplier={0.8} size={19} />
-          ) : (
-            <i className="ri-file-upload-line text-lg"></i>
-          )}
-        </div>
-      )}
-    </Dropzone>
+      dataTooltip={dataTooltip}
+      isLoading={isLoading}
+      isUploading={isUploading}
+      tooltipId="upload-tooltip"
+    />
   );
 }
