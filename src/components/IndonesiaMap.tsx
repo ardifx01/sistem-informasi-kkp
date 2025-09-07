@@ -1,12 +1,20 @@
 "use client";
 import React from "react";
 import dynamic from "next/dynamic";
+import MyTooltip from "./MyTooltip";
+import UploadMap from "./pages/home/UploadMap";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
   ssr: false,
 });
 
-export default function IndonesiaMap() {
+interface IndonesiaMapProps {
+  token: RequestCookie | undefined;
+}
+
+export default function IndonesiaMap(props: IndonesiaMapProps) {
+  const { token } = props;
   return (
     <div className="group relative opacity-95 select-none">
       {/* Main Container with Professional Styling */}
@@ -73,6 +81,13 @@ export default function IndonesiaMap() {
           }}
         ></div>
       </div>
+      {token ? (
+        <div className="absolute top-5 right-5 z-[99999]">
+          <MyTooltip id="upload-map">
+            <UploadMap />
+          </MyTooltip>
+        </div>
+      ) : null}
 
       {/* Professional Drop Shadow */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-600/10 to-cyan-600/10 transform translate-y-1 translate-x-1 -z-10 group-hover:translate-y-2 group-hover:translate-x-2 transition-transform duration-300"></div>

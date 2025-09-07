@@ -85,6 +85,12 @@ export default function UploadExcel(props: UploadExcelProps) {
 
     setDataTooltip("Verifying");
     const [file] = files;
+    if (!file.name.toLowerCase().includes("data pegawai")) {
+      toast.error("File name must be Data Pegawai");
+      setDataTooltip("Upload");
+      setIsLoading(false);
+      return;
+    }
     const arrayBuffer = await file.arrayBuffer();
     const workbook = read(arrayBuffer, { type: "array" });
     const sheetName = workbook.SheetNames[0];
