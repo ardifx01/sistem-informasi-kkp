@@ -4,8 +4,11 @@ import Charts from "@/components/Charts/Charts";
 import { ExcelFile, ResponsePayload } from "@/types";
 import StatsEmployee from "@/components/StatsEmployee";
 import ReactPlayer from "react-player";
+import { cookies } from "next/headers";
 
 const Dashboard = async () => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
   const baseUrl =
     process.env.NODE_ENV === "production"
       ? "https://sistem-informasi-kkp.vercel.app"
@@ -36,7 +39,7 @@ const Dashboard = async () => {
             <div>
               <StatsEmployee dataExcel={dataExcel} />
             </div>
-            <IndonesiaMap />
+            <IndonesiaMap token={token} />
           </div>
           <div className="grid grid-cols-1 gap-3">
             <Charts />

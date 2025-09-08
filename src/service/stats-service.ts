@@ -1,3 +1,4 @@
+import { transformFileMap } from "@/helper/transformFileMap";
 import { db } from "@/lib/firebase";
 import { ExcelFile, ResponsePayload } from "@/types";
 import getAgePegawai from "@/utils/getAgePegawai";
@@ -433,6 +434,215 @@ export default class StatsService {
           greatestThen58,
         ],
       },
+    };
+  }
+
+  static async getStatsMap(): Promise<ResponsePayload> {
+    const querySnapshot = await getDocs(collection(db, "excelMap"));
+    const dataExcel: ExcelFile[] = [];
+    querySnapshot.forEach((doc) => {
+      dataExcel.push({
+        id: doc.id,
+        ...(doc.data() as Omit<ExcelFile, "id">),
+      });
+    });
+
+    const response = await fetch(dataExcel[0].urlExcel);
+    const arrayBuffer = await response.arrayBuffer();
+
+    const workbook = read(arrayBuffer, { type: "array" });
+    const workSheets = workbook.Sheets["JENJANG JABATAN"];
+
+    const data: string[][] = utils.sheet_to_json(workSheets, {
+      defval: "",
+      blankrows: false,
+      skipHidden: true,
+      header: 1,
+    });
+
+    const dataDir = data.slice(3, 21);
+    const result = transformFileMap(dataDir);
+
+    let lakiLaki = 0;
+    let perempuan = 0;
+
+    result.forEach((r) => {
+      lakiLaki += +r.lakiLaki;
+      perempuan += +r.perempuan;
+    });
+
+    const dataMap = [
+      {
+        name: "PELABUHAN PERIKANAN SAMUDERA NIZAM ZACHMAN JAKARTA (PPS)",
+        region: "Jakarta Utara, DKI Jakarta",
+        lat: -6.09954,
+        lng: 106.79976,
+        employees: { male: 39, female: 12 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN SAMUDERA KENDARI (PPS)",
+        region: "Kendari, Sulawesi Tenggara",
+        lat: -3.98105,
+        lng: 122.57,
+        employees: { male: 54, female: 12 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN SAMUDERA CILACAP (PPS)",
+        region: "Cilacap, Jawa Tengah",
+        lat: -7.72705,
+        lng: 109.02339,
+        employees: { male: 42, female: 16 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN SAMUDERA BUNGUS (PPS)",
+        region: "Padang, Sumatera Barat",
+        lat: -1.02896446,
+        lng: 100.39598453,
+        employees: { male: 24, female: 12 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN SAMUDERA BELAWAN (PPS)",
+        region: "Medan, Sumatera Utara",
+        lat: 3.78436,
+        lng: 98.71218,
+        employees: { male: 31, female: 18 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN SAMUDERA BITUNG (PPS)",
+        region: "Bitung, Sulawesi Utara",
+        lat: 1.44576,
+        lng: 125.20672,
+        employees: { male: 20, female: 13 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA AMBON (PPN)",
+        region: "Ambon, Maluku",
+        lat: -3.67747,
+        lng: 128.18898,
+        employees: { male: 29, female: 10 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA PALABUHANRATU (PPN)",
+        region: "Sukabumi, Jawa Barat",
+        lat: -6.98993,
+        lng: 106.54326,
+        employees: { male: 40, female: 10 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA TERNATE (PPN)",
+        region: "Ternate, Maluku Utara",
+        lat: 0.76757,
+        lng: 127.37694,
+        employees: { male: 23, female: 9 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA PRIGI (PPN)",
+        region: "Trenggalek, Jawa Timur",
+        lat: -8.28895,
+        lng: 111.73052,
+        employees: { male: 34, female: 15 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA PEMANGKAT (PPN)",
+        region: "Sambas, Kalimantan Barat",
+        lat: 1.19743,
+        lng: 108.99157,
+        employees: { male: 22, female: 8 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA SIBOLGA (PPN)",
+        region: "Sibolga, Sumatera Utara",
+        lat: 1.72006,
+        lng: 98.79674,
+        employees: { male: 26, female: 15 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA TUAL (PPN)",
+        region: "Tual, Maluku",
+        lat: -5.61639,
+        lng: 132.74097,
+        employees: { male: 26, female: 5 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA KEJAWANAN (PPN)",
+        region: "Cirebon, Jawa Barat",
+        lat: -6.73414,
+        lng: 108.5814,
+        employees: { male: 38, female: 10 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA PEKALONGAN (PPN)",
+        region: "Pekalongan, Jawa Tengah",
+        lat: -6.85911,
+        lng: 109.69259,
+        employees: { male: 45, female: 10 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA BRONDONG (PPN)",
+        region: "Lamongan, Jawa Timur",
+        lat: -6.86828,
+        lng: 112.28952,
+        employees: { male: 36, female: 15 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA TANJUNG PANDAN (PPN)",
+        region: "Belitung, Bangka Belitung",
+        lat: -2.74386,
+        lng: 107.63306,
+        employees: { male: 24, female: 6 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA SUNGAILIAT (PPN)",
+        region: "Bangka, Bangka Belitung",
+        lat: -1.86403,
+        lng: 106.12794,
+        employees: { male: 16, female: 9 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA PENGAMBENGAN (PPN)",
+        region: "Jembrana, Bali",
+        lat: -8.3846,
+        lng: 114.57509,
+        employees: { male: 23, female: 15 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA KARANGANTU (PPN)",
+        region: "Serang, Banten",
+        lat: -6.03052,
+        lng: 106.16397,
+        employees: { male: 17, female: 8 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN NUSANTARA KWANDANG (PPN)",
+        region: "Gorontalo Utara, Gorontalo",
+        lat: 0.8535,
+        lng: 122.89746,
+        employees: { male: 19, female: 2 },
+      },
+      {
+        name: "PELABUHAN PERIKANAN PANTAI TELUK BATANG (PPP)",
+        region: "Kayong Utara, Kalimantan Barat",
+        lat: 1.00738,
+        lng: 109.76889,
+        employees: { male: 12, female: 2 },
+      },
+      {
+        name: "Kantor Pusat",
+        lat: -6.178924,
+        lng: 106.834413,
+        region: "Gambir, Jakarta Pusat",
+        employees: {
+          male: lakiLaki,
+          female: perempuan,
+        },
+      },
+    ];
+
+    return {
+      status: "success",
+      statusCode: 200,
+      message: "Successfully get data map",
+      data: dataMap,
     };
   }
 }

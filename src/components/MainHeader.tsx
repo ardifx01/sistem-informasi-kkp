@@ -18,7 +18,7 @@ export default async function MainHeader(props: MainHeaderProps) {
   const { dataExcel } = props;
 
   return (
-    <div className="mb-1 mt-2 animate-slide-down">
+    <div className="mb-1 animate-slide-down">
       {/* Mobile Header */}
       <div className="md:hidden">
         {/* Logos and title for mobile */}
@@ -70,7 +70,7 @@ export default async function MainHeader(props: MainHeaderProps) {
                   <i className="ri-file-upload-line"></i>
                 </button>
                 <button className="bg-gray-800 hover:bg-gradient-to-r px-2 hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm">
-                  <i className="ri-download-line"></i>
+                  <i className="ri-information-line"></i>
                 </button>
               </div>
             ) : null}
@@ -107,10 +107,10 @@ export default async function MainHeader(props: MainHeaderProps) {
               token ? "" : "text-center"
             )}
           >
-            <span className="text-5xl font-bold transition-colors duration-300">
+            <span className="text-4xl font-bold transition-colors duration-300">
               KEKUATAN SUMBER DAYA MANUSIA
             </span>
-            <span className="text-3xl uppercase font-bold text-yellow-300 transition-colors duration-300 cursor-default">
+            <span className="text-2xl uppercase font-bold text-yellow-300 transition-colors duration-300 cursor-default">
               DIREKTORAT JENDERAL PERIKANAN TANGKAP
             </span>
           </div>
@@ -141,7 +141,7 @@ export default async function MainHeader(props: MainHeaderProps) {
                   href="/guide-excel.pdf"
                   className="bg-gray-800 py-2 hover:bg-gradient-to-r px-2 hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
                 >
-                  <i className="ri-download-line"></i>
+                  <i className="ri-information-line"></i>
                 </a>
               </MyTooltip>
             </div>

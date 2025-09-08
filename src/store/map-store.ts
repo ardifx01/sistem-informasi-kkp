@@ -1,12 +1,30 @@
-import { uptLocations } from "@/utils/uptLocations";
 import { create } from "zustand";
 
+export type UptLocation = {
+  name: string;
+  region: string;
+  lat: number;
+  lng: number;
+  employees: {
+    male: number;
+    female: number;
+  };
+};
+
 interface MapStore {
-  locationUpt: typeof uptLocations;
-  setLocationUpt: (v: typeof uptLocations) => void;
+  locationUpt: UptLocation[];
+  isLoading: boolean;
+  data: UptLocation[];
+  setData: (v: UptLocation[]) => void;
+  setIsLoading: (v: boolean) => void;
+  setLocationUpt: (v: UptLocation[]) => void;
 }
 
 export const useMapStore = create<MapStore>((set) => ({
-  locationUpt: uptLocations,
+  locationUpt: [],
+  isLoading: false,
+  data: [],
+  setData: (v) => set({ data: v }),
+  setIsLoading: (v) => set({ isLoading: v }),
   setLocationUpt: (v) => set({ locationUpt: v }),
 }));

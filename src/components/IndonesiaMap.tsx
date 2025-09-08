@@ -1,21 +1,30 @@
 "use client";
 import React from "react";
 import dynamic from "next/dynamic";
+import MyTooltip from "./MyTooltip";
+import UploadMap from "./pages/home/UploadMap";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import clsx from "clsx";
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
   ssr: false,
 });
 
-export default function IndonesiaMap() {
+interface IndonesiaMapProps {
+  token: RequestCookie | undefined;
+}
+
+export default function IndonesiaMap(props: IndonesiaMapProps) {
+  const { token } = props;
   return (
-    <div className="group relative opacity-95 select-none">
+    <div className={clsx("group relative opacity-95 select-none")}>
       {/* Main Container with Professional Styling */}
       <div className="relative h-20 md:h-80 lg:h-72 rounded-2xl overflow-hidden border-2 border-gray-200 shadow-xl bg-gradient-to-br from-blue-50 to-cyan-50">
         {/* Subtle Inner Border */}
         <div className="absolute inset-1 rounded-xl border border-white/30 pointer-events-none z-10"></div>
 
         {/* Map Container */}
-        <div className="h-full w-full relative">
+        <div className={clsx("h-full w-full relative")}>
           <LeafletMap />
         </div>
 
@@ -73,6 +82,13 @@ export default function IndonesiaMap() {
           }}
         ></div>
       </div>
+      {token ? (
+        <div className="absolute top-5 right-5 z-[99999]">
+          <MyTooltip id="upload-map">
+            <UploadMap />
+          </MyTooltip>
+        </div>
+      ) : null}
 
       {/* Professional Drop Shadow */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-600/10 to-cyan-600/10 transform translate-y-1 translate-x-1 -z-10 group-hover:translate-y-2 group-hover:translate-x-2 transition-transform duration-300"></div>
