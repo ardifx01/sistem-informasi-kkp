@@ -1,6 +1,7 @@
 import ResponseError from "@/error/ResponseError";
 import { db } from "@/lib/firebase";
 import { ExcelFile, ResponsePayload, UploadExcel } from "@/types";
+import { getFullDate } from "@/utils/getFullDate";
 import { headersRegistered } from "@/utils/headersRegistered";
 import {
   collection,
@@ -25,6 +26,7 @@ export default class ExcelService {
       transaction.set(doc(collection(db, "excelFile")), {
         urlExcel: data.urlExcel,
         key: data.key,
+        updated: getFullDate(),
       });
     });
 
@@ -35,8 +37,8 @@ export default class ExcelService {
     };
   }
 
-  static async GetExcelData(): Promise<ResponsePayload> {
-    const querySnapshot = await getDocs(collection(db, "excelFile"));
+  static async GetExcelData(q: string | null): Promise<ResponsePayload> {
+    const querySnapshot = await getDocs(collection(db, q ?? "excelFile"));
     const data: ExcelFile[] = [];
     querySnapshot.forEach((document) => {
       data.push({
@@ -81,6 +83,31 @@ export default class ExcelService {
     return {
       status: "success",
       message: "Headers verified!",
+      statusCode: 201,
+    };
+  }
+
+  static async updateMap(
+    data: Omit<UploadExcel, "keyOld">
+  ): Promise<ResponsePayload> {
+    await runTransaction(db, async (transaction) => {
+      const q = query(collection(db, "excelMap"));
+      const snapshot = await getDocs(q);
+
+      snapshot.forEach(async (doc) => {
+        transaction.delete(doc.ref);
+      });
+
+      transaction.set(doc(collection(db, "excelMap")), {
+        urlExcel: data.urlExcel,
+        key: data.key,
+        updated: getFullDate(),
+      });
+    });
+
+    return {
+      status: "success",
+      message: "Successfully upadate!",
       statusCode: 201,
     };
   }

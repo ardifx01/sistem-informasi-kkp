@@ -1,6 +1,3 @@
-import { db } from "@/lib/firebase";
-import { ExcelFile } from "@/types";
-import { collection, getDocs } from "firebase/firestore";
 import { createUploadthing, FileRouter } from "uploadthing/next";
 import { UTApi } from "uploadthing/server";
 
@@ -17,19 +14,16 @@ export const ourFileRouter = {
       maxFileCount: 1,
     },
   })
-    .middleware(async ({}) => {
-      const querySnapshot = await getDocs(collection(db, "excelFile"));
-
-      const data: ExcelFile[] = [];
-      querySnapshot.forEach((docSnap) => {
-        data.push({
-          id: docSnap.id,
-          ...(docSnap.data() as Omit<ExcelFile, "id">),
-        });
-      });
-
+    .middleware(async ({ files }) => {
       const utapi = new UTApi();
-      await utapi.deleteFiles(data[0].key);
+      const listFile = await utapi.listFiles();
+      const fileShouldDelete = listFile.files.find(
+        (f) => f.name.toLowerCase() === files[0].name.toLowerCase()
+      );
+
+      if (fileShouldDelete) {
+        await utapi.deleteFiles(fileShouldDelete.key);
+      }
       return {};
     })
     .onUploadError((input) => {

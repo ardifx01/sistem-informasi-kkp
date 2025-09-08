@@ -61,18 +61,14 @@ export function useColumns(): ColumnDef<KaryawanData>[][] {
       cell: ({ row }) => <span>{row.original.jenis_kel}</span>,
     },
     {
-      accessorKey: "action",
-      header: "Action",
+      accessorKey: "Aksi",
+      header: "Aksi",
       cell: ({ row }) => {
         const nip = row.original.nip.split(" : ")[1];
         const isRowLoading = loadingNip === nip;
         return isRowLoading ? (
           <div className="w-full flex items-center justify-center">
-            <BeatLoader
-              color="white"
-              className="block mx-auto w-full"
-              size={10}
-            />
+            <BeatLoader color="white" size={10} />
           </div>
         ) : (
           <button

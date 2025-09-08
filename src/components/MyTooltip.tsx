@@ -10,7 +10,7 @@ export default function MyTooltip(props: MyTooltipProps) {
   return (
     <>
       {children}
-      <Tooltip id={id} place="top" noArrow />
+      <Tooltip id={id} className="z-[9999]" place="top" noArrow />
     </>
   );
 }
