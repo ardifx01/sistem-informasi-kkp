@@ -9,6 +9,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
     const response = await StatsService.getStatsMap();
     return NextResponse.json<ResponsePayload>(response);
   } catch (error) {
+    console.log("error while get stats map: ", error)
     if (error instanceof ResponseError) {
       return NextResponse.json<ResponsePayload>({
         message: error.message,

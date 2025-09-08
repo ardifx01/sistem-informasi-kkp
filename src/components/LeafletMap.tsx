@@ -28,6 +28,12 @@ const mainIcon = L.icon({
   iconAnchor: [10, 35],
 });
 
+const otherIcon = L.icon({
+  iconUrl: "/assets/hijau.png",
+  iconSize: [30, 30],
+  iconAnchor: [10, 35],
+});
+
 export default function LeafletMap() {
   const { setLocationUpt, data } = useMapStore();
   useFetchMap();
@@ -69,7 +75,9 @@ export default function LeafletMap() {
                 ? ppnIcon
                 : upt.name.toLowerCase().includes("ppp")
                 ? pppIcon
-                : mainIcon
+                : upt.name.toLowerCase().includes("pusat")
+                ? mainIcon
+                : otherIcon
             }
           >
             <Tooltip direction="top">

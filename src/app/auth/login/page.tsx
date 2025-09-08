@@ -12,6 +12,8 @@ import Link from "next/link";
 import { ResponsePayload } from "@/types";
 import ResponseError from "@/error/ResponseError";
 import { PulseLoader } from "react-spinners";
+import ReactPlayer from "react-player";
+
 
 const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -56,6 +58,16 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-400 via-cyan-500 to-blue-400 relative overflow-hidden">
+     <ReactPlayer
+        muted
+        loop
+        playsInline
+        autoPlay
+        width={"100%"}
+        height={"100%"}
+        src="/video/penyu.mp4"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      ></ReactPlayer>
       <Link href={"/"} className="hidden md:block">
         <i className="text-3xl md:text-5xl fixed top-10 left-8 ri-arrow-left-circle-line"></i>
       </Link>
@@ -75,7 +87,7 @@ const LoginPage: React.FC = () => {
             </div>
             
 
-            <div className="text-white ">
+            <div className="text-white relative z-20">
               <h4 className="text-sm md:text-[13px] md:font-bold lg:text-[16px] lg:font-semibold hover:text-yellow-200 transition-colors text-center duration-300">
                 KEMENTERIAN KELAUTAN DAN PERIKANAN
               </h4>
