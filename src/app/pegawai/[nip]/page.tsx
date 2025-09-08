@@ -5,6 +5,7 @@ import { Sidebar } from "@/components/pages/pegawai/Sidebar";
 import { PegawaiDetail, ResponsePayload } from "@/types";
 import Link from "next/link";
 
+
 interface DetailPegawaiPageProps {
   params: Promise<{ nip: string }>;
 }

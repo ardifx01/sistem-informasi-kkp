@@ -38,7 +38,7 @@ export default function Table<TData, TValue>(props: TableProps<TData, TValue>) {
 
   const displayedSoFar = pageIndex * pageSize + currentCount;
   return (
-    <div className={clsx("w-full", className)}>
+    <div className={clsx("w-full opacity-80", className)}>
       <div className="rounded-md overflow-hidden">
         <table className="w-full shadow-xl border-collapse">
           <thead className="space-x-1 rounded-lg">

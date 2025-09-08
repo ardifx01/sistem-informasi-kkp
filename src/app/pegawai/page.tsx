@@ -4,6 +4,7 @@ import HeaderPegawai from "@/components/pages/pegawai/HeaderPegawai";
 import Options from "@/components/pages/pegawai/Options";
 import TableKaryawan from "@/components/TableKaryawan";
 import { KaryawanData, ResponsePayload } from "@/types";
+import ReactPlayer from "react-player";
 
 type SearchParams = Promise<{ [key: string]: string | undefined }>;
 export const dynamic = "force-dynamic";
@@ -24,6 +25,16 @@ export default async function PegawaiPage(props: {
 
   return (
     <Container className="flex flex-col gap-y-6 pt-10 min-h-screen">
+      <ReactPlayer
+              muted
+              loop
+              playsInline
+              autoPlay
+              width={"100%"}
+              height={"100%"}
+              src="/video/marlin.mp4"
+              className="absolute top-0 left-0 bottom-0 right-0 w-full h-full object-cover -z-50"
+            ></ReactPlayer>
       <BackButton />
       {/* Header Section */}
       <div className="w-full px-4 sm:px-6 md:pl-20 md:pr-8">
