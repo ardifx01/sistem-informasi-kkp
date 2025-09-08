@@ -3,6 +3,7 @@ import Uploader from "@/components/Uploader";
 import ResponseError from "@/error/ResponseError";
 import { transformFileMap } from "@/helper/transformFileMap";
 import { ResponsePayload, UploadExcel } from "@/types";
+import { dataMap } from "@/utils/dataMap";
 import { useUploadThing } from "@/utils/uploadthing";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -67,6 +68,30 @@ export default function UploadMap() {
         skipHidden: true,
         header: 1,
       });
+
+      const dataPelabuhan = data.slice(21, 90);
+      const resultPelabuhan = [];
+
+      for (let i = 0, j = 0; i < dataPelabuhan.length; i += 3, j++) {
+        const obj = {
+          name: dataPelabuhan[i][2],
+          region: dataMap[j].region,
+          lat: dataMap[j].lat,
+          lng: dataMap[j].lng,
+          employees: {
+            male: dataPelabuhan[i][15],
+            female: dataPelabuhan[i + 1] ? dataPelabuhan[i + 1][15] : 0,
+          },
+        };
+
+        resultPelabuhan.push(obj);
+      }
+      if (resultPelabuhan.length === 0) {
+        throw new ResponseError(
+          409,
+          "Oops! Please check your excel file properly!"
+        );
+      }
 
       const dataDir = data.slice(3, 21);
       if (dataDir.length === 0) {
