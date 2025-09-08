@@ -138,7 +138,7 @@ export default async function MainHeader(props: MainHeaderProps) {
                 <a
                   data-tooltip-id="download-icon"
                   data-tooltip-content={"Panduan Excel"}
-                  href="/guide-excel.pdf"
+                  href="/guide-excell.pdf"
                   className="bg-gray-800 py-2 hover:bg-gradient-to-r px-2 hover:from-gray-700 hover:to-gray-600 text-whitex text-white rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-gray-300 text-sm"
                 >
                   <i className="ri-information-line"></i>
